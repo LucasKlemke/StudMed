@@ -1,26 +1,31 @@
 'use client';
-import { GraduationCap } from 'lucide-react';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import ChatErrorMessage from './components/chatErroMessage';
+import ChatErrorMessage from '@/components/chat/chatErroMessage';
 import { useHistoryStore } from '@/store/history';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-import { createChat } from './__actions/chat';
-import PageContainer from '@/components/page-container';
-
-import { useSubjectStore } from '@/store/subject';
-import ChatInput from './components/chat-input';
-import ChatContent from './components/chat-content';
-import { ciclo_basico, Materia } from '@/lib/materias';
-import ChatHeader from './components/chat-header';
+import { createChat } from '@/lib/__actions/chat';
+import ChatInput from '@/components/chat/chat-input';
+import ChatContent from '@/components/chat/chat-content';
+import { Materia } from '@/lib/materias';
+import ChatHeader from '@/components/chat/chat-header';
+import { Suspense } from 'react';
 
 export default function page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyComponent />
+    </Suspense>
+  );
+}
+
+function MyComponent() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const subject = searchParams.get('subject');
+  const subject = searchParams.get('subject') || 'fisiologia';
 
   const {
     messages,
@@ -28,7 +33,7 @@ export default function page() {
     handleInputChange,
     handleSubmit,
     isLoading,
-    stop,
+    // stop,
     error,
     reload,
     setMessages,
@@ -51,11 +56,10 @@ export default function page() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [finished, setFinished] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [newId, setNewId] = useState(null);
   const supabase = createClient();
   // const { subject, setSubject }: any = useSubjectStore();
 
-  const { history, setHistory, addHistory }: any = useHistoryStore();
+  const { addHistory }: any = useHistoryStore();
 
   async function getUserId() {
     const {
@@ -67,7 +71,7 @@ export default function page() {
     return user?.id;
   }
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: any) => {
     handleSubmit(event, {
       experimental_attachments: files,
       body: {
@@ -87,8 +91,12 @@ export default function page() {
 
     const storeChat = async () => {
       const userId = await getUserId();
-      console.log('subject', subject);
-      const newId = await createChat(userId as string, messages, subject);
+      // console.log('subject', subject);
+      const newId = await createChat(
+        userId as string,
+        messages,
+        subject as string
+      );
       setFinished(false);
       addHistory({
         id: newId,

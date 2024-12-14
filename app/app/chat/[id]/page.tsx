@@ -1,16 +1,25 @@
 'use client';
 import { useChat } from 'ai/react';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import ChatErrorMessage from '@/app/app/chat/components/chatErroMessage';
+import ChatErrorMessage from '@/components/chat/chatErroMessage';
 import { useHistoryStore } from '@/store/history';
-import { getMessages, updateChat } from '../__actions/chat';
-import ChatInput from '../components/chat-input';
-import ChatContent from '../components/chat-content';
-import ChatHeader from '../components/chat-header';
-import { useSearchParams } from 'next/navigation';
+import { getMessages, updateChat } from '@/lib/__actions/chat';
+import ChatInput from '@/components/chat/chat-input';
+import ChatContent from '@/components/chat/chat-content';
+import ChatHeader from '@/components/chat/chat-header';
+import { notFound, useSearchParams } from 'next/navigation';
+import { Materia } from '@/lib/materias';
 
 export default function page({ params }: { params: { id: string } }) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyComponent params={params} />
+    </Suspense>
+  );
+}
+
+function MyComponent({ params }: { params: { id: string } }) {
   const searchParams = useSearchParams();
   const subject = searchParams.get('subject');
   const {
@@ -57,14 +66,19 @@ export default function page({ params }: { params: { id: string } }) {
   const fetchMessages = async () => {
     try {
       const messagesData = await getMessages(params.id);
+      if (!messagesData) {
+        return {
+          notFound: true,
+        };
+      }
       console.log(messagesData);
-      setMessages(JSON.parse(messagesData?.messages));
+      setMessages(JSON.parse(messagesData?.messages as string));
     } catch (e) {
       console.error(e);
     }
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: any) => {
     handleSubmit(event, {
       experimental_attachments: files,
       body: {
@@ -81,15 +95,16 @@ export default function page({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     fetchMessages();
-    console.log(params.id);
-    console.log('aiai', history);
+    // console.log(params.id);
+    // console.log('aiai', history);
     try {
       const current = history.find(
         (item: { id: string; content: any[] }) => item.id === params.id
       );
-      console.log(current);
+      // console.log(current);
       setMessages(current.content);
     } catch (e) {
+      return notFound;
       console.error(e);
     }
   }, []);

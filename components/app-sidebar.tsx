@@ -23,17 +23,22 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { deleteHistory, getHistory } from '@/app/app/chat/__actions/chat';
+import { Suspense, useEffect, useState } from 'react';
+import { getHistory } from '@/lib/__actions/chat';
 import { useHistoryStore } from '@/store/history';
 import { ciclo_clinico } from '@/lib/materias';
 import { useSubjectStore } from '@/store/subject';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { ciclo_basico } from '@/lib/materias';
-import path from 'path';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return <Suspense fallback={<div>Loading...</div>}>
+    <Component {...props} />
+  </Suspense>;
+}
+
+export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { setOpen, open } = useSidebar();
   const { history, setHistory }: any = useHistoryStore();
   const { subject, setSubject }: any = useSubjectStore();
@@ -41,6 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subjectParam = searchParams.get('subject');
+
   const pathname = usePathname();
 
   const fetchHistory = async () => {
@@ -108,6 +114,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <div className="grid grid-rows-10 grid-flow-col gap-4 p-4 ">
                   {ciclo_basico.map((materia) => (
                     <Link
+                      key={materia.nome}
                       href={`?${new URLSearchParams({
                         subject: materia.nome,
                       })}`}

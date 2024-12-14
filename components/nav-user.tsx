@@ -55,7 +55,7 @@ export function NavUser(
     async function getUser() {
       const { data, error } = await supabase.auth.getSession();
       setUser(data.session.user);
-      console.log(data);
+      // console.log(data);
     }
 
     getUser();

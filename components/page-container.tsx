@@ -13,7 +13,7 @@ export default function PageContainer({
       {scrollable ? (
         <ScrollArea className="h-[calc(100dvh-52px)]">
           <div className="mx-auto flex h-full max-w-lg p-4">{children}</div>
-        </ScrollArea>
+        </ScrollArea> 
       ) : (
         <div className="h-full grid grid-rows-10 md:px-8">
           {children}

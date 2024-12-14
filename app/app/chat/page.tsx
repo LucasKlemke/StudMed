@@ -13,7 +13,8 @@ import PageContainer from '@/components/page-container';
 import { useSubjectStore } from '@/store/subject';
 import ChatInput from './components/chat-input';
 import ChatContent from './components/chat-content';
-import { ciclo_basico } from '@/lib/materias';
+import { ciclo_basico, Materia } from '@/lib/materias';
+import ChatHeader from './components/chat-header';
 
 export default function page() {
   const router = useRouter();
@@ -69,6 +70,9 @@ export default function page() {
   const onSubmit = (event) => {
     handleSubmit(event, {
       experimental_attachments: files,
+      body: {
+        selected_subject: subject,
+      },
     });
 
     setFiles(undefined);
@@ -91,7 +95,7 @@ export default function page() {
         title: messages[0].content,
         history_subject: subject,
       });
-      router.push(`/app/chat/${newId}`);
+      router.push(`/app/chat/${newId}?subject=${subject}`);
     };
     if (finished) {
       storeChat();
@@ -107,23 +111,11 @@ export default function page() {
   };
 
   return (
-    <PageContainer>
+    <div className="px-10">
       {/* ------  Header ------  */}
-      <div className=" w-full flex flex-col items-center gap-y-0">
-        <div className="justify-center flex">
-          <h1 className="text-4xl text-center">StudMed</h1>
-          <GraduationCap className="rotate-45" />
-        </div>
-        <h1
-          className={`text-center w-[100px] rounded-full text-white py-1 px-3 text-sm ${
-            ciclo_basico.find((materia) => materia.nome === subject)?.bg
-          }`}
-        >
-          {ciclo_basico.find((materia) => materia.nome === subject)?.title}
-        </h1>
-      </div>
+      <ChatHeader subject={subject as Materia} />
       {/* ------  Main Content ------ */}
-      <div className="row-span-6 w-full flex flex-col space-y-10 overflow-y-scroll">
+      <div className="h-[80vh] w-full flex flex-col space-y-10 overflow-y-scroll">
         {/* Caso tenha mensagem, exibe o conteudo*/}
         {messages.length > 0 ? (
           <ChatContent
@@ -164,6 +156,6 @@ export default function page() {
         error={error}
         handleInputChange={handleInputChange}
       />
-    </PageContainer>
+    </div>
   );
 }

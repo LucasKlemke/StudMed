@@ -1,3 +1,4 @@
+
 // Materias ciclo basico medicina :
 // Introdução à Saúde Coletiva; Ética e Relações Sociais; Citologia e Biologia Molecular;
 // Medicina da Família e Comunidade; Histologia; Anatomia; Embriologia; Fisiologia; Bioquímica; Genética; Farmacologia básica;
@@ -88,29 +89,29 @@ export const ciclo_basico = [
   },
 ];
 export type Materia = 
-  | 'Bioquímica'
-  | 'Embriologia'
-  | 'Arte, Medicina e Sociedade'
-  | 'Biologia Celular'
-  | 'Histologia'
-  | 'Saúde Coletiva'
-  | 'Anatomia Humana'
-  | 'Fisiologia'
-  | 'Epidemiologia Geral'
-  | 'Humanidades Médicas'
-  | 'Metodologia da Pesquisa em Saúde I'
-  | 'Imunologia'
-  | 'Farmacologia Básica I'
-  | 'Bioética'
-  | 'Psicologia Médica I'
-  | 'MIP I'
-  | 'Genética'
-  | 'Tecnologia na Saúde'
-  | 'Farmacologia Básica II'
-  | 'Psicologia Médica II'
-  | 'Epidemiologia Clínica'
-  | 'Patologia I'
-  | 'Saúde da Família';
+  | 'bioquimica'
+  | 'embriologia'
+  | 'arte_medicina_e_sociedade'
+  | 'biologia_celular'
+  | 'histologia'
+  | 'saude_coletiva'
+  | 'anatomia_humana'
+  | 'fisiologia'
+  | 'epidemiologia_geral'
+  | 'humanidades_medicas'
+  | 'metodologia_da_pesquisa_em_saude_i'
+  | 'imunologia'
+  | 'farmacologia_basica_i'
+  | 'bioetica'
+  | 'psicologia_medica_i'
+  | 'mip_i'
+  | 'genetica'
+  | 'tecnologia_na_saude'
+  | 'farmacologia_basica_ii'
+  | 'psicologia_medica_ii'
+  | 'epidemiologia_clinica'
+  | 'patologia_i'
+  | 'saude_da_familia';
 
 
 export const ciclo_clinico = [

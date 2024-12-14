@@ -1,7 +1,5 @@
 'use client';
-import {
-  PlusIcon,
-} from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -30,11 +28,10 @@ import { deleteHistory, getHistory } from '@/app/app/chat/__actions/chat';
 import { useHistoryStore } from '@/store/history';
 import { ciclo_clinico } from '@/lib/materias';
 import { useSubjectStore } from '@/store/subject';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { ciclo_basico } from '@/lib/materias';
-
-
+import path from 'path';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { setOpen, open } = useSidebar();
@@ -44,6 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subjectParam = searchParams.get('subject');
+  const pathname = usePathname();
 
   const fetchHistory = async () => {
     const history = await getHistory();
@@ -57,10 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <>
-      <Sidebar
-        collapsible="icon"
-        {...props}
-      >
+      <Sidebar collapsible="icon" {...props}>
         <SidebarHeader className="pt-5">
           <Link href={`/app/chat?subject=${ciclo_basico[0].nome}`}>
             <Button className={'w-1/2 rounded-full'}>
@@ -69,14 +64,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Button>
           </Link>
         </SidebarHeader>
+        {/* ---- HISTORICO ---- */}
         <SidebarContent>
           <NavMain items={history} />
         </SidebarContent>
         <SidebarFooter>
+          {/* ---- Botao para abrir modal de Materias ---- */}
           {open && <SidebarGroupLabel>Matéria</SidebarGroupLabel>}
           {open && (
             <Button
-              variant="outined"
+              disabled={pathname !== '/app/chat'}
+              variant="outlined"
               className={`${
                 ciclo_basico.find((materia) => materia.nome === subjectParam)
                   ?.text

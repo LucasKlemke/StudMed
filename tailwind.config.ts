@@ -2,6 +2,18 @@ import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: ['class'],
+  // Colocar na safelist as classes das matérias que são usadas dinamicamente
+  safelist: [
+    'bg-subject1',
+    'bg-subject2',
+    'text-subject1',
+    'bg-subject3',
+    'text-subject3',
+    'bg-subject5',
+    'text-subject5',
+    'bg-subject8',
+    'text-subject8',
+  ],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,15 +24,15 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-		subject1: 'var(--subject-1)',
-		subject2: 'var(--subject-2)',
-		subject3: 'var(--subject-3)',
-		subject4: 'var(--subject-4)',
-		subject5: 'var(--subject-5)',
-		subject6: 'var(--subject-6)',
-		subject7: 'var(--subject-7)',
-		subject8: 'var(--subject-8)',
-		subject9: 'var(--subject-9)',
+        subject1: 'var(--subject-1)',
+        subject2: 'var(--subject-2)',
+        subject3: 'var(--subject-3)',
+        subject4: 'var(--subject-4)',
+        subject5: 'var(--subject-5)',
+        subject6: 'var(--subject-6)',
+        subject7: 'var(--subject-7)',
+        subject8: 'var(--subject-8)',
+        subject9: 'var(--subject-9)',
         card: {
           DEFAULT: 'var(--card)',
           foreground: 'var(--card-foreground)',

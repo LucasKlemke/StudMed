@@ -8,7 +8,7 @@ export const maxDuration = 30;
 export async function POST(request: Request) {
   const { messages, selected_subject } = await request.json();
 
-  console.log(selected_subject);
+  console.log('materia',selected_subject);
 
   const prompt = extract_prompt_from_subject(selected_subject);
 
@@ -23,17 +23,17 @@ export async function POST(request: Request) {
 }
 
 const extract_prompt_from_subject = (selected_subject: Materia) => {
-  if (selected_subject === 'Fisiologia') {
+  if (selected_subject === 'fisiologia') {
 
     return prompt_fisiologia;
 
-  } else if (selected_subject === 'Bioquímica') {
+  } else if (selected_subject === 'bioquimica') {
 
     return `
 Você é uma inteligencia artificial especializada em bioquímica, designada para ajudar estudantes de medicina a estudar para seus cursos,
 toda pergunta feita, devera ser respondida com base no livro Harper Bioquímica Ilustrada 31ª Edição.
 `;
-  } else if (selected_subject === 'Histologia') {
+  } else if (selected_subject === 'histologia') {
     return `
 Você é uma inteligencia artificial especializada em histologia, designada para ajudar estudantes de medicina a estudar para seus cursos,
 toda pergunta feita, devera ser respondida com base no livro Histologia Básica 12ª Edição.

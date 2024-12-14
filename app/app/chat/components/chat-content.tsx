@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import UserMessage from '@/app/app/chat/components/userMessage';
 import ModelMessage from '@/app/app/chat/components/modelMessage';
 import { Loader2 } from 'lucide-react';
@@ -16,7 +16,19 @@ const ChatContent: React.FC<ChatContentProps> = ({
   isLoading,
   reload,
 }) => {
-  console.log(messages.role);
+   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <>
       {messages.map(
@@ -44,9 +56,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
             {idx === messages.length - 1 && isLoading && (
               <div className="flex justify-start">
-               <Loader2 className='animate-spin'/>
+                <Loader2 className="animate-spin" />
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
         )
       )}

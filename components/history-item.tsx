@@ -36,9 +36,9 @@ const HistoryItem = ({ item }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger className="flex justify-between w-full pb-1">
-          <Link href={`/app/chat/${item.id}`} className="gap-x-3 flex ">
+          <Link href={`/app/chat/${item.id}?subject=${item.history_subject}`} className="gap-x-3 flex ">
             <span className="truncate text-sm">
-              {item.title.slice(0, 16) + '...'}
+              {item.title.slice(0, 10) + '...'}
             </span>
             <span
               className={`text-xs ${

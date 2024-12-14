@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import UserMessage from '@/app/app/chat/components/userMessage';
-import ModelMessage from '@/app/app/chat/components/modelMessage';
+import UserMessage from '@/components/chat/userMessage';
+import ModelMessage from '@/components/chat/modelMessage';
 import { Loader2 } from 'lucide-react';
 
 interface ChatContentProps {
@@ -33,7 +33,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
     <>
       {messages.map(
         (
-          message: { id: string; role: 'user' | 'model'; content: string },
+          message: { id: string; role: 'user' | 'assistant'; content: string },
           idx: number
         ) => (
           <div className="flex flex-col" key={message.id}>

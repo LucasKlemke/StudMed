@@ -30,7 +30,7 @@ const ImageContainer = ({
       )}
       {total > 1 && total <= 4 && (
         <>
-          <div className={`grid grid-cols-2 hover:contrast-50 rounded-lg p-2`}>www
+          <div className={`grid grid-cols-2 hover:contrast-50 rounded-lg p-2`}>
             {images.map((attachment: any, index: number) => (
               <Image
                 className={`${

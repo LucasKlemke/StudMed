@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/types/**/*.ts"
-  ],
+, "icons/generateIcons.js", "icons/index.js"  ],
   "exclude": [
     "node_modules"
   ]

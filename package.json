@@ -12,6 +12,7 @@
     "@ai-sdk/google": "^1.0.3",
     "@ai-sdk/ui-utils": "^1.0.2",
     "@hookform/resolvers": "^3.9.1",
+    "@prisma/client": "6.0.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -39,6 +40,10 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.46.2",
+    "@svgr/webpack": "^8.1.0",
+    "@tabler/icons-react": "^3.24.0",
     "ai": "^4.0.3",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
@@ -47,6 +52,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.4.0",
+    "framer-motion": "^11.13.1",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.460.0",
     "next": "14.2.16",
@@ -55,6 +61,7 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",
+    "react-markdown": "^9.0.1",
     "react-resizable-panels": "^2.1.7",
     "react-type-animation": "^3.2.0",
     "recharts": "^2.13.3",
@@ -72,7 +79,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.16",
     "postcss": "^8",
+    "prisma": "^6.0.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   }
 }

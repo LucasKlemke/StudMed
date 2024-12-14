@@ -1,19 +1,27 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { FileCheck, Send, Square, Upload } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState } from 'react';
-import UserMessage from './components/userMessage';
 import { useToast } from '@/hooks/use-toast';
-import ModelMessage from './components/modelMessage';
 import ChatErrorMessage from './components/chatErroMessage';
 import { useHistoryStore } from '@/store/history';
-import { useRouter } from 'next/navigation';
-import { TypeAnimation } from 'react-type-animation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
+import { createChat } from './__actions/chat';
+import PageContainer from '@/components/page-container';
+
+import { useSubjectStore } from '@/store/subject';
+import ChatInput from './components/chat-input';
+import ChatContent from './components/chat-content';
+import { ciclo_basico, Materia } from '@/lib/materias';
+import ChatHeader from './components/chat-header';
 
 export default function page() {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const subject = searchParams.get('subject');
+
   const {
     messages,
     input,
@@ -43,18 +51,54 @@ export default function page() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [finished, setFinished] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [id, setId] = useState(null);
+  const [newId, setNewId] = useState(null);
+  const supabase = createClient();
+  // const { subject, setSubject }: any = useSubjectStore();
 
-  const { history, setHistory }: any = useHistoryStore();
+  const { history, setHistory, addHistory }: any = useHistoryStore();
+
+  async function getUserId() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user?.id) throw new Error('User not found');
+
+    return user?.id;
+  }
+
+  const onSubmit = (event) => {
+    handleSubmit(event, {
+      experimental_attachments: files,
+      body: {
+        selected_subject: subject,
+      },
+    });
+
+    setFiles(undefined);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
-    console.log(id);
-    if (finished) {
-      const newId = history.length + 1;
-      setHistory([...history, { id: newId.toString(), content: messages }]);
-      setId(newId);
-      router.push(`/app/chat/${newId}`);
+    getUserId();
 
+    const storeChat = async () => {
+      const userId = await getUserId();
+      console.log('subject', subject);
+      const newId = await createChat(userId as string, messages, subject);
+      setFinished(false);
+      addHistory({
+        id: newId,
+        title: messages[0].content,
+        history_subject: subject,
+      });
+      router.push(`/app/chat/${newId}?subject=${subject}`);
+    };
+    if (finished) {
+      storeChat();
       setFinished(false);
     }
   }, [finished]);
@@ -68,151 +112,50 @@ export default function page() {
 
   return (
     <div className="px-10">
-      <div className=" w-full">
-        <h1 className="text-4xl text-center font-extralight  pb-5">Sarah.ai</h1>
-      </div>
+      {/* ------  Header ------  */}
+      <ChatHeader subject={subject as Materia} />
+      {/* ------  Main Content ------ */}
       <div className="h-[80vh] w-full flex flex-col space-y-10 overflow-y-scroll">
+        {/* Caso tenha mensagem, exibe o conteudo*/}
         {messages.length > 0 ? (
-          <>
-            {messages.map((message) => (
-              <div className="flex flex-col" key={message.id}>
-                {message.role === 'user' ? (
-                  <UserMessage
-                    message={message}
-                    handleDelete={handleDelete}
-                    isLoading={isLoading}
-                  />
-                ) : (
-                  <ModelMessage
-                    message={message}
-                    handleDelete={handleDelete}
-                    reload={reload}
-                    isLoading={isLoading}
-                  />
-                )}
-              </div>
-            ))}
-          </>
+          <ChatContent
+            messages={messages}
+            handleDelete={handleDelete}
+            isLoading={isLoading}
+            reload={reload}
+          />
         ) : (
-          <div className="flex flex-col justify-center h-4/6 gap-y-4">
-            <TypeAnimation
-              className="text-center font-extralight"
-              sequence={[
-                'Como posso ajudar hoje ?',
-                1000,
-              ]}
-              wrapper="span"
-              speed={50}
-              style={{ fontSize: '2em', display: 'inline-block' }}
-            />
-            <div className="flex justify-center">
-              <form
-                onSubmit={(event) => {
-                  handleSubmit(event, {
-                    experimental_attachments: files,
-                  });
-
-                  setFiles(undefined);
-
-                  if (fileInputRef.current) {
-                    fileInputRef.current.value = '';
-                  }
-                }}
-                className="w-1/2 gap-x-2 flex items-center justify-center"
-              >
-                <label htmlFor="file-upload" className="cursor-pointer">
-                  {!files ? <Upload /> : <FileCheck />}
-                </label>
-                {files && <span>({files.length})</span>}
-
-                <Input
-                  id="file-upload"
-                  className=" hidden"
-                  type="file"
-                  onChange={(event) => {
-                    if (event.target.files) {
-                      setFiles(event.target.files);
-                    }
-                  }}
-                  multiple
-                  ref={fileInputRef}
-                />
-                <Input
-                  name="prompt"
-                  value={input}
-                  disabled={isLoading || error != null}
-                  autoComplete="off"
-                  onChange={handleInputChange}
-                />
-                {isLoading ? (
-                  <Button type="button" size="icon" onClick={() => stop()}>
-                    <Square />
-                  </Button>
-                ) : (
-                  <Button disabled={error != null} type="submit" size="icon">
-                    <Send />
-                  </Button>
-                )}
-              </form>
-            </div>
-          </div>
+          // Caso não tenha mensagem, exibe o input
+          <ChatInput
+            variant="center"
+            messages={messages}
+            onSubmit={onSubmit}
+            files={files}
+            setFiles={setFiles}
+            fileInputRef={fileInputRef}
+            input={input}
+            isLoading={isLoading}
+            error={error}
+            handleInputChange={handleInputChange}
+          />
         )}
 
         {error && <ChatErrorMessage reload={reload} />}
       </div>
 
-      <div className="  rounded-t-xl justify-center  flex">
-        {messages.length > 0 && (
-          <form
-            onSubmit={(event) => {
-              handleSubmit(event, {
-                experimental_attachments: files,
-              });
-
-              setFiles(undefined);
-
-              if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-              }
-            }}
-            className="w-1/2 gap-x-2 flex items-center justify-center py-3"
-          >
-            <label htmlFor="file-upload" className="cursor-pointer">
-              {!files ? <Upload /> : <FileCheck />}
-            </label>
-            {files && <span>({files.length})</span>}
-
-            <Input
-              id="file-upload"
-              className=" hidden"
-              type="file"
-              onChange={(event) => {
-                if (event.target.files) {
-                  setFiles(event.target.files);
-                }
-              }}
-              multiple
-              ref={fileInputRef}
-            />
-            <Input
-              name="prompt"
-              value={input}
-              disabled={isLoading || error != null}
-              autoComplete="off"
-              onChange={handleInputChange}
-            />
-            {isLoading ? (
-              <Button type="button" size="icon" onClick={() => stop()}>
-                <Square />
-              </Button>
-            ) : (
-              <Button disabled={error != null} type="submit" size="icon">
-                <Send />
-              </Button>
-            )}
-          </form>
-        )}
-      </div>
+      {/* ------  Bottom Input (exibido caso tenham mensagens ) ------ */}
+      <ChatInput
+        variant="bottom"
+        messages={messages}
+        onSubmit={onSubmit}
+        files={files}
+        setFiles={setFiles}
+        fileInputRef={fileInputRef}
+        input={input}
+        isLoading={isLoading}
+        error={error}
+        handleInputChange={handleInputChange}
+      />
     </div>
   );
 }

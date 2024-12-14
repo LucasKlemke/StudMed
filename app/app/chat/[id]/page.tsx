@@ -1,16 +1,18 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { FileCheck, Send, Square, Upload } from 'lucide-react';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState } from 'react';
-import UserMessage from '@/app/app/chat/components/userMessage';
 import { useToast } from '@/hooks/use-toast';
-import ModelMessage from '@/app/app/chat/components/modelMessage';
 import ChatErrorMessage from '@/app/app/chat/components/chatErroMessage';
 import { useHistoryStore } from '@/store/history';
+import { getMessages, updateChat } from '../__actions/chat';
+import ChatInput from '../components/chat-input';
+import ChatContent from '../components/chat-content';
+import ChatHeader from '../components/chat-header';
+import { useSearchParams } from 'next/navigation';
 
 export default function page({ params }: { params: { id: string } }) {
+  const searchParams = useSearchParams();
+  const subject = searchParams.get('subject');
   const {
     messages,
     input,
@@ -35,15 +37,52 @@ export default function page({ params }: { params: { id: string } }) {
       console.log('Received HTTP response from server:', response);
     },
   });
+  // const { subject, setSubject }: any = useSubjectStore();
   const { toast } = useToast();
   const { history, setHistory }: any = useHistoryStore();
   console.log('history', history);
 
   const [finished, setFinished] = useState(false);
 
+  const storeChat = async () => {
+    try {
+      await updateChat(params.id, messages);
+    } catch (e) {
+      console.error(e);
+    }
+
+    setFinished(false);
+  };
+
+  const fetchMessages = async () => {
+    try {
+      const messagesData = await getMessages(params.id);
+      console.log(messagesData);
+      setMessages(JSON.parse(messagesData?.messages));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onSubmit = (event) => {
+    handleSubmit(event, {
+      experimental_attachments: files,
+      body: {
+        selected_subject: subject,
+      },
+    });
+
+    setFiles(undefined);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   useEffect(() => {
+    fetchMessages();
     console.log(params.id);
-    console.log('aiai',history)
+    console.log('aiai', history);
     try {
       const current = history.find(
         (item: { id: string; content: any[] }) => item.id === params.id
@@ -54,24 +93,10 @@ export default function page({ params }: { params: { id: string } }) {
       console.error(e);
     }
   }, []);
+
   useEffect(() => {
     if (finished) {
-      if (history.length === 0) {
-        setHistory([{ id: '1', content: messages }]);
-      } else {
-        const current = history.find(
-          (item: { id: string; content: any[] }) => item.id === params.id
-        );
-        if (current) {
-          current.content = messages;
-        }
-
-        setHistory(history);
-      }
-
-      console.log('Finished');
-      console.log(messages);
-      setFinished(false);
+      storeChat();
     }
   }, [finished]);
 
@@ -87,82 +112,34 @@ export default function page({ params }: { params: { id: string } }) {
 
   return (
     <div className="px-10">
-      <div className=" w-full">
-        <h1 className="text-4xl text-center font-extralight pb-5">Sarah.ai</h1>
-      </div>
+      {/* ------  Header ------  */}
+      <ChatHeader subject={subject as Materia} />
+
+      {/* ------  Main Content ------ */}
       <div className="h-[80vh] w-full flex flex-col space-y-10 overflow-y-scroll">
-        {messages.map((message) => (
-          <div className="flex flex-col" key={message.id}>
-            {message.role === 'user' ? (
-              <UserMessage
-                message={message}
-                handleDelete={handleDelete}
-                isLoading={isLoading}
-              />
-            ) : (
-              <ModelMessage
-                message={message}
-                handleDelete={handleDelete}
-                reload={reload}
-                isLoading={isLoading}
-              />
-            )}
-          </div>
-        ))}
+        <ChatContent
+          messages={messages}
+          handleDelete={handleDelete}
+          isLoading={isLoading}
+          reload={reload}
+        />
 
         {error && <ChatErrorMessage reload={reload} />}
       </div>
 
-      <div className="  rounded-t-xl justify-center  flex">
-        <form
-          onSubmit={(event) => {
-            handleSubmit(event, {
-              experimental_attachments: files,
-            });
-
-            setFiles(undefined);
-
-            if (fileInputRef.current) {
-              fileInputRef.current.value = '';
-            }
-          }}
-          className="w-1/2 gap-x-2 flex items-center justify-center py-3"
-        >
-          <label htmlFor="file-upload" className="cursor-pointer">
-            {!files ? <Upload /> : <FileCheck />}
-          </label>
-          {files && <span>({files.length})</span>}
-
-          <Input
-            id="file-upload"
-            className=" hidden"
-            type="file"
-            onChange={(event) => {
-              if (event.target.files) {
-                setFiles(event.target.files);
-              }
-            }}
-            multiple
-            ref={fileInputRef}
-          />
-          <Input
-            name="prompt"
-            value={input}
-            disabled={isLoading || error != null}
-            autoComplete="off"
-            onChange={handleInputChange}
-          />
-          {isLoading ? (
-            <Button type="button" size="icon" onClick={() => stop()}>
-              <Square />
-            </Button>
-          ) : (
-            <Button disabled={error != null} type="submit" size="icon">
-              <Send />
-            </Button>
-          )}
-        </form>
-      </div>
+      {/* ------  Bottom Input (exibido caso tenham mensagens ) ------ */}
+      <ChatInput
+        variant="bottom"
+        messages={messages}
+        onSubmit={onSubmit}
+        files={files}
+        setFiles={setFiles}
+        fileInputRef={fileInputRef}
+        input={input}
+        isLoading={isLoading}
+        error={error}
+        handleInputChange={handleInputChange}
+      />
     </div>
   );
 }

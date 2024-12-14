@@ -1,10 +1,22 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { updateSession } from '@/utils/supabase/middleware';
 
-export function middleware(request: NextRequest) {
-   return NextResponse.redirect(new URL('/app/chat', request.url));
+export async function middleware(request: NextRequest) {
+  return await updateSession(request);
+  
+  //  return NextResponse.redirect(new URL('/app/chat', request.url));
 }
 
 export const config = {
-  matcher: ['/', '/app'],
+  matcher:
+    // ['/', '/app']
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * Feel free to modify this pattern to include more paths.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
 };

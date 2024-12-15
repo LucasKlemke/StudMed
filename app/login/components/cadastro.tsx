@@ -87,8 +87,10 @@ const Cadastro = ({
 
     setIsLoading(false);
   };
+  //localhost:3000/auth/confirm?token_hash=pkce_cbd86585a5a525ee845640ee81e61a24893456fd7f72dda8442b90e2&amp;type=signup
+  //stud-med-ai.vercel.app/app/chat/auth/confirm?token_hash=pkce_0a3e00c0187bf0fde04a4639c0beb7917395ed5580fc5a1ce6963d78&amp;type=signup
 
-  return (
+  https: http: return (
     <Form {...form}>
       <form
         className="space-y-4 flex flex-col justify-center "

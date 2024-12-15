@@ -44,7 +44,7 @@ export function NavUser(
   const [user, setUser] = useState(null);
 
   async function signOut() {
-    console.log('entrou')
+    console.log('entrou');
     const { error } = await supabase.auth.signOut();
 
     console.log(error);
@@ -64,7 +64,7 @@ export function NavUser(
   return (
     <>
       {user && (
-        <SidebarMenu>
+        <SidebarMenu className="w-[50px] md:w-[250px]">
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -78,7 +78,7 @@ export function NavUser(
                       {user.email[0].toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
+                  <div className="grid flex-1 text-left text-sm leading-tight invisible lg:visible">
                     <span className="truncate font-semibold">
                       {user.email.split('@')[0]}
                     </span>

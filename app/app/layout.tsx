@@ -30,9 +30,9 @@ export default function RootLayout({
       > */}
       <AppSidebar />
       <SidebarInset className="flex">
-        {/* <SidebarTrigger /> */}
         {/* <div className="flex flex-col flex-1"> */}
-        <div className="w-[200px] self-end">
+        <div className="w-full flex justify-between">
+          <SidebarTrigger />
           <NavUser
             user={{
               name: 'shadcn',

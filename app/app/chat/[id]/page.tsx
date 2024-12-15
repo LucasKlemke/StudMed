@@ -66,11 +66,6 @@ function MyComponent({ params }: { params: { id: string } }) {
   const fetchMessages = async () => {
     try {
       const messagesData = await getMessages(params.id);
-      if (!messagesData) {
-        return {
-          notFound: true,
-        };
-      }
       console.log(messagesData);
       setMessages(JSON.parse(messagesData?.messages as string));
     } catch (e) {
@@ -104,7 +99,6 @@ function MyComponent({ params }: { params: { id: string } }) {
       // console.log(current);
       setMessages(current.content);
     } catch (e) {
-      return notFound;
       console.error(e);
     }
   }, []);
@@ -126,7 +120,7 @@ function MyComponent({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="px-10">
+    <div className="px-5 md:px-10">
       {/* ------  Header ------  */}
       <ChatHeader subject={subject as Materia} />
 

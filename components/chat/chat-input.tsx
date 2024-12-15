@@ -43,7 +43,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             {messages.length > 0 && (
               <form
                 onSubmit={onSubmit}
-                className="w-1/2 gap-x-2 flex items-center justify-center py-3"
+                className="w-full md:w-1/2 gap-x-2 flex items-center justify-center py-3"
               >
                 <label htmlFor="file-upload" className="cursor-pointer">
                   {!files ? <Upload /> : <FileCheck />}
@@ -87,15 +87,15 @@ const ChatInput: React.FC<ChatInputProps> = ({
       {variant === 'center' && (
         <TextFade
           direction="up"
-          className="flex flex-col justify-center h-4/6 gap-y-4"
+          className="flex flex-col justify-center h-1/2 md:h-4/6 gap-y-4"
         >
-          <h1 className="text-3xl font-normal text-center">
+          <h1 className="text-lg md:text-3xl font-normal text-center">
             Como posso ajudar ?
           </h1>
           <div className="flex justify-center">
             <form
               onSubmit={onSubmit}
-              className="w-1/2 gap-x-2 flex items-center justify-center"
+              className="w-full md:w-1/2 gap-x-2 flex items-center justify-center"
             >
               <label htmlFor="file-upload" className="cursor-pointer">
                 {!files ? <Upload /> : <FileCheck />}
@@ -104,7 +104,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
               <Input
                 id="file-upload"
-                className=" hidden"
+                className="hidden"
                 type="file"
                 onChange={(event) => {
                   if (event.target.files) {

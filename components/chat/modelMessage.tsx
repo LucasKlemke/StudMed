@@ -76,10 +76,10 @@ const ModelMessage = ({
   return (
     <div className="self-start flex gap-x-2 w-2/3">
       <div>
-        <pre className={`${montserrat.className} whitespace-pre-line`}>
-          <Markdown>
-            {message.content}
-          </Markdown>
+        <pre
+          className={`${montserrat.className} whitespace-pre-line text-sm md:text-base`}
+        >
+          <Markdown>{message.content}</Markdown>
           {/* {formatMarkdown(message.content)} */}
         </pre>
         <div className="w-full flex justify-end">

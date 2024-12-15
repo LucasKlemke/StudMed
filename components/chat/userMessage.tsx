@@ -30,7 +30,7 @@ const UserMessage = ({
           />
         )}
         <div className="self-end flex-col bg-green-700 px-3 py-3 rounded-2xl">
-          <h1 className="text-end p-0 m-0  text-white ">{message.content}</h1>
+          <h1 className="text-end text-sm md:text-base p-0 m-0  text-white ">{message.content}</h1>
         </div>
       </div>
 

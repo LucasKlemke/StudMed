@@ -84,7 +84,7 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className={`${
                 ciclo_basico.find((materia) => materia.nome === subjectParam)
                   ?.text
-              } flex justify-start font-bold`}
+              } flex justify-start font-bold mb-3`}
               onClick={() => setModal(true)}
             >
               {
@@ -94,8 +94,8 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Button>
           )}
 
-          {open && <SidebarGroupLabel>Matéria</SidebarGroupLabel>}
-          {open && <Button>Sobre</Button>}
+          {/* {open && <SidebarGroupLabel>Matéria</SidebarGroupLabel>} */}
+          {/* {open && <Button>Sobre</Button>} */}
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
@@ -106,8 +106,7 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <DialogDescription>Selecione a matéria</DialogDescription>
             <Tabs defaultValue="account">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="account">1. Ciclo Básico</TabsTrigger>
-                <TabsTrigger value="password">2. Ciclo Clinico</TabsTrigger>
+                <TabsTrigger value="account" className='col-span-2'> Ciclo Básico</TabsTrigger>
               </TabsList>
               <TabsContent value="account">
                 <Input placeholder="Procurar Matéria" />

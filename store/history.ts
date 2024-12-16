@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export const useHistoryStore = create((set, get: any) => ({
-  history: [],
+  history: null,
   setHistory: (history: { id: string; content: any[] }) =>
     set({ history: history }),
   addHistory: (history: { id: string; content: any[] }) =>

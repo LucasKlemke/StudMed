@@ -1,5 +1,5 @@
 'use client';
-import { PlusIcon } from 'lucide-react';
+import { Loader2, PlusIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -72,7 +72,7 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarHeader>
         {/* ---- HISTORICO ---- */}
         <SidebarContent>
-          <NavMain items={history} />
+          {history ? <NavMain items={history} /> : <NavMain loading items={history} />}
         </SidebarContent>
         <SidebarFooter>
           {/* ---- Botao para abrir modal de Materias ---- */}
@@ -106,7 +106,10 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <DialogDescription>Selecione a matéria</DialogDescription>
             <Tabs defaultValue="account">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="account" className='col-span-2'> Ciclo Básico</TabsTrigger>
+                <TabsTrigger value="account" className="col-span-2">
+                  {' '}
+                  Ciclo Básico
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="account">
                 <Input placeholder="Procurar Matéria" />

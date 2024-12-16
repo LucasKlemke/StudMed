@@ -1,12 +1,7 @@
-"use client"
+'use client';
 
-import { ChevronRight, Trash, type LucideIcon } from "lucide-react"
+import { ChevronRight, Loader, Loader2, Trash, type LucideIcon } from 'lucide-react';
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,36 +11,49 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import HistoryItem from "./history-item"
+} from '@/components/ui/sidebar';
+import Link from 'next/link';
+import HistoryItem from './history-item';
 
 export function NavMain({
   items,
+  loading,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
+  loading?: boolean;
 }) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Recentes</SidebarGroupLabel>
       <SidebarMenu className="h-96 overflow-y-scroll">
         <SidebarMenuSub>
-          {items?.map((item) => (
-            <SidebarMenuSubItem key={item.id}>
+          {loading && (
+            <SidebarMenuSubItem>
               <SidebarMenuSubButton asChild>
-                <HistoryItem item={item} />
+                <div><Loader2 className='animate-spin'/></div>
               </SidebarMenuSubButton>
             </SidebarMenuSubItem>
-          ))}
+          )}
+          {!loading && (
+            <>
+              {items?.map((item) => (
+                <SidebarMenuSubItem key={item.id}>
+                  <SidebarMenuSubButton asChild>
+                    <HistoryItem item={item} />
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ))}
+            </>
+          )}
         </SidebarMenuSub>
       </SidebarMenu>
     </SidebarGroup>

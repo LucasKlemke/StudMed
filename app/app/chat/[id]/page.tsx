@@ -10,6 +10,7 @@ import ChatContent from '@/components/chat/chat-content';
 import ChatHeader from '@/components/chat/chat-header';
 import { notFound, useSearchParams } from 'next/navigation';
 import { Materia } from '@/lib/materias';
+import { Loader2 } from 'lucide-react';
 
 export default function page({ params }: { params: { id: string } }) {
   return (
@@ -49,6 +50,7 @@ function MyComponent({ params }: { params: { id: string } }) {
   // const { subject, setSubject }: any = useSubjectStore();
   const { toast } = useToast();
   const { history, setHistory }: any = useHistoryStore();
+  const [messagesFetchLoading, setMessagesFetchLoading] = useState(true);
   console.log('history', history);
 
   const [finished, setFinished] = useState(false);
@@ -66,8 +68,9 @@ function MyComponent({ params }: { params: { id: string } }) {
   const fetchMessages = async () => {
     try {
       const messagesData = await getMessages(params.id);
-      console.log(messagesData);
+
       setMessages(JSON.parse(messagesData?.messages as string));
+      setMessagesFetchLoading(false);
     } catch (e) {
       console.error(e);
     }
@@ -125,13 +128,16 @@ function MyComponent({ params }: { params: { id: string } }) {
       <ChatHeader subject={subject as Materia} />
 
       {/* ------  Main Content ------ */}
-      <div className="h-[80vh] w-full flex flex-col space-y-10 overflow-y-scroll">
-        <ChatContent
-          messages={messages}
-          handleDelete={handleDelete}
-          isLoading={isLoading}
-          reload={reload}
-        />
+      <div className="h-[75vh] w-full flex flex-col space-y-10 overflow-y-scroll">
+
+        {messagesFetchLoading ? <Loader2 className='animate-spin w-full mt-20'/> : (
+          <ChatContent
+            messages={messages}
+            handleDelete={handleDelete}
+            isLoading={isLoading}
+            reload={reload}
+          />
+        )}
 
         {error && <ChatErrorMessage reload={reload} />}
       </div>

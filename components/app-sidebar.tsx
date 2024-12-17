@@ -102,18 +102,17 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <Dialog open={modal} onOpenChange={setModal}>
         <DialogContent className="max-w-7xl">
           <DialogHeader>
-            <DialogTitle>Selecionar matéria</DialogTitle>
+            <DialogTitle >Selecionar matéria</DialogTitle>
             <DialogDescription>Selecione a matéria</DialogDescription>
             <Tabs defaultValue="account">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="account" className="col-span-2">
-                  {' '}
                   Ciclo Básico
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="account">
-                <Input placeholder="Procurar Matéria" />
-                <div className="grid grid-rows-10 grid-flow-col gap-4 p-4 ">
+                <Input className='text-xs md:text-base' placeholder="Procurar Matéria" />
+                <div className="grid grid-rows-5 md:grid-rows-10 grid-flow-col gap-4 p-4 overflow-auto ">
                   {ciclo_basico.map((materia) => (
                     <Link
                       key={materia.nome}
@@ -123,7 +122,7 @@ export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <Button
                         key={materia.nome}
-                        className={`${materia.bg} flex justify-start w-[300px] rounded-full`}
+                        className={`${materia.bg} flex justify-start w-[200px] md:w-[300px] rounded-full`}
                         onClick={() => {
                           // setSubject(materia);
                           setModal(false);

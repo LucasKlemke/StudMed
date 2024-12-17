@@ -41,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 export function Component({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { setOpen, open } = useSidebar();
   const { history, setHistory }: any = useHistoryStore();
-  const { subject, setSubject }: any = useSubjectStore();
+  // const { subject, setSubject }: any = useSubjectStore();
   const [modal, setModal] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();

@@ -64,11 +64,6 @@ const subjects = [
 ]
 
 interface SwitcherProps<T> {
-  options: T[]
-  selected: string | null
-  role?: 'Admin' | 'Default'
-  onChange: (item: T) => void
-  onCreateNew: (data: { name: string; description: string }) => Promise<void>
   disabled?: boolean
   className?: string
 }
@@ -90,7 +85,7 @@ export function Switcher<T extends { id: string; name: string }>({
 
   const selectedSubject = subjects.find((subject) => subject.id === selectedId)
 
-  const onChange = (item) => {
+  const onChange = (item: any) => {
     setSelectedId(item.id)
     console.log('item', item)
     setSubject(item)
@@ -143,7 +138,7 @@ export function Switcher<T extends { id: string; name: string }>({
                     <Check
                       className={cn(
                         'ml-auto h-4 w-4',
-                        selectedSubject === item.id
+                        selectedSubject?.id === item.id
                           ? 'opacity-100'
                           : 'opacity-0'
                       )}

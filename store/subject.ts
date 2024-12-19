@@ -3,13 +3,9 @@ import { create } from 'zustand';
 
 export const useSubjectStore = create((set) => ({
   subject: {
-    nome: 'Bioquímica',
-    bg: 'bg-subject1',
-    text: 'text-subject1',
+    id: 'fisiologia',
+    name: 'Fisiologia',
   },
-  setSubject: (subject: {
-    nome: Materia;
-    bg: string;
-    text: string;
-  }) => set({ subject: subject }),
-}));
+  setSubject: (subject: { name: Materia; bg: string; text: string }) =>
+    set({ subject: subject }),
+}))

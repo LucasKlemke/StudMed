@@ -128,7 +128,7 @@ export async function POST(request: Request) {
         // tools
         tools: {
           webScraping: {
-            description: 'Get useful information from the web',
+            description: 'Realizar consultas na web e extrair informações',
             parameters: z.object({
               url: z.string().describe('The URL to scrape'),
             }),

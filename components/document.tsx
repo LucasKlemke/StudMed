@@ -10,9 +10,9 @@ const getActionText = (
 ) => {
   switch (type) {
     case 'create':
-      return tense === 'present' ? 'Creating' : 'Created'
+      return tense === 'present' ? 'Criando' : 'Criado'
     case 'update':
-      return tense === 'present' ? 'Updating' : 'Updated'
+      return tense === 'present' ? 'Atualizando' : 'Atualizado'
     case 'request-suggestions':
       return tense === 'present' ? 'Adding suggestions' : 'Added suggestions to'
     default:

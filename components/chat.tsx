@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import type { Attachment, Message } from 'ai';
-import { useChat } from 'ai/react';
-import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import useSWR, { useSWRConfig } from 'swr';
-import { useWindowSize } from 'usehooks-ts';
+import type { Attachment, Message } from 'ai'
+import { useChat } from 'ai/react'
+import { AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import useSWR, { useSWRConfig } from 'swr'
+import { useWindowSize } from 'usehooks-ts'
 
-import { ChatHeader } from '@/components/chat-header';
-import type { Vote } from '@/lib/db/schema';
-import { fetcher } from '@/lib/utils';
+import { ChatHeader } from '@/components/chat-header'
+import type { Vote } from '@/lib/db/schema'
+import { fetcher } from '@/lib/utils'
 
-import { Block, type UIBlock } from './block';
-import { BlockStreamHandler } from './block-stream-handler';
-import { MultimodalInput } from './multimodal-input';
-import { Messages } from './messages';
-import { VisibilityType } from './visibility-selector';
-import { useSubjectStore } from '@/store/subject';
+import { Block, type UIBlock } from './block'
+import { BlockStreamHandler } from './block-stream-handler'
+import { MultimodalInput } from './multimodal-input'
+import { Messages } from './messages'
+import { VisibilityType } from './visibility-selector'
+import { useSubjectStore } from '@/store/subject'
 
 export function Chat({
   id,
@@ -25,17 +25,16 @@ export function Chat({
   selectedVisibilityType,
   isReadonly,
 }: {
-  id: string;
-  initialMessages: Array<Message>;
-  selectedModelId: string;
-  selectedVisibilityType: VisibilityType;
-  isReadonly: boolean;
+  id: string
+  initialMessages: Array<Message>
+  selectedModelId: string
+  selectedVisibilityType: VisibilityType
+  isReadonly: boolean
 }) {
-  const { mutate } = useSWRConfig();
+  const { mutate } = useSWRConfig()
 
-  
-    const { subject }: any = useSubjectStore()
-    console.log(subject.name)
+  const { subject }: any = useSubjectStore()
+  // console.log(subject.name)
 
   const {
     messages,
@@ -53,12 +52,12 @@ export function Chat({
     body: { id, modelId: selectedModelId, subject: subject.id },
     initialMessages,
     onFinish: () => {
-      mutate('/api/history');
+      mutate('/api/history')
     },
-  });
+  })
 
   const { width: windowWidth = 1920, height: windowHeight = 1080 } =
-    useWindowSize();
+    useWindowSize()
 
   const [block, setBlock] = useState<UIBlock>({
     documentId: 'init',
@@ -73,14 +72,11 @@ export function Chat({
       width: 250,
       height: 50,
     },
-  });
+  })
 
-  const { data: votes } = useSWR<Array<Vote>>(
-    `/api/vote?chatId=${id}`,
-    fetcher,
-  );
+  const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
-  const [attachments, setAttachments] = useState<Array<Attachment>>([]);
+  const [attachments, setAttachments] = useState<Array<Attachment>>([])
 
   return (
     <>
@@ -98,7 +94,13 @@ export function Chat({
           setBlock={setBlock}
           isLoading={isLoading}
           votes={votes}
-          messages={messages}
+          messages={messages.filter(
+            (message) =>
+              !message.toolInvocations ||
+              !message.toolInvocations.some(
+                (invocation) => invocation.toolName === 'webScraping'
+              )
+          )}
           setMessages={setMessages}
           reload={reload}
           isReadonly={isReadonly}
@@ -115,7 +117,7 @@ export function Chat({
               stop={stop}
               attachments={attachments}
               setAttachments={setAttachments}
-              messages={messages}
+              messages={messages.filter((message) => !message.toolInvocations)}
               setMessages={setMessages}
               append={append}
             />
@@ -148,5 +150,5 @@ export function Chat({
 
       <BlockStreamHandler streamingData={streamingData} setBlock={setBlock} />
     </>
-  );
+  )
 }

@@ -40,6 +40,7 @@ type AllowedTools =
   | 'updateDocument'
   | 'requestSuggestions'
   | 'getWeather'
+  | 'webScraping'
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
@@ -48,8 +49,13 @@ const blocksTools: AllowedTools[] = [
 ]
 
 const weatherTools: AllowedTools[] = ['getWeather']
+const scrappingTools: AllowedTools[] = ['webScraping']
 
-const allTools: AllowedTools[] = [...blocksTools, ...weatherTools]
+const allTools: AllowedTools[] = [
+  ...blocksTools,
+  ...weatherTools,
+  ...scrappingTools,
+]
 
 export async function POST(request: Request) {
   const {
@@ -64,7 +70,6 @@ export async function POST(request: Request) {
     subject: string
   } = await request.json()
 
-  console.log("##################################2222",subject)
   const session = await auth()
 
   if (!session || !session.user || !session.user.id) {
@@ -122,6 +127,76 @@ export async function POST(request: Request) {
 
         // tools
         tools: {
+          webScraping: {
+            description: 'Get useful information from the web',
+            parameters: z.object({
+              url: z.string().describe('The URL to scrape'),
+            }),
+            execute: async ({ url }) => {
+              const id = generateUUID()
+              // let draftText = ''
+
+              dataStream.writeData({
+                type: 'id',
+                content: id,
+              })
+
+              dataStream.writeData({
+                type: 'clear',
+                content: '',
+              })
+
+              const response = await fetch(`https://r.jina.ai/${url}`)
+
+              const url_data = await response.text()
+
+              return {url_data}
+
+              // const { fullStream } = streamText({
+              //   model: customModel(model.apiIdentifier),
+              //   system:
+              //     'Você é uma IA médica que ensina estudantes de medicina, com base no conteúdo, crie um resumo super didático e completo, para que o estudante absorva  máximo de conhecimento possível. Markdown é suportado. Use títulos sempre que necessário.',
+              //   prompt: url_data,
+              // })
+
+              // for await (const delta of fullStream) {
+              //   const { type } = delta
+
+              //   if (type === 'text-delta') {
+              //     const { textDelta } = delta
+
+              //     draftText += textDelta
+              //     dataStream.writeData({
+              //       type: 'text-delta',
+              //       content: textDelta,
+              //     })
+              //   }
+              // }
+
+              // dataStream.writeData({ type: 'finish', content: '' })
+
+              // dataStream.writeData(url_data)
+              //   let title = 'Web Scraping'
+              //   let kind = 'text'
+              //  if (session.user?.id) {
+              //    await saveDocument({
+              //      id,
+              //      title,
+              //      kind,
+              //      content: draftText,
+              //      userId: session.user.id,
+              //    })
+              //  }
+
+              //  return {
+              //    id,
+              //    title,
+              //    kind,
+              //    content:
+              //      'Um documento foi criado e agora está visível para o usuário.',
+              //  }
+            },
+          },
           // 1. Consultar o clima
           getWeather: {
             description: 'Get the current weather at a location',
@@ -141,7 +216,7 @@ export async function POST(request: Request) {
 
           // 2. Criar um documento
           createDocument: {
-            description: 'Create a document for a writing activity.',
+            description: 'Criar um documento para uma atividade de escrita.',
             parameters: z.object({
               title: z.string(),
               kind: z.enum(['text', 'code']),
@@ -174,7 +249,7 @@ export async function POST(request: Request) {
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
                   system:
-                    'Write about the given topic. Markdown is supported. Use headings wherever appropriate.',
+                    'Escreva sobre o tema dado. Markdown é suportado. Use títulos sempre que necessário.',
                   prompt: title,
                 })
 
@@ -239,7 +314,7 @@ export async function POST(request: Request) {
                 title,
                 kind,
                 content:
-                  'A document was created and is now visible to the user.',
+                  'Um documento foi criado e agora está visível para o usuário.',
               }
             },
           },

@@ -1,24 +1,31 @@
-'use client';
+'use client'
 
-import type { ChatRequestOptions, Message } from 'ai';
-import cx from 'classnames';
-import { motion } from 'framer-motion';
-import { memo, useState, type Dispatch, type SetStateAction } from 'react';
+import type { ChatRequestOptions, Message } from 'ai'
+import cx from 'classnames'
+import { motion } from 'framer-motion'
+import {
+  memo,
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react'
 
-import type { Vote } from '@/lib/db/schema';
+import type { Vote } from '@/lib/db/schema'
 
-import type { UIBlock } from './block';
-import { DocumentToolCall, DocumentToolResult } from './document';
-import { PencilEditIcon, SparklesIcon } from './icons';
-import { Markdown } from './markdown';
-import { MessageActions } from './message-actions';
-import { PreviewAttachment } from './preview-attachment';
-import { Weather } from './weather';
-import equal from 'fast-deep-equal';
-import { cn } from '@/lib/utils';
-import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-import { MessageEditor } from './message-editor';
+import type { UIBlock } from './block'
+import { DocumentToolCall, DocumentToolResult } from './document'
+import { PencilEditIcon, SparklesIcon } from './icons'
+import { Markdown } from './markdown'
+import { MessageActions } from './message-actions'
+import { PreviewAttachment } from './preview-attachment'
+import { Weather } from './weather'
+import equal from 'fast-deep-equal'
+import { cn } from '@/lib/utils'
+import { Button } from './ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
+import { MessageEditor } from './message-editor'
+import { Check } from 'lucide-react'
 
 const PurePreviewMessage = ({
   chatId,
@@ -31,21 +38,26 @@ const PurePreviewMessage = ({
   reload,
   isReadonly,
 }: {
-  chatId: string;
-  message: Message;
-  block: UIBlock;
-  setBlock: Dispatch<SetStateAction<UIBlock>>;
-  vote: Vote | undefined;
-  isLoading: boolean;
+  chatId: string
+  message: Message
+  block: UIBlock
+  setBlock: Dispatch<SetStateAction<UIBlock>>
+  vote: Vote | undefined
+  isLoading: boolean
   setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[]),
-  ) => void;
+    messages: Message[] | ((messages: Message[]) => Message[])
+  ) => void
   reload: (
-    chatRequestOptions?: ChatRequestOptions,
-  ) => Promise<string | null | undefined>;
-  isReadonly: boolean;
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
+  isReadonly: boolean
 }) => {
-  const [mode, setMode] = useState<'view' | 'edit'>('view');
+  const [mode, setMode] = useState<'view' | 'edit'>('view')
+
+  useEffect(() => {
+    console.log('loadingState', isLoading)
+    console.log('MESSAGE ', message)
+  }, [])
 
   return (
     <motion.div
@@ -60,12 +72,12 @@ const PurePreviewMessage = ({
           {
             'w-full': mode === 'edit',
             'group-data-[role=user]/message:w-fit': mode !== 'edit',
-          },
+          }
         )}
       >
         {message.role === 'assistant' && (
           <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-primary bg-background text-primary">
-            <SparklesIcon  size={14} />
+            <SparklesIcon size={14} />
           </div>
         )}
 
@@ -90,7 +102,7 @@ const PurePreviewMessage = ({
                       variant="ghost"
                       className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
                       onClick={() => {
-                        setMode('edit');
+                        setMode('edit')
                       }}
                     >
                       <PencilEditIcon />
@@ -128,10 +140,19 @@ const PurePreviewMessage = ({
           {message.toolInvocations && message.toolInvocations.length > 0 && (
             <div className="flex flex-col gap-4">
               {message.toolInvocations.map((toolInvocation) => {
-                const { toolName, toolCallId, state, args } = toolInvocation;
+                // Tool name -> define o nome da tool utilizada
+                // Tool call id -> define o id da chamada da tool
+                // State -> define o estado da tool
+                // Args -> define os argumentos da tool {url: url}
+
+                const { toolName, toolCallId, state, args } = toolInvocation
+                // console.log('toolName', toolName)
+                // console.log('toolCallId', toolCallId)
+                // console.log('state', state)
+                // console.log('args', args)
 
                 if (state === 'result') {
-                  const { result } = toolInvocation;
+                  const { result } = toolInvocation
 
                   return (
                     <div key={toolCallId}>
@@ -161,11 +182,16 @@ const PurePreviewMessage = ({
                           setBlock={setBlock}
                           isReadonly={isReadonly}
                         />
+                      ) : toolName === 'webScraping' ? (
+                        <Button>
+                          <Check />
+                          Arquivo Lido
+                        </Button>
                       ) : (
                         <pre>{JSON.stringify(result, null, 2)}</pre>
                       )}
                     </div>
-                  );
+                  )
                 }
                 return (
                   <div
@@ -197,9 +223,17 @@ const PurePreviewMessage = ({
                         setBlock={setBlock}
                         isReadonly={isReadonly}
                       />
-                    ) : null}
+                    ) : // : toolName === 'webScraping' ? (
+                    //   <DocumentToolCall
+                    //     type="create"
+                    //     args={args}
+                    //     setBlock={setBlock}
+                    //     isReadonly={isReadonly}
+                    //   />
+                    // )
+                    null}
                   </div>
-                );
+                )
               })}
             </div>
           )}
@@ -216,29 +250,29 @@ const PurePreviewMessage = ({
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
 export const PreviewMessage = memo(
   PurePreviewMessage,
   (prevProps, nextProps) => {
-    if (prevProps.isLoading !== nextProps.isLoading) return false;
-    if (prevProps.message.content !== nextProps.message.content) return false;
+    if (prevProps.isLoading !== nextProps.isLoading) return false
+    if (prevProps.message.content !== nextProps.message.content) return false
     if (
       !equal(
         prevProps.message.toolInvocations,
-        nextProps.message.toolInvocations,
+        nextProps.message.toolInvocations
       )
     )
-      return false;
-    if (!equal(prevProps.vote, nextProps.vote)) return false;
+      return false
+    if (!equal(prevProps.vote, nextProps.vote)) return false
 
-    return true;
-  },
-);
+    return true
+  }
+)
 
 export const ThinkingMessage = () => {
-  const role = 'assistant';
+  const role = 'assistant'
 
   return (
     <motion.div
@@ -252,7 +286,7 @@ export const ThinkingMessage = () => {
           'flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl',
           {
             'group-data-[role=user]/message:bg-muted': true,
-          },
+          }
         )}
       >
         <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border">
@@ -266,5 +300,5 @@ export const ThinkingMessage = () => {
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}

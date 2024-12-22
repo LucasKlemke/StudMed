@@ -1,26 +1,26 @@
-import { ChatRequestOptions, Message } from 'ai';
-import { PreviewMessage, ThinkingMessage } from './message';
-import { useScrollToBottom } from './use-scroll-to-bottom';
-import { Overview } from './overview';
-import { UIBlock } from './block';
-import { Dispatch, memo, SetStateAction } from 'react';
-import { Vote } from '@/lib/db/schema';
-import equal from 'fast-deep-equal';
+import { ChatRequestOptions, Message } from 'ai'
+import { PreviewMessage, ThinkingMessage } from './message'
+import { useScrollToBottom } from './use-scroll-to-bottom'
+import { Overview } from './overview'
+import { UIBlock } from './block'
+import { Dispatch, memo, SetStateAction } from 'react'
+import { Vote } from '@/lib/db/schema'
+import equal from 'fast-deep-equal'
 
 interface MessagesProps {
-  chatId: string;
-  block: UIBlock;
-  setBlock: Dispatch<SetStateAction<UIBlock>>;
-  isLoading: boolean;
-  votes: Array<Vote> | undefined;
-  messages: Array<Message>;
+  chatId: string
+  block: UIBlock
+  setBlock: Dispatch<SetStateAction<UIBlock>>
+  isLoading: boolean
+  votes: Array<Vote> | undefined
+  messages: Array<Message>
   setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[]),
-  ) => void;
+    messages: Message[] | ((messages: Message[]) => Message[])
+  ) => void
   reload: (
-    chatRequestOptions?: ChatRequestOptions,
-  ) => Promise<string | null | undefined>;
-  isReadonly: boolean;
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
+  isReadonly: boolean
 }
 
 function PureMessages({
@@ -35,15 +35,15 @@ function PureMessages({
   isReadonly,
 }: MessagesProps) {
   const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>();
+    useScrollToBottom<HTMLDivElement>()
 
+  // console.log('block', block)
   return (
     <div
       ref={messagesContainerRef}
       className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll pt-4"
     >
       {messages.length === 0 && <Overview />}
-
       {messages.map((message, index) => (
         <PreviewMessage
           key={message.id}
@@ -62,24 +62,30 @@ function PureMessages({
           isReadonly={isReadonly}
         />
       ))}
-
+      {/* {(isLoading &&
+        messages.length > 0 &&
+        messages[messages.length - 1].role === 'user') ||
+        (messages[messages.length - 1].content[0].type === 'tool-result' &&
+          messages[messages.length - 1].content[0].toolName ===
+            'webScraping' && <ThinkingMessage />)} */}
       {isLoading &&
         messages.length > 0 &&
         messages[messages.length - 1].role === 'user' && <ThinkingMessage />}
-
+      {/* && messages[messages.length - 1].role === 'user' */}
+      {/* message.content[0].type === 'tool-result' && message.content[0].toolName === 'webScraping' */}
       <div
         ref={messagesEndRef}
         className="shrink-0 min-w-[24px] min-h-[24px]"
       />
     </div>
-  );
+  )
 }
 
 export const Messages = memo(PureMessages, (prevProps, nextProps) => {
-  if (prevProps.isLoading !== nextProps.isLoading) return false;
-  if (prevProps.isLoading && nextProps.isLoading) return false;
-  if (prevProps.messages.length !== nextProps.messages.length) return false;
-  if (!equal(prevProps.votes, nextProps.votes)) return false;
+  if (prevProps.isLoading !== nextProps.isLoading) return false
+  if (prevProps.isLoading && nextProps.isLoading) return false
+  if (prevProps.messages.length !== nextProps.messages.length) return false
+  if (!equal(prevProps.votes, nextProps.votes)) return false
 
-  return true;
-});
+  return true
+})

@@ -87,7 +87,7 @@ export function Switcher<T extends { id: string; name: string }>({
 
   const onChange = (item: any) => {
     setSelectedId(item.id)
-    console.log('item', item)
+    // console.log('item', item)
     setSubject(item)
     setOpen(false)
   }

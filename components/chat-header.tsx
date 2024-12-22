@@ -1,6 +1,5 @@
 'use client'
 
-
 import { useRouter } from 'next/navigation'
 import { useWindowSize } from 'usehooks-ts'
 
@@ -30,8 +29,10 @@ function PureChatHeader({
 
   const { width: windowWidth } = useWindowSize()
 
+  // console.log('chatId', chatId)
+
   return (
-    <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2">
+    <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2 ">
       <SidebarToggle />
 
       {(!open || windowWidth < 768) && (
@@ -68,10 +69,12 @@ function PureChatHeader({
         />
       )}
 
-      {!isReadonly && (
-        <Switcher
-          className="order-1 md:order-3 rounded-2xl"
-        />
+      {!isReadonly && <Switcher className="order-1 md:order-3 rounded-2xl" />}
+
+      {chatId && (
+        <h1 className="order-1 w-full text-end self-center md:order-3 text-6xl tracking-tighter pr-20">
+          Studmed
+        </h1>
       )}
 
       {/* <Button

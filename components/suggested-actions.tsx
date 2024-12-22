@@ -16,16 +16,16 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'Qual a temperatura ',
-      label: 'em Joinville?',
-      action: 'Qual é a temperatura em Joinville?',
+      title: 'Crie um arquivo',
+      label: 'explicando sobre o Homúnculo de Penfield',
+      action: 'Crie um arquivo sobre o Homúnculo de Penfield.',
     },
     {
       title: 'Me ajude a',
       label: 'entender o que é homeostase',
       action: 'Me explique o que é Homeostase.',
     },
-  ];
+  ]
 
   return (
     <div className="grid sm:grid-cols-2 gap-2 w-full">

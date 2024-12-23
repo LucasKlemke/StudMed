@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/popover'
 import { BookOpen, Check, ChevronDownIcon } from 'lucide-react'
 import { useSubjectStore } from '@/store/subject'
+import { useWindowSize } from 'usehooks-ts'
 
 const subjects = [
   {
@@ -80,6 +81,7 @@ export function Switcher<T extends { id: string; name: string }>({
   const { subject, setSubject }: any = useSubjectStore()
   const [open, setOpen] = React.useState(false)
   const [showNewDialog, setShowNewDialog] = React.useState(false)
+  const { width: windowWidth } = useWindowSize()
 
   const [selectedId, setSelectedId] = React.useState(subject.id)
 
@@ -95,19 +97,24 @@ export function Switcher<T extends { id: string; name: string }>({
   return (
     <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger className={`${className}`} asChild>
+        <PopoverTrigger className={`${className} `} asChild>
           <Button
             disabled={disabled}
             variant="outline"
             role="combobox"
             aria-expanded={open}
             aria-label={`Select a ${'Matéria'}`}
-            className={'hidden md:flex md:px-2 md:h-[34px] rounded-2xl'}
+            className={'  md:flex md:px-2 md:h-[34px] rounded-2xl'}
           >
             <BookOpen />
-            {selectedSubject?.name || `  ${'Matéria'}`}
+            {windowWidth > 768 && (
+              <>
+                {selectedSubject?.name || `  ${'Matéria'}`}
+                <ChevronDownIcon />
+              </>
+            )}
+
             {/* <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" /> */}
-            <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">

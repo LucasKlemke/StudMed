@@ -53,13 +53,13 @@ function PureChatHeader({
           <TooltipContent>Novo chat</TooltipContent>
         </Tooltip>
       )}
-
+      {/* 
       {!isReadonly && (
         <ModelSelector
           selectedModelId={selectedModelId}
           className="order-1 md:order-2 rounded-2xl"
         />
-      )}
+      )} */}
 
       {!isReadonly && (
         <VisibilitySelector
@@ -69,10 +69,10 @@ function PureChatHeader({
         />
       )}
 
-      {!isReadonly && <Switcher className="order-1 md:order-3 rounded-2xl" />}
+      {!isReadonly && <Switcher className="order-1 md:order-2 rounded-2xl" />}
 
-      {chatId && (
-        <h1 className="order-1 w-full text-end self-center md:order-3 text-6xl tracking-tighter pr-20">
+      {chatId && windowWidth > 768 && (
+        <h1 className="order-1 w-full text-end self-center md:order-3 text-xl md:text-6xl tracking-tighter pr-20">
           Studmed
         </h1>
       )}

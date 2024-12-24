@@ -1,30 +1,28 @@
-import { Dispatch, memo, SetStateAction } from 'react';
-import { UIBlock } from './block';
-import { PreviewMessage } from './message';
-import { useScrollToBottom } from './use-scroll-to-bottom';
-import { Vote } from '@/lib/db/schema';
-import { ChatRequestOptions, Message } from 'ai';
+import { PreviewMessage } from './message'
+import { useScrollToBottom } from './use-scroll-to-bottom'
+import { Vote } from '@/lib/db/schema'
+import { ChatRequestOptions, Message } from 'ai'
+import { memo } from 'react'
+import equal from 'fast-deep-equal'
+import { UIBlock } from './block'
 
 interface BlockMessagesProps {
-  chatId: string;
-  block: UIBlock;
-  setBlock: Dispatch<SetStateAction<UIBlock>>;
-  isLoading: boolean;
-  votes: Array<Vote> | undefined;
-  messages: Array<Message>;
+  chatId: string
+  isLoading: boolean
+  votes: Array<Vote> | undefined
+  messages: Array<Message>
   setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[]),
-  ) => void;
+    messages: Message[] | ((messages: Message[]) => Message[])
+  ) => void
   reload: (
-    chatRequestOptions?: ChatRequestOptions,
-  ) => Promise<string | null | undefined>;
-  isReadonly: boolean;
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
+  isReadonly: boolean
+  blockStatus: UIBlock['status']
 }
 
 function PureBlockMessages({
   chatId,
-  block,
-  setBlock,
   isLoading,
   votes,
   messages,
@@ -33,7 +31,7 @@ function PureBlockMessages({
   isReadonly,
 }: BlockMessagesProps) {
   const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>();
+    useScrollToBottom<HTMLDivElement>()
 
   return (
     <div
@@ -45,8 +43,6 @@ function PureBlockMessages({
           chatId={chatId}
           key={message.id}
           message={message}
-          block={block}
-          setBlock={setBlock}
           isLoading={isLoading && index === messages.length - 1}
           vote={
             votes
@@ -64,21 +60,25 @@ function PureBlockMessages({
         className="shrink-0 min-w-[24px] min-h-[24px]"
       />
     </div>
-  );
+  )
 }
 
 function areEqual(
   prevProps: BlockMessagesProps,
-  nextProps: BlockMessagesProps,
+  nextProps: BlockMessagesProps
 ) {
   if (
-    prevProps.block.status === 'streaming' &&
-    nextProps.block.status === 'streaming'
-  ) {
-    return true;
-  }
+    prevProps.blockStatus === 'streaming' &&
+    nextProps.blockStatus === 'streaming'
+  )
+    return true
 
-  return false;
+  if (prevProps.isLoading !== nextProps.isLoading) return false
+  if (prevProps.isLoading && nextProps.isLoading) return false
+  if (prevProps.messages.length !== nextProps.messages.length) return false
+  if (!equal(prevProps.votes, nextProps.votes)) return false
+
+  return true
 }
 
-export const BlockMessages = memo(PureBlockMessages, areEqual);
+export const BlockMessages = memo(PureBlockMessages, areEqual)

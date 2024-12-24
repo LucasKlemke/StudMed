@@ -14,8 +14,8 @@ export const BotIcon = () => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const UserIcon = () => {
   return (
@@ -34,8 +34,8 @@ export const UserIcon = () => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const AttachmentIcon = () => {
   return (
@@ -53,8 +53,8 @@ export const AttachmentIcon = () => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const VercelIcon = ({ size = 17 }) => {
   return (
@@ -72,8 +72,8 @@ export const VercelIcon = ({ size = 17 }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const GitIcon = () => {
   return (
@@ -98,8 +98,8 @@ export const GitIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const BoxIcon = ({ size = 16 }: { size: number }) => {
   return (
@@ -117,8 +117,8 @@ export const BoxIcon = ({ size = 16 }: { size: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const HomeIcon = ({ size = 16 }: { size: number }) => {
   return (
@@ -136,8 +136,8 @@ export const HomeIcon = ({ size = 16 }: { size: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const GPSIcon = ({ size = 16 }: { size: number }) => {
   return (
@@ -157,8 +157,8 @@ export const GPSIcon = ({ size = 16 }: { size: number }) => {
         fill="transparent"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const InvoiceIcon = ({ size = 16 }: { size: number }) => {
   return (
@@ -176,8 +176,8 @@ export const InvoiceIcon = ({ size = 16 }: { size: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LogoOpenAI = ({ size = 16 }: { size?: number }) => {
   return (
@@ -193,8 +193,8 @@ export const LogoOpenAI = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LogoGoogle = ({ size = 16 }: { size?: number }) => {
   return (
@@ -223,8 +223,8 @@ export const LogoGoogle = ({ size = 16 }: { size?: number }) => {
         fill="#EA4335"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LogoAnthropic = () => {
   return (
@@ -243,8 +243,8 @@ export const LogoAnthropic = () => {
 		M24.3,39.3l8.8-22.8l8.8,22.8H24.3z"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const RouteIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -262,8 +262,8 @@ export const RouteIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const FileIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -281,8 +281,8 @@ export const FileIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LoaderIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -356,8 +356,8 @@ export const LoaderIcon = ({ size = 16 }: { size?: number }) => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const UploadIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -376,8 +376,8 @@ export const UploadIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const MenuIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -395,8 +395,8 @@ export const MenuIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const PencilEditIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -414,8 +414,8 @@ export const PencilEditIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const CheckedSquare = ({ size = 16 }: { size?: number }) => {
   return (
@@ -433,8 +433,8 @@ export const CheckedSquare = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const UncheckedSquare = ({ size = 16 }: { size?: number }) => {
   return (
@@ -455,8 +455,8 @@ export const UncheckedSquare = ({ size = 16 }: { size?: number }) => {
         fill="none"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const MoreIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -474,8 +474,8 @@ export const MoreIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const TrashIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -493,8 +493,8 @@ export const TrashIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const InfoIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -512,8 +512,8 @@ export const InfoIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const ArrowUpIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -531,8 +531,8 @@ export const ArrowUpIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const StopIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -549,8 +549,8 @@ export const StopIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const PaperclipIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -569,8 +569,8 @@ export const PaperclipIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const MoreHorizontalIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -588,8 +588,8 @@ export const MoreHorizontalIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const MessageIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -607,8 +607,8 @@ export const MessageIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const CrossIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -625,7 +625,7 @@ export const CrossIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const CrossSmallIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -642,7 +642,7 @@ export const CrossSmallIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     ></path>
   </svg>
-);
+)
 
 export const UndoIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -659,7 +659,7 @@ export const UndoIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const RedoIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -676,7 +676,7 @@ export const RedoIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const DeltaIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -693,7 +693,7 @@ export const DeltaIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const PenIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -710,7 +710,7 @@ export const PenIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const SummarizeIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -727,7 +727,7 @@ export const SummarizeIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const SidebarLeftIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -744,7 +744,7 @@ export const SidebarLeftIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const PlusIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -761,7 +761,7 @@ export const PlusIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const CopyIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -778,7 +778,7 @@ export const CopyIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const ThumbUpIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -795,7 +795,7 @@ export const ThumbUpIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const ThumbDownIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -812,7 +812,7 @@ export const ThumbDownIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const ChevronDownIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -829,7 +829,7 @@ export const ChevronDownIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const SparklesIcon = ({ size = 16 }: { size?: number }) => (
   <svg
@@ -852,7 +852,7 @@ export const SparklesIcon = ({ size = 16 }: { size?: number }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 export const CheckCircleFillIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -870,8 +870,8 @@ export const CheckCircleFillIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const GlobeIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -889,8 +889,8 @@ export const GlobeIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const LockIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -908,8 +908,8 @@ export const LockIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const EyeIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -927,8 +927,8 @@ export const EyeIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const ShareIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -946,8 +946,8 @@ export const ShareIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const CodeIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -965,8 +965,8 @@ export const CodeIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const PlayIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -984,8 +984,8 @@ export const PlayIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const PythonIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1005,8 +1005,8 @@ export const PythonIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const TerminalWindowIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1024,8 +1024,8 @@ export const TerminalWindowIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const TerminalIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1043,8 +1043,8 @@ export const TerminalIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const ClockRewind = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1062,8 +1062,8 @@ export const ClockRewind = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const LogsIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1081,8 +1081,8 @@ export const LogsIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 export const ImageIcon = ({ size = 16 }: { size?: number }) => {
   return (
@@ -1100,5 +1100,22 @@ export const ImageIcon = ({ size = 16 }: { size?: number }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}
+
+export const FullscreenIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1 5.25V6H2.5V5.25V2.5H5.25H6V1H5.25H2C1.44772 1 1 1.44772 1 2V5.25ZM5.25 14.9994H6V13.4994H5.25H2.5V10.7494V9.99939H1V10.7494V13.9994C1 14.5517 1.44772 14.9994 2 14.9994H5.25ZM15 10V10.75V14C15 14.5523 14.5523 15 14 15H10.75H10V13.5H10.75H13.5V10.75V10H15ZM10.75 1H10V2.5H10.75H13.5V5.25V6H15V5.25V2C15 1.44772 14.5523 1 14 1H10.75Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+)

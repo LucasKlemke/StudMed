@@ -150,7 +150,7 @@ export async function POST(request: Request) {
 
               const url_data = await response.text()
 
-              return {url_data}
+              return { url_data }
 
               // const { fullStream } = streamText({
               //   model: customModel(model.apiIdentifier),
@@ -215,8 +215,9 @@ export async function POST(request: Request) {
           },
 
           // 2. Criar um documento
-          createDocument: {
-            description: 'Criar um documento para uma atividade de escrita.',
+            createDocument: {
+            description:
+              'Criar um documento para uma atividade de escrita. Esta ferramenta chamará outras funções que gerarão o conteúdo do documento com base no título e tipo.',
             parameters: z.object({
               title: z.string(),
               kind: z.enum(['text', 'code']),
@@ -224,6 +225,8 @@ export async function POST(request: Request) {
             execute: async ({ title, kind }) => {
               const id = generateUUID()
               let draftText = ''
+
+              
 
               dataStream.writeData({
                 type: 'id',
@@ -249,7 +252,7 @@ export async function POST(request: Request) {
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
                   system:
-                    'Escreva sobre o tema dado. Markdown é suportado. Use títulos sempre que necessário.',
+                    'Write about the given topic. Markdown is supported. Use headings wherever appropriate.',
                   prompt: title,
                 })
 
@@ -314,14 +317,14 @@ export async function POST(request: Request) {
                 title,
                 kind,
                 content:
-                  'Um documento foi criado e agora está visível para o usuário.',
+                  'A document was created and is now visible to the user.',
               }
             },
           },
 
           // 3. Atualizar um documento
           updateDocument: {
-            description: 'Update a document with the given description',
+            description: 'Update a document with the given description.',
             parameters: z.object({
               id: z.string().describe('The ID of the document to update'),
               description: z

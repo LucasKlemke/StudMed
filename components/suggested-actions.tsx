@@ -16,9 +16,9 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'Crie um arquivo',
-      label: 'explicando sobre o Homúnculo de Penfield',
-      action: 'Crie um arquivo sobre o Homúnculo de Penfield.',
+      title: 'Crie um artigo',
+      label: 'sobre bronquiote crônica',
+      action: 'Crie um artigo sobre bronquite crônica.',
     },
     {
       title: 'Me ajude a',

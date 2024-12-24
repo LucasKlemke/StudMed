@@ -137,7 +137,7 @@ function PureBlockActions({
             <Button
               variant="outline"
               className={cn(
-                'p-2 h-fit !pointer-events-auto dark:hover:bg-zinc-700 text-primary border-primary',
+                'p-2 h-fit !pointer-events-auto dark:hover:bg-zinc-700',
                 {
                   'bg-muted': mode === 'diff',
                 }
@@ -160,7 +160,7 @@ function PureBlockActions({
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="p-2 text-primary border-primary h-fit  !pointer-events-auto"
+            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
             onClick={() => {
               handleVersionChange('prev')
             }}
@@ -176,7 +176,7 @@ function PureBlockActions({
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="p-2 h-fit text-primary border-primary dark:hover:bg-zinc-700 !pointer-events-auto"
+            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
             onClick={() => {
               handleVersionChange('next')
             }}
@@ -191,18 +191,18 @@ function PureBlockActions({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="outline"
-            className="p-2 h-fit text-primary border-primary dark:hover:bg-zinc-700"
+            variant="inverted"
+            className="p-2 h-fit text-primary dark:hover:bg-zinc-700"
             onClick={() => {
               copyToClipboard(block.content)
-              toast.success('Copiado para a área de transferência !')
+                toast.success('Copiado para a área de transferência!')
             }}
             disabled={block.status === 'streaming'}
           >
             <CopyIcon size={18} />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Copiar para área de transfêrencia</TooltipContent>
+        <TooltipContent>Copiar para área de transferência</TooltipContent>
       </Tooltip>
     </div>
   )

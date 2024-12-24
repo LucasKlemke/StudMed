@@ -35,6 +35,13 @@ function PureChatHeader({
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2 ">
       <SidebarToggle />
 
+      <Button
+        variant="outline"
+        className=" border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
+      >
+        StudMed
+      </Button>
+
       {(!open || windowWidth < 768) && (
         <Tooltip>
           <TooltipTrigger asChild>
@@ -53,6 +60,7 @@ function PureChatHeader({
           <TooltipContent>Novo chat</TooltipContent>
         </Tooltip>
       )}
+
       {/* 
       {!isReadonly && (
         <ModelSelector
@@ -61,20 +69,14 @@ function PureChatHeader({
         />
       )} */}
 
+      {!isReadonly && <Switcher className="order-2 md:order-2 rounded-2xl" />}
+
       {!isReadonly && (
         <VisibilitySelector
           chatId={chatId}
           selectedVisibilityType={selectedVisibilityType}
           className="order-1 md:order-3 rounded-2xl"
         />
-      )}
-
-      {!isReadonly && <Switcher className="order-1 md:order-2 rounded-2xl" />}
-
-      {chatId && windowWidth > 768 && (
-        <h1 className="order-1 w-full text-end self-center md:order-3 text-xl md:text-6xl tracking-tighter pr-20">
-          Studmed
-        </h1>
       )}
 
       {/* <Button

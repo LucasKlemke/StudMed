@@ -1,8 +1,9 @@
-import { memo, type SetStateAction } from 'react'
+import { memo } from 'react'
 
-import type { BlockKind, UIBlock } from './block'
+import type { BlockKind } from './block'
 import { FileIcon, LoaderIcon, MessageIcon, PencilEditIcon } from './icons'
 import { toast } from 'sonner'
+import { useBlock } from '@/hooks/use-block'
 
 const getActionText = (
   type: 'create' | 'update' | 'request-suggestions',
@@ -14,7 +15,7 @@ const getActionText = (
     case 'update':
       return tense === 'present' ? 'Atualizando' : 'Atualizado'
     case 'request-suggestions':
-      return tense === 'present' ? 'Adding suggestions' : 'Added suggestions to'
+      return tense === 'present' ? 'Adicionando sugestões' : 'Sugestões adicionadas a'
     default:
       return null
   }
@@ -23,21 +24,20 @@ const getActionText = (
 interface DocumentToolResultProps {
   type: 'create' | 'update' | 'request-suggestions'
   result: { id: string; title: string; kind: BlockKind }
-  block: UIBlock
-  setBlock: (value: SetStateAction<UIBlock>) => void
   isReadonly: boolean
 }
 
 function PureDocumentToolResult({
   type,
   result,
-  setBlock,
   isReadonly,
 }: DocumentToolResultProps) {
+  const { setBlock } = useBlock()
+
   return (
     <button
       type="button"
-      className="bg-background cursor-pointer text-primary border border-primary py-2 px-3 rounded-xl w-fit flex flex-row gap-3 items-start"
+      className="bg-background cursor-pointer border py-2 px-3 rounded-xl w-fit flex flex-row gap-3 items-start"
       onClick={(event) => {
         if (isReadonly) {
           toast.error(
@@ -66,7 +66,7 @@ function PureDocumentToolResult({
         })
       }}
     >
-      <div className=" mt-1">
+      <div className="text-primary mt-1">
         {type === 'create' ? (
           <FileIcon />
         ) : type === 'update' ? (
@@ -75,7 +75,7 @@ function PureDocumentToolResult({
           <MessageIcon />
         ) : null}
       </div>
-      <div className="text-left">
+      <div className="text-left text-primary">
         {`${getActionText(type, 'past')} "${result.title}"`}
       </div>
     </button>
@@ -87,16 +87,16 @@ export const DocumentToolResult = memo(PureDocumentToolResult, () => true)
 interface DocumentToolCallProps {
   type: 'create' | 'update' | 'request-suggestions'
   args: { title: string }
-  setBlock: (value: SetStateAction<UIBlock>) => void
   isReadonly: boolean
 }
 
 function PureDocumentToolCall({
   type,
   args,
-  setBlock,
   isReadonly,
 }: DocumentToolCallProps) {
+  const { setBlock } = useBlock()
+
   return (
     <button
       type="button"

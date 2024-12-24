@@ -105,10 +105,12 @@ export async function getChatById({ id }: { id: string }) {
 }
 
 export async function saveMessages({ messages }: { messages: Array<Message> }) {
+
+
   messages = messages.filter((message:any) => {
     // Eu desejo retornar o array
     return (
-      message.content[0].type !== 'tool-result' &&
+      // message.content[0].type !== 'tool-result' &&
       message.content[0].toolName !== 'webScraping'
     )
   })

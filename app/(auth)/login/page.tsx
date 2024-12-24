@@ -60,6 +60,7 @@ export default function Page() {
 
       <div className="flex flex-col justify-around md:justify-between  col-span-2  h-full max-w-full   ">
         <div className="pl-5 md:py-5 md:px-10 flex justify-start flex-col items-start">
+          
           <h1 className="text-3xl md:text-6xl   font-semibold">Studmed</h1>
           <h1 className="text-xs md:text-sm text-gray-500 dark:text-zinc-400 ">
             Turbine o seu aprendizado

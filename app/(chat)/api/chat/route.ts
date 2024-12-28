@@ -2,6 +2,7 @@ import {
   type Message,
   convertToCoreMessages,
   createDataStreamResponse,
+  generateText,
   streamObject,
   streamText,
 } from 'ai'
@@ -39,7 +40,6 @@ type AllowedTools =
   | 'createDocument'
   | 'updateDocument'
   | 'requestSuggestions'
-  | 'getWeather'
   | 'webScraping'
 
 const blocksTools: AllowedTools[] = [
@@ -48,14 +48,9 @@ const blocksTools: AllowedTools[] = [
   'requestSuggestions',
 ]
 
-const weatherTools: AllowedTools[] = ['getWeather']
 const scrappingTools: AllowedTools[] = ['webScraping']
 
-const allTools: AllowedTools[] = [
-  ...blocksTools,
-  ...weatherTools,
-  ...scrappingTools,
-]
+const allTools: AllowedTools[] = [...blocksTools, ...scrappingTools]
 
 export async function POST(request: Request) {
   const {
@@ -128,13 +123,19 @@ export async function POST(request: Request) {
         // tools
         tools: {
           webScraping: {
-            description: 'Realizar consultas na web e extrair informações',
+            description: `Realizar consulta na web e extrair informações da seguinte fonte : https://pubmed.ncbi.nlm.nih.gov/
+      - Você deve editar a url adicionando o termo de busca, por exemplo: https://pubmed.ncbi.nlm.nih.gov/?term=systole&filter=simsearch2.ffrft&filter=years.2000-2025
+      - Apos o termo, sempre aplicar os filtros &filter=simsearch2.ffrft&filter=years.2000-2025, para pegar conteudo gratuito e atualizado
+      - O termo sempre devera ser adaptado para o ingles
+      - Nunca devolver a url de busca como referencia
+            `,
             parameters: z.object({
-              url: z.string().describe('The URL to scrape'),
+              url: z.string().describe('O URL da página da web para consultar'),
             }),
             execute: async ({ url }) => {
               const id = generateUUID()
-              // let draftText = ''
+              let draftText = ''
+              console.log('WEBSCRAPPINGGGG')
 
               dataStream.writeData({
                 type: 'id',
@@ -150,7 +151,52 @@ export async function POST(request: Request) {
 
               const url_data = await response.text()
 
-              return { url_data }
+              // const { text } = await generateText({
+              //   model: customModel(model.apiIdentifier),
+              //   prompt: 'What is love?',
+              // })
+
+              const { text: links } = await generateText({
+                temperature: 0.1,
+                model: customModel(model.apiIdentifier),
+                system:
+                  'You are a web scraping tool. Given a web page content, extract the link of the first three articles and return an array with each link, do not add anything else besides the array.',
+                prompt: url_data,
+              })
+
+              const parsedLinks = JSON.parse(links)
+
+              console.log('parsedLinks', parsedLinks)
+              const content = await Promise.all(
+                parsedLinks.map(async (link) => {
+                  const article_response = await fetch(
+                    `https://r.jina.ai/${link}`
+                  )
+
+                  const article_url_data = await article_response.text()
+
+                  return article_url_data
+                })
+              ).then((articles) => articles.join('\n'))
+
+              // console.log('#############################content######', content)
+
+              return { content }
+
+              // Passo 1, consultar url de busca e selecionar os 3 primeiros links de artigos
+              // Passo 2, para cada link, extrair o conteudo do artigo
+              // Retornar o conteudo dos 3 artigos no seguinte modelo:
+              // Artigo 1:
+              //autores: nome completo dos autores
+              //titulo: titulo do artigo
+              //data: data de publicação
+              //link: link do artigo
+              //conteudo: conteudo do artigo
+              // ...
+
+              // const id = generateUUID()
+              // let draftText = ''
+              // console.log('WEBSCRAPPINGGGG')
 
               // const { fullStream } = streamText({
               //   model: customModel(model.apiIdentifier),
@@ -197,25 +243,9 @@ export async function POST(request: Request) {
               //  }
             },
           },
-          // 1. Consultar o clima
-          getWeather: {
-            description: 'Get the current weather at a location',
-            parameters: z.object({
-              latitude: z.number(),
-              longitude: z.number(),
-            }),
-            execute: async ({ latitude, longitude }) => {
-              const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`
-              )
-
-              const weatherData = await response.json()
-              return weatherData
-            },
-          },
 
           // 2. Criar um documento
-            createDocument: {
+          createDocument: {
             description:
               'Criar um documento para uma atividade de escrita. Esta ferramenta chamará outras funções que gerarão o conteúdo do documento com base no título e tipo.',
             parameters: z.object({
@@ -225,8 +255,6 @@ export async function POST(request: Request) {
             execute: async ({ title, kind }) => {
               const id = generateUUID()
               let draftText = ''
-
-              
 
               dataStream.writeData({
                 type: 'id',

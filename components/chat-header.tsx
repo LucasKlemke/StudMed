@@ -11,7 +11,8 @@ import { useSidebar } from './ui/sidebar'
 import { memo } from 'react'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { VisibilityType, VisibilitySelector } from './visibility-selector'
-import { Switcher } from './switcher'
+import { SubjectSwitcher } from './subject-switcher'
+import { DataFontSwitcher } from './datafont-switcher'
 
 function PureChatHeader({
   chatId,
@@ -69,7 +70,13 @@ function PureChatHeader({
         />
       )} */}
 
-      {!isReadonly && <Switcher className="order-2 md:order-2 rounded-2xl" />}
+      {!isReadonly && (
+        <SubjectSwitcher className="order-2 md:order-2 rounded-2xl" />
+      )}
+
+      {/* {!isReadonly && (
+        <DataFontSwitcher className="order-2 md:order-2 rounded-2xl" />
+      )} */}
 
       {!isReadonly && (
         <VisibilitySelector

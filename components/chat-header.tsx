@@ -62,8 +62,8 @@ function PureChatHeader({
         </Tooltip>
       )}
 
-      {/* 
-      {!isReadonly && (
+      
+      {/* {!isReadonly && (
         <ModelSelector
           selectedModelId={selectedModelId}
           className="order-1 md:order-2 rounded-2xl"

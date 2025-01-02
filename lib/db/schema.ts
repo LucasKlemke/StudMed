@@ -1,4 +1,4 @@
-import type { InferSelectModel } from 'drizzle-orm';
+import type { InferSelectModel } from 'drizzle-orm'
 import {
   pgTable,
   varchar,
@@ -9,15 +9,17 @@ import {
   primaryKey,
   foreignKey,
   boolean,
-} from 'drizzle-orm/pg-core';
+} from 'drizzle-orm/pg-core'
 
 export const user = pgTable('User', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
   email: varchar('email', { length: 64 }).notNull(),
+  username: varchar('username', { length: 256 }).notNull().default('usuario'),
   password: varchar('password', { length: 64 }),
-});
+})
 
-export type User = InferSelectModel<typeof user>;
+export type User = InferSelectModel<typeof user>
 
 export const chat = pgTable('Chat', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
@@ -30,9 +32,9 @@ export const chat = pgTable('Chat', {
     .notNull()
     .default('private'),
   // subjectId: varchar('subjectId').notNull(),
-});
+})
 
-export type Chat = InferSelectModel<typeof chat>;
+export type Chat = InferSelectModel<typeof chat>
 
 export const message = pgTable('Message', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
@@ -42,9 +44,9 @@ export const message = pgTable('Message', {
   role: varchar('role').notNull(),
   content: json('content').notNull(),
   createdAt: timestamp('createdAt').notNull(),
-});
+})
 
-export type Message = InferSelectModel<typeof message>;
+export type Message = InferSelectModel<typeof message>
 
 export const vote = pgTable(
   'Vote',
@@ -60,11 +62,11 @@ export const vote = pgTable(
   (table) => {
     return {
       pk: primaryKey({ columns: [table.chatId, table.messageId] }),
-    };
-  },
-);
+    }
+  }
+)
 
-export type Vote = InferSelectModel<typeof vote>;
+export type Vote = InferSelectModel<typeof vote>
 
 export const document = pgTable(
   'Document',
@@ -83,11 +85,11 @@ export const document = pgTable(
   (table) => {
     return {
       pk: primaryKey({ columns: [table.id, table.createdAt] }),
-    };
-  },
-);
+    }
+  }
+)
 
-export type Document = InferSelectModel<typeof document>;
+export type Document = InferSelectModel<typeof document>
 
 export const suggestion = pgTable(
   'Suggestion',
@@ -110,7 +112,7 @@ export const suggestion = pgTable(
       columns: [table.documentId, table.documentCreatedAt],
       foreignColumns: [document.id, document.createdAt],
     }),
-  }),
-);
+  })
+)
 
-export type Suggestion = InferSelectModel<typeof suggestion>;
+export type Suggestion = InferSelectModel<typeof suggestion>

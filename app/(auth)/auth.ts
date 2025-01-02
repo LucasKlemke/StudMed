@@ -1,13 +1,14 @@
-import { compare } from 'bcrypt-ts';
-import NextAuth, { type User, type Session } from 'next-auth';
-import Credentials from 'next-auth/providers/credentials';
+import { compare } from 'bcrypt-ts'
+import NextAuth, { type User, type Session } from 'next-auth'
+import Credentials from 'next-auth/providers/credentials'
 
-import { getUser } from '@/lib/db/queries';
+import { getUser, updateUser } from '@/lib/db/queries'
 
-import { authConfig } from './auth.config';
+import { authConfig } from './auth.config'
+
 
 interface ExtendedSession extends Session {
-  user: User;
+  user: User
 }
 
 export const {
@@ -21,35 +22,46 @@ export const {
     Credentials({
       credentials: {},
       async authorize({ email, password }: any) {
-        const users = await getUser(email);
-        if (users.length === 0) return null;
+        const users = await getUser(email)
+        if (users.length === 0) return null
         // biome-ignore lint: Forbidden non-null assertion.
-        const passwordsMatch = await compare(password, users[0].password!);
-        if (!passwordsMatch) return null;
-        return users[0] as any;
+        const passwordsMatch = await compare(password, users[0].password!)
+        if (!passwordsMatch) return null
+        return users[0] as any
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
+    async jwt({ token, user, trigger, session }) {
+      //update username
+      if (trigger === 'update' && session?.username) {
+        token.username = session.username
       }
 
-      return token;
+      if (user) {
+        token.id = user.id
+        token.username = user.username
+      }
+
+      //update user in database
+
+      await updateUser(token.id, token.username)
+
+      return token
     },
     async session({
       session,
       token,
     }: {
-      session: ExtendedSession;
-      token: any;
+      session: ExtendedSession
+      token: any
     }) {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id as string
+        session.user.username = token.username as string
       }
 
-      return session;
+      return session
     },
   },
-});
+})

@@ -27,6 +27,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import Link from 'next/link'
 
 export function SidebarUserNav({ user }: { user: User }) {
   const { setTheme, theme } = useTheme()
@@ -44,7 +45,11 @@ export function SidebarUserNav({ user }: { user: User }) {
                 height={24}
                 className="rounded-full"
               />
-              <span className="truncate">{user?.email}</span>
+              <div className='flex flex-col'>
+                <span className="truncate">{user?.username}</span>
+                <span className="truncate text-xs">{user?.email}</span>
+              </div>
+
               <ChevronUp className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
@@ -52,14 +57,16 @@ export function SidebarUserNav({ user }: { user: User }) {
             side="top"
             className="w-[--radix-popper-anchor-width]"
           >
-            <DropdownMenuItem className={`cursor-pointer `}>
-              <User/> Conta
-            </DropdownMenuItem>
+            <Link href="/account">
+              <DropdownMenuItem className={`cursor-pointer `}>
+                <User /> Conta
+              </DropdownMenuItem>
+            </Link>
             {/* <DropdownMenuItem className={`cursor-pointer `}>
               <Gem/>Meu plano
             </DropdownMenuItem> */}
             <DropdownMenuItem className={`cursor-pointer `}>
-             <Info/> Suporte
+              <Info /> Suporte
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

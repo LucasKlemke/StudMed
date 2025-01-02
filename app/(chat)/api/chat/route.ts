@@ -168,7 +168,7 @@ export async function POST(request: Request) {
 
               console.log('parsedLinks', parsedLinks)
               const content = await Promise.all(
-                parsedLinks.map(async (link) => {
+                parsedLinks.map(async (link:string) => {
                   const article_response = await fetch(
                     `https://r.jina.ai/${link}`
                   )

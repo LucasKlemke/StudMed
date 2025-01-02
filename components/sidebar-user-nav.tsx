@@ -7,8 +7,7 @@ import {
   Moon,
   Sun,
   ToggleLeft,
-  ToggleRight,
-  User,
+  ToggleRight
 } from 'lucide-react'
 import Image from 'next/image'
 import type { User } from 'next-auth'
@@ -59,7 +58,8 @@ export function SidebarUserNav({ user }: { user: User }) {
           >
             <Link href="/account">
               <DropdownMenuItem className={`cursor-pointer `}>
-                <User /> Conta
+                {/* <User />  */}
+                Conta
               </DropdownMenuItem>
             </Link>
             {/* <DropdownMenuItem className={`cursor-pointer `}>

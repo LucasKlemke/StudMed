@@ -7,6 +7,7 @@ import { getUser, updateUser } from '@/lib/db/queries'
 import { authConfig } from './auth.config'
 
 
+
 interface ExtendedSession extends Session {
   user: User
 }
@@ -39,7 +40,7 @@ export const {
       }
 
       if (user) {
-        token.id = user.id
+        token.id = user.id as string
         token.username = user.username
       }
 

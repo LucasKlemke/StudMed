@@ -51,7 +51,7 @@ export default function SubscriptionManagement() {
   const [isEditing, setIsEditing] = useState(false)
   const [currentPlan, setCurrentPlan] = useState(plans[0])
 
-  const handleUpgrade = (plan) => {
+  const handleUpgrade = (plan: any) => {
     // Here you would typically handle the upgrade process
     console.log(`Upgrading to ${plan.name} plan`)
     setCurrentPlan(plan)
@@ -107,7 +107,8 @@ export default function SubscriptionManagement() {
         </div>
         <div className="pt-3">
           <p>
-            Plano atual <strong className='text-primary'>{currentPlan.name} </strong> (
+            Plano atual{' '}
+            <strong className="text-primary">{currentPlan.name} </strong> (
             {currentPlan.price.replace('/mês', '')})
           </p>
           <p>

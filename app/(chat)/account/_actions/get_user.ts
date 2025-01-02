@@ -6,7 +6,7 @@ import { getUser, updateUser } from '@/lib/db/queries'
 export async function getUserSession() {
   const session = await auth()
 
-  const user = await getUser(session.user.email)
+  const user = await getUser(session?.user?.email as string)
 
   console.log(user)
 

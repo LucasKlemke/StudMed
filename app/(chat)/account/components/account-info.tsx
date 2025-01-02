@@ -18,14 +18,12 @@ import { useSession } from 'next-auth/react'
 
 export default function AccountInfo() {
   const { data: session, update } = useSession()
-  const [user, setUser] = useState(session.user)
-    const [originalName, setOriginalName] = useState(session?.user.username)
+  const [user, setUser] = useState(session?.user)
+  const [originalName, setOriginalName] = useState(session?.user?.username)
   const [name, setName] = useState(originalName)
-  const [email, setEmail] = useState(session?.user.email)
+  const [email, setEmail] = useState(session?.user?.email)
 
   const [isEditing, setIsEditing] = useState(false)
-
-
 
   const [avatar, setAvatar] = useState('/placeholder.svg?height=100&width=100')
 
@@ -99,10 +97,10 @@ export default function AccountInfo() {
                     alt={name}
                   />
                   <AvatarFallback>
-                    {name
+                    {name ? name
                       .split(' ')
                       .map((n) => n[0])
-                      .join('')}
+                      .join('') : 'A'}
                   </AvatarFallback>
                 </Avatar>
                 {/* {isEditing && (
@@ -140,7 +138,7 @@ export default function AccountInfo() {
                       disabled
                       id="email"
                       type="email"
-                      value={email}
+                      value={email as string}
                       onChange={handleEmailChange}
                     />
                     <Button disabled className="rounded-full">

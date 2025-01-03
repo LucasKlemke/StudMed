@@ -17,6 +17,8 @@ export default async function Layout({
   const [session, cookieStore] = await Promise.all([auth(), cookies()])
   const isCollapsed = cookieStore.get('sidebar:state')?.value !== 'true'
 
+  console.log(session)
+
   return (
     <>
       <SessionProvider session={session}>

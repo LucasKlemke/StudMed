@@ -7,10 +7,11 @@ import {
   Moon,
   Sun,
   ToggleLeft,
-  ToggleRight
+  ToggleRight,
+  User
 } from 'lucide-react'
 import Image from 'next/image'
-import type { User } from 'next-auth'
+import type { User as AuthUser } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 
@@ -28,7 +29,7 @@ import {
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
 
-export function SidebarUserNav({ user }: { user: User }) {
+export function SidebarUserNav({ user }: { user: AuthUser }) {
   const { setTheme, theme } = useTheme()
 
   return (
@@ -44,7 +45,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                 height={24}
                 className="rounded-full"
               />
-              <div className='flex flex-col'>
+              <div className="flex flex-col">
                 <span className="truncate">{user?.username}</span>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
@@ -58,7 +59,7 @@ export function SidebarUserNav({ user }: { user: User }) {
           >
             <Link href="/account">
               <DropdownMenuItem className={`cursor-pointer `}>
-                {/* <User />  */}
+                <User />
                 Conta
               </DropdownMenuItem>
             </Link>

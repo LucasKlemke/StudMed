@@ -1,9 +1,11 @@
 // app/api/convert/route.ts
 
 import { NextResponse } from 'next/server'
+import { auth } from '@/app/(auth)/auth'
 import type { NextRequest } from 'next/server'
 import MarkdownIt from 'markdown-it'
-import puppeteer, { PDFOptions } from 'puppeteer'
+import puppeteerCore, { PDFOptions } from 'puppeteer'
+import chromium from 'chrome-aws-lambda'
 // Import your authentication function
 
 // Optional: Define a schema for validation (e.g., using Zod)
@@ -81,10 +83,17 @@ const markdownToPdf = async (
   `
 
   // Launch Puppeteer
-  const browser = await puppeteer.launch({
-    headless: true, // Run in headless mode
-    args: ['--no-sandbox', '--disable-setuid-sandbox'], // Necessary for some environments
-  })
+  // const browser = await puppeteer.launch({
+  //   headless: true, // Run in headless mode
+  //   args: ['--no-sandbox', '--disable-setuid-sandbox'], // Necessary for some environments
+  // })
+
+   const browser = await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+    });
 
   try {
     const page = await browser.newPage()
@@ -111,7 +120,11 @@ const markdownToPdf = async (
 
 export async function POST(request: NextRequest) {
   // Authenticate the user/session
+   const session = await auth()
 
+   if (!session || !session.user) {
+     throw new Error('Unauthorized')
+   }
   // Ensure the request has a body
   const contentType = request.headers.get('Content-Type') || ''
   if (!contentType.includes('application/json')) {

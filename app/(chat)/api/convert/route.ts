@@ -4,8 +4,10 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/app/(auth)/auth'
 import type { NextRequest } from 'next/server'
 import MarkdownIt from 'markdown-it'
-import puppeteerCore, { PDFOptions } from 'puppeteer'
-import chromium from 'chrome-aws-lambda'
+import puppeteer, { type Browser, PDFOptions } from 'puppeteer'
+import puppeteerCore, { type Browser as BrowserCore } from 'puppeteer-core'
+import chromium from '@sparticuz/chromium-min'
+
 // Import your authentication function
 
 // Optional: Define a schema for validation (e.g., using Zod)
@@ -83,17 +85,29 @@ const markdownToPdf = async (
   `
 
   // Launch Puppeteer
-  // const browser = await puppeteer.launch({
-  //   headless: true, // Run in headless mode
-  //   args: ['--no-sandbox', '--disable-setuid-sandbox'], // Necessary for some environments
-  // })
-
-   const browser = await puppeteerCore.launch({
+  let browser: Browser | BrowserCore
+  if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.VERCEL_ENV === 'production'
+  ) {
+    // Configure the version based on your package.json (for your future usage).
+    const executablePath = await chromium.executablePath(
+      'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar'
+    )
+    browser = await puppeteerCore.launch({
+      executablePath,
+      // You can pass other configs as required
       args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
       headless: chromium.headless,
-    });
+      defaultViewport: chromium.defaultViewport,
+    })
+  } else {
+    // console.log(process.env.NODE_ENV)
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    })
+  }
 
   try {
     const page = await browser.newPage()
@@ -120,11 +134,13 @@ const markdownToPdf = async (
 
 export async function POST(request: NextRequest) {
   // Authenticate the user/session
-   const session = await auth()
+  const session = await auth()
 
-   if (!session || !session.user) {
-     throw new Error('Unauthorized')
-   }
+
+
+  if (!session || !session.user) {
+    throw new Error('Unauthorized')
+  }
   // Ensure the request has a body
   const contentType = request.headers.get('Content-Type') || ''
   if (!contentType.includes('application/json')) {
@@ -150,10 +166,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: errorMessage }, { status: 400 })
   }
 
+  const escapeNumberedLines = (markdown: string): string => {
+    return markdown.replace(/^(\d+)\.\s/gm, '$1\\. ')
+  }
+
   const { markdown } = parsed.data
 
   try {
-    const pdfBuffer = await markdownToPdf(markdown)
+    const pdfBuffer = await markdownToPdf(escapeNumberedLines(markdown))
 
     return new Response(pdfBuffer, {
       status: 200,

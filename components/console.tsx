@@ -70,7 +70,7 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
           'fixed flex flex-col bottom-0 dark:bg-zinc-900 bg-zinc-50 w-full border-t z-40 overflow-y-scroll dark:border-zinc-700 border-zinc-200',
           {
             'select-none': isResizing,
-          },
+          }
         )}
         style={{ height }}
       >
@@ -108,7 +108,7 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
                 [{index + 1}]
               </div>
               {consoleOutput.status === 'in_progress' ? (
-                <div className="animate-spin size-fit self-center">
+                <div className="animate-spin size-fit self-center mb-auto mt-0.5">
                   <LoaderIcon />
                 </div>
               ) : (
@@ -122,5 +122,5 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
         </div>
       </div>
     </>
-  ) : null;
+  ) : null
 }

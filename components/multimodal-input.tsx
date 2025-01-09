@@ -78,6 +78,14 @@ function PureMultimodalInput({
     }
   }
 
+  const resetHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height = '98px'
+    }
+  }
+
+
   const [localStorageInput, setLocalStorageInput] = useLocalStorage('input', '')
 
   useEffect(() => {
@@ -113,6 +121,7 @@ function PureMultimodalInput({
 
     setAttachments([])
     setLocalStorageInput('')
+    resetHeight()
 
     if (width && width > 768) {
       textareaRef.current?.focus()
@@ -240,9 +249,9 @@ function PureMultimodalInput({
         }}
       />
 
-      {/* <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
+      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
-      </div> */}
+      </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
         {isLoading ? (

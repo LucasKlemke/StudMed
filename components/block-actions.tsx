@@ -13,12 +13,14 @@ import {
   useCallback,
   useState,
 } from 'react'
+import { Download, Loader, Loader2 } from 'lucide-react'
 
 interface BlockActionsProps {
   block: UIBlock
   handleVersionChange: (type: 'next' | 'prev' | 'toggle' | 'latest') => void
   currentVersionIndex: number
   isCurrentVersion: boolean
+  isContentDirty: boolean
   mode: 'read-only' | 'edit' | 'diff'
   setConsoleOutputs: Dispatch<SetStateAction<Array<ConsoleOutput>>>
 }
@@ -31,6 +33,7 @@ export function RunCodeButton({
   setConsoleOutputs: Dispatch<SetStateAction<Array<ConsoleOutput>>>
 }) {
   const [pyodide, setPyodide] = useState<any>(null)
+
   const isPython = true
   const codeContent = block.content
 
@@ -120,10 +123,68 @@ function PureBlockActions({
   handleVersionChange,
   currentVersionIndex,
   isCurrentVersion,
+  isContentDirty,
   mode,
+
   setConsoleOutputs,
 }: BlockActionsProps) {
   const [_, copyToClipboard] = useCopyToClipboard()
+  const [loadingPdf, setLoadingPdf] = useState(false)
+  const downloadPdf = async (markdownString: string, documentTitle: string) => {
+    console.log(documentTitle)
+    setLoadingPdf(true)
+    function sanitizeString(input: string) {
+      // Step 1: Remove special characters except spaces
+      const noSpecialChars = input.replace(/[^a-zA-Z0-9 ]/g, '')
+
+      // Step 2: Replace one or more spaces with a single underscore
+      const replacedSpaces = noSpecialChars.replace(/\s+/g, '_')
+
+      return replacedSpaces
+    }
+
+    try {
+      const response = await fetch('/api/convert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Include authentication headers if necessary
+          // 'Authorization': `Bearer ${yourAuthToken}`,
+        },
+        body: JSON.stringify({ markdown: markdownString }),
+      })
+
+      if (!response.ok) {
+        let errorMessage = 'Failed to generate PDF.'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch (jsonError) {
+          console.error('Failed to parse error response as JSON:', jsonError)
+          // Optionally, you can extract text from the response
+          const errorText = await response.text()
+          if (errorText) {
+            errorMessage = errorText
+          }
+        }
+        throw new Error(errorMessage)
+      }
+
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(new Blob([blob]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `${sanitizeString(documentTitle)}.pdf`) // or any other extension
+      document.body.appendChild(link)
+      link.click()
+      link.parentNode?.removeChild(link)
+    } catch (error: any) {
+      toast.error(error.message || 'Algo deu errado.')
+    } finally {
+      setLoadingPdf(false)
+      toast.success('PDF gerado com sucesso!')
+    }
+  }
 
   return (
     <div className="flex flex-row gap-1">
@@ -152,7 +213,7 @@ function PureBlockActions({
               <ClockRewind size={18} />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>View changes</TooltipContent>
+          <TooltipContent>Ver mudanças</TooltipContent>
         </Tooltip>
       )}
 
@@ -169,7 +230,7 @@ function PureBlockActions({
             <UndoIcon size={18} />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>View Previous version</TooltipContent>
+        <TooltipContent>Ver versão anterior</TooltipContent>
       </Tooltip>
 
       <Tooltip>
@@ -185,7 +246,29 @@ function PureBlockActions({
             <RedoIcon size={18} />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>View Next version</TooltipContent>
+        <TooltipContent>Ver próxima versão</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
+            onClick={() => {
+              downloadPdf(block.content, document?.title ?? block.title)
+            }}
+            disabled={
+              block.status === 'streaming' || loadingPdf || isContentDirty
+            }
+          >
+            {loadingPdf || isContentDirty ? (
+              <Loader2 className="animate-spin" size={18} />
+            ) : (
+              <Download size={18} />
+            )}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Baixar em PDF</TooltipContent>
       </Tooltip>
 
       <Tooltip>
@@ -195,7 +278,7 @@ function PureBlockActions({
             className="p-2 h-fit text-primary dark:hover:bg-zinc-700"
             onClick={() => {
               copyToClipboard(block.content)
-                toast.success('Copiado para a área de transferência!')
+              toast.success('Copiado para a área de transferência!')
             }}
             disabled={block.status === 'streaming'}
           >

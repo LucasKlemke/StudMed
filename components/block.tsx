@@ -442,6 +442,7 @@ function PureBlock({
 
               <BlockActions
                 block={block}
+                isContentDirty={isContentDirty}
                 currentVersionIndex={currentVersionIndex}
                 handleVersionChange={handleVersionChange}
                 isCurrentVersion={isCurrentVersion}

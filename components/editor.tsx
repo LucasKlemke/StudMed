@@ -141,7 +141,7 @@ function PureEditor({
     }
   }, [suggestions, content])
 
-  return <div className="relative prose dark:prose-invert" ref={containerRef} />
+  return <div className="relative prose dark:prose-invert" id='document_download' ref={containerRef} />
 }
 
 function areEqual(prevProps: EditorProps, nextProps: EditorProps) {

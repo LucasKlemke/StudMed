@@ -71,7 +71,7 @@ export default function SubscriptionManagement() {
           {plans.map((plan) => (
             <Card
               className={`${
-                plan.name === currentPlan.name ? 'ring-1 ring-primary' : ''
+                plan.name === currentPlan.name ? 'ring-1 ring-primary sm:col-span-3 md:col-span-3 lg:col-span-1' : ''
               }`}
               key={plan.name}
             >

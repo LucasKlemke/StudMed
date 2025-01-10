@@ -168,7 +168,7 @@ export async function POST(request: Request) {
 
               console.log('parsedLinks', parsedLinks)
               const content = await Promise.all(
-                parsedLinks.map(async (link:string) => {
+                parsedLinks.map(async (link: string) => {
                   const article_response = await fetch(
                     `https://r.jina.ai/${link}`
                   )
@@ -277,11 +277,63 @@ export async function POST(request: Request) {
               })
 
               if (kind === 'text') {
+                // passo 1 - buscar no site da fonte
+
+                const { text: url } = await generateText({
+                  temperature: 0.1,
+                  model: customModel(model.apiIdentifier),
+                  system: `
+
+
+
+      Retornar a url de busca com os filtros aplicados com base no tema, nada mais que a url.
+      - Você deve editar a url adicionando o termo de busca, por exemplo: https://pubmed.ncbi.nlm.nih.gov/?term=systole&filter=simsearch2.ffrft&filter=years.2000-2025
+      - Apos o termo, sempre aplicar os filtros &filter=simsearch2.ffrft&filter=years.2000-2025, para pegar conteudo gratuito e atualizado
+      - O termo sempre devera ser adaptado para o ingles`,
+                  prompt: `Tema : ${title}`,
+                })
+
+                const response = await fetch(`https://r.jina.ai/${url}`)
+
+                const url_data = await response.text()
+
+                // passo 2 - extrair 3 links em formato de arry
+
+                const { text: links } = await generateText({
+                  temperature: 0.1,
+                  model: customModel(model.apiIdentifier),
+                  system:
+                    'You are a web scraping tool. Given a web page content, extract the link of the first three articles and return an array with each link, do not add anything else besides the array.',
+                  prompt: url_data,
+                })
+
+                // passo 3 - webscrapping nos 3 links e colocar no prompt abaixo
+
+                const parsedLinks = JSON.parse(links)
+
+                console.log('parsedLinks', parsedLinks)
+                const content = await Promise.all(
+                  parsedLinks.map(async (link: string) => {
+                    const article_response = await fetch(
+                      `https://r.jina.ai/${link}`
+                    )
+
+                    const article_url_data = await article_response.text()
+
+                    return article_url_data
+                  })
+                ).then((articles) => articles.join('\n'))
+
+                console.log(
+                  '#############################content######',
+                  content
+                )
+
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
                   system:
-                    'Write about the given topic. Markdown is supported. Use headings wherever appropriate.',
-                  prompt: title,
+                    'Com base no conteúdo, crie um artigo com base nele. Markdown é suportado. Use títulos sempre que apropriado. Sempre forneça as referências de URL no final. Responda em pt-br',
+                  prompt: content,
                 })
 
                 for await (const delta of fullStream) {

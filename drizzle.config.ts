@@ -6,11 +6,11 @@ config({
 });
 
 export default defineConfig({
-  schema: './lib/db/schema.ts',
-  out: './lib/db/migrations',
   dialect: 'postgresql',
+  schema: './lib/db/schema',
+  out: './lib/db/migrations',
   dbCredentials: {
     // biome-ignore lint: Forbidden non-null assertion.
     url: process.env.DATABASE_URL!,
   },
-});
+})

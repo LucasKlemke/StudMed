@@ -6,7 +6,7 @@ import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import React, { memo, useEffect, useRef } from 'react'
 
-import type { Suggestion } from '@/lib/db/schema'
+import type { Suggestion } from '@/lib/db/schema/suggestion'
 import {
   documentSchema,
   handleTransaction,
@@ -141,7 +141,13 @@ function PureEditor({
     }
   }, [suggestions, content])
 
-  return <div className="relative prose dark:prose-invert" id='document_download' ref={containerRef} />
+  return (
+    <div
+      className="relative prose dark:prose-invert"
+      id="document_download"
+      ref={containerRef}
+    />
+  )
 }
 
 function areEqual(prevProps: EditorProps, nextProps: EditorProps) {

@@ -5,18 +5,15 @@ import { and, asc, desc, eq, gt, gte } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 
-import {
-  user,
-  chat,
-  type User,
-  document,
-  type Suggestion,
-  suggestion,
-  type Message,
-  message,
-  vote,
-} from './schema'
+
 import { BlockKind } from '@/components/block'
+
+import { vote } from './schema/vote'
+import { message, type Message } from './schema/message'
+import { type Suggestion, suggestion } from './schema/suggestion'
+import { document } from './schema/document'
+import { chat } from './schema/chat'
+import { user, User } from './schema/user'
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -35,12 +32,9 @@ export async function getUser(email: string): Promise<Array<User>> {
   }
 }
 
-export async function updateUser(id:string,username: string){
+export async function updateUser(id: string, username: string) {
   try {
-    await db
-      .update(user)
-      .set({ username })
-      .where(eq(user.id, id))
+    await db.update(user).set({ username }).where(eq(user.id, id))
   } catch (error) {
     console.error('Failed to get user from database')
     throw error
@@ -117,9 +111,7 @@ export async function getChatById({ id }: { id: string }) {
 }
 
 export async function saveMessages({ messages }: { messages: Array<Message> }) {
-
-
-  messages = messages.filter((message:any) => {
+  messages = messages.filter((message: any) => {
     // Eu desejo retornar o array
     return (
       // message.content[0].type !== 'tool-result' &&

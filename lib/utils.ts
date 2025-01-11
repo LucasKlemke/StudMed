@@ -8,8 +8,9 @@ import type {
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import type { Message as DBMessage, Document } from '@/lib/db/schema';
 
+import type { Message as DBMessage } from '@/lib/db/schema/message';
+import type { Document } from '@/lib/db/schema/document';
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

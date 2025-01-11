@@ -25,7 +25,7 @@ import {
   saveMessages,
   saveSuggestions,
 } from '@/lib/db/queries'
-import type { Suggestion } from '@/lib/db/schema'
+import type { Suggestion } from '@/lib/db/schema/suggestion'
 import {
   generateUUID,
   getMostRecentUserMessage,
@@ -168,7 +168,7 @@ export async function POST(request: Request) {
 
               console.log('parsedLinks', parsedLinks)
               const content = await Promise.all(
-                parsedLinks.map(async (link:string) => {
+                parsedLinks.map(async (link: string) => {
                   const article_response = await fetch(
                     `https://r.jina.ai/${link}`
                   )

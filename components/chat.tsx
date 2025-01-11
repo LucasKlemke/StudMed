@@ -8,7 +8,7 @@ import useSWR, { useSWRConfig } from 'swr'
 import { useWindowSize } from 'usehooks-ts'
 
 import { ChatHeader } from '@/components/chat-header'
-import type { Vote } from '@/lib/db/schema'
+import type { Vote } from '@/lib/db/schema/vote'
 import { fetcher } from '@/lib/utils'
 
 import { Block, type UIBlock } from './block'

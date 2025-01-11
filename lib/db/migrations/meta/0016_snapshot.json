@@ -1,6 +1,6 @@
 {
-  "id": "379859f4-17fa-4233-96cd-c6d571762122",
-  "prevId": "d1c20a5c-7812-4252-a103-d7bb286f3c9d",
+  "id": "0ebc8db9-6bbe-4517-86cc-aa87d41aa018",
+  "prevId": "4b903f01-407b-4ee9-b3ab-72399403c915",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -58,7 +58,10 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.Document": {
       "name": "Document",
@@ -128,72 +131,10 @@
           ]
         }
       },
-      "uniqueConstraints": {}
-    },
-    "public.embeddings": {
-      "name": "embeddings",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(191)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "resource_id": {
-          "name": "resource_id",
-          "type": "varchar(191)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "content": {
-          "name": "content",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "embedding": {
-          "name": "embedding",
-          "type": "vector(1536)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "embeddingIndex": {
-          "name": "embeddingIndex",
-          "columns": [
-            {
-              "expression": "embedding",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last",
-              "opclass": "vector_cosine_ops"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "hnsw",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "embeddings_resource_id_resources_id_fk": {
-          "name": "embeddings_resource_id_resources_id_fk",
-          "tableFrom": "embeddings",
-          "tableTo": "resources",
-          "columnsFrom": [
-            "resource_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.Message": {
       "name": "Message",
@@ -248,7 +189,10 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.Suggestion": {
       "name": "Suggestion",
@@ -350,7 +294,10 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.User": {
       "name": "User",
@@ -393,7 +340,10 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.Vote": {
       "name": "Vote",
@@ -456,12 +406,18 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
   "enums": {},
   "schemas": {},
   "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},

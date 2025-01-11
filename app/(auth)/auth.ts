@@ -34,8 +34,6 @@ export const {
   ],
   callbacks: {
     async jwt({ token, user, trigger, session }) {
-
-      console.log('trigger', trigger)
       //update username
       if (trigger === 'update' && session?.username) {
         token.username = session.username

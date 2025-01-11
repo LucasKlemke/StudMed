@@ -3,12 +3,9 @@ import {
   pgTable,
   varchar,
   timestamp,
-  json,
   uuid,
   text,
   primaryKey,
-  foreignKey,
-  boolean,
 } from 'drizzle-orm/pg-core'
 import { user } from './user'
 

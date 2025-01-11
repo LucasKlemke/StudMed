@@ -8,7 +8,5 @@ export async function getUserSession() {
 
   const user = await getUser(session?.user?.email as string)
 
-  console.log(user)
-
   return user[0]
 }

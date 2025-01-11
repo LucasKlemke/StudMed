@@ -123,20 +123,132 @@ export async function POST(request: Request) {
 
         // tools
         tools: {
+          //     webScraping: {
+          //       description: `Realizar consulta na web e extrair informações da seguinte fonte : https://pubmed.ncbi.nlm.nih.gov/
+          // - Você deve editar a url adicionando o termo de busca, por exemplo: https://pubmed.ncbi.nlm.nih.gov/?term=systole&filter=simsearch2.ffrft&filter=years.2000-2025
+          // - Apos o termo, sempre aplicar os filtros &filter=simsearch2.ffrft&filter=years.2000-2025, para pegar conteudo gratuito e atualizado
+          // - O termo sempre devera ser adaptado para o ingles
+          // - Nunca devolver a url de busca como referencia
+          //       `,
+          //       parameters: z.object({
+          //         url: z.string().describe('O URL da página da web para consultar'),
+          //       }),
+          //       execute: async ({ url }) => {
+          //         const id = generateUUID()
+
+          //         dataStream.writeData({
+          //           type: 'id',
+          //           content: id,
+          //         })
+
+          //         dataStream.writeData({
+          //           type: 'clear',
+          //           content: '',
+          //         })
+
+          //         const response = await fetch(`https://r.jina.ai/${url}`)
+
+          //         const url_data = await response.text()
+
+          //         // const { text } = await generateText({
+          //         //   model: customModel(model.apiIdentifier),
+          //         //   prompt: 'What is love?',
+          //         // })
+
+          //         const { text: links } = await generateText({
+          //           temperature: 0.1,
+          //           model: customModel(model.apiIdentifier),
+          //           system:
+          //             'You are a web scraping tool. Given a web page content, extract the link of the first three articles and return an array with each link, do not add anything else besides the array.',
+          //           prompt: url_data,
+          //         })
+
+          //         const parsedLinks = JSON.parse(links)
+
+          //         const content = await Promise.all(
+          //           parsedLinks.map(async (link: string) => {
+          //             const article_response = await fetch(
+          //               `https://r.jina.ai/${link}`
+          //             )
+
+          //             const article_url_data = await article_response.text()
+
+          //             return article_url_data
+          //           })
+          //         ).then((articles) => articles.join('\n'))
+
+          //         // console.log('#############################content######', content)
+
+          //         return { content }
+
+          //         // Passo 1, consultar url de busca e selecionar os 3 primeiros links de artigos
+          //         // Passo 2, para cada link, extrair o conteudo do artigo
+          //         // Retornar o conteudo dos 3 artigos no seguinte modelo:
+          //         // Artigo 1:
+          //         //autores: nome completo dos autores
+          //         //titulo: titulo do artigo
+          //         //data: data de publicação
+          //         //link: link do artigo
+          //         //conteudo: conteudo do artigo
+          //         // ...
+
+          //         // const id = generateUUID()
+          //         // let draftText = ''
+          //         // console.log('WEBSCRAPPINGGGG')
+
+          //         // const { fullStream } = streamText({
+          //         //   model: customModel(model.apiIdentifier),
+          //         //   system:
+          //         //     'Você é uma IA médica que ensina estudantes de medicina, com base no conteúdo, crie um resumo super didático e completo, para que o estudante absorva  máximo de conhecimento possível. Markdown é suportado. Use títulos sempre que necessário.',
+          //         //   prompt: url_data,
+          //         // })
+
+          //         // for await (const delta of fullStream) {
+          //         //   const { type } = delta
+
+          //         //   if (type === 'text-delta') {
+          //         //     const { textDelta } = delta
+
+          //         //     draftText += textDelta
+          //         //     dataStream.writeData({
+          //         //       type: 'text-delta',
+          //         //       content: textDelta,
+          //         //     })
+          //         //   }
+          //         // }
+
+          //         // dataStream.writeData({ type: 'finish', content: '' })
+
+          //         // dataStream.writeData(url_data)
+          //         //   let title = 'Web Scraping'
+          //         //   let kind = 'text'
+          //         //  if (session.user?.id) {
+          //         //    await saveDocument({
+          //         //      id,
+          //         //      title,
+          //         //      kind,
+          //         //      content: draftText,
+          //         //      userId: session.user.id,
+          //         //    })
+          //         //  }
+
+          //         //  return {
+          //         //    id,
+          //         //    title,
+          //         //    kind,
+          //         //    content:
+          //         //      'Um documento foi criado e agora está visível para o usuário.',
+          //         //  }
+          //       },
+          //     },
           webScraping: {
-            description: `Realizar consulta na web e extrair informações da seguinte fonte : https://pubmed.ncbi.nlm.nih.gov/
-      - Você deve editar a url adicionando o termo de busca, por exemplo: https://pubmed.ncbi.nlm.nih.gov/?term=systole&filter=simsearch2.ffrft&filter=years.2000-2025
-      - Apos o termo, sempre aplicar os filtros &filter=simsearch2.ffrft&filter=years.2000-2025, para pegar conteudo gratuito e atualizado
-      - O termo sempre devera ser adaptado para o ingles
-      - Nunca devolver a url de busca como referencia
+            description: `Realizar consulta na web com base em uma url fornecida pelo usuário
             `,
             parameters: z.object({
               url: z.string().describe('O URL da página da web para consultar'),
             }),
             execute: async ({ url }) => {
               const id = generateUUID()
-              let draftText = ''
-              console.log('WEBSCRAPPINGGGG')
 
               dataStream.writeData({
                 type: 'id',
@@ -152,96 +264,7 @@ export async function POST(request: Request) {
 
               const url_data = await response.text()
 
-              // const { text } = await generateText({
-              //   model: customModel(model.apiIdentifier),
-              //   prompt: 'What is love?',
-              // })
-
-              const { text: links } = await generateText({
-                temperature: 0.1,
-                model: customModel(model.apiIdentifier),
-                system:
-                  'You are a web scraping tool. Given a web page content, extract the link of the first three articles and return an array with each link, do not add anything else besides the array.',
-                prompt: url_data,
-              })
-
-              const parsedLinks = JSON.parse(links)
-
-              console.log('parsedLinks', parsedLinks)
-              const content = await Promise.all(
-                parsedLinks.map(async (link: string) => {
-                  const article_response = await fetch(
-                    `https://r.jina.ai/${link}`
-                  )
-
-                  const article_url_data = await article_response.text()
-
-                  return article_url_data
-                })
-              ).then((articles) => articles.join('\n'))
-
-              // console.log('#############################content######', content)
-
-              return { content }
-
-              // Passo 1, consultar url de busca e selecionar os 3 primeiros links de artigos
-              // Passo 2, para cada link, extrair o conteudo do artigo
-              // Retornar o conteudo dos 3 artigos no seguinte modelo:
-              // Artigo 1:
-              //autores: nome completo dos autores
-              //titulo: titulo do artigo
-              //data: data de publicação
-              //link: link do artigo
-              //conteudo: conteudo do artigo
-              // ...
-
-              // const id = generateUUID()
-              // let draftText = ''
-              // console.log('WEBSCRAPPINGGGG')
-
-              // const { fullStream } = streamText({
-              //   model: customModel(model.apiIdentifier),
-              //   system:
-              //     'Você é uma IA médica que ensina estudantes de medicina, com base no conteúdo, crie um resumo super didático e completo, para que o estudante absorva  máximo de conhecimento possível. Markdown é suportado. Use títulos sempre que necessário.',
-              //   prompt: url_data,
-              // })
-
-              // for await (const delta of fullStream) {
-              //   const { type } = delta
-
-              //   if (type === 'text-delta') {
-              //     const { textDelta } = delta
-
-              //     draftText += textDelta
-              //     dataStream.writeData({
-              //       type: 'text-delta',
-              //       content: textDelta,
-              //     })
-              //   }
-              // }
-
-              // dataStream.writeData({ type: 'finish', content: '' })
-
-              // dataStream.writeData(url_data)
-              //   let title = 'Web Scraping'
-              //   let kind = 'text'
-              //  if (session.user?.id) {
-              //    await saveDocument({
-              //      id,
-              //      title,
-              //      kind,
-              //      content: draftText,
-              //      userId: session.user.id,
-              //    })
-              //  }
-
-              //  return {
-              //    id,
-              //    title,
-              //    kind,
-              //    content:
-              //      'Um documento foi criado e agora está visível para o usuário.',
-              //  }
+              return { url_data }
             },
           },
 
@@ -565,21 +588,9 @@ export async function POST(request: Request) {
                 ),
               })
 
-              //  id: string
-              //  createdAt: Date
-              //  promptTokens: string
-              //  completionTokens: string
-              //  totalTokens: string
-              //  userId: string
-              //  messageId: string
-              console.log('tokens utilizados', usage)
-              console.log({
-                ...usage,
-                userId: session.user.id,
-              })
               await saveTokens({
-                ...usage,
-                id:generateUUID(),
+                ...(usage as any),
+                id: generateUUID(),
                 createdAt: new Date(),
                 userId: session.user.id,
               })

@@ -5,7 +5,6 @@ import { and, asc, desc, eq, gt, gte } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 
-
 import { BlockKind } from '@/components/block'
 
 import { vote } from './schema/vote'
@@ -131,8 +130,14 @@ export async function saveMessages({ messages }: { messages: Array<Message> }) {
   }
 }
 
-export async function saveTokens( tokens: Tokens ) {
-
+export async function saveTokens(tokens: {
+  id: string
+  createdAt: Date
+  userId: string
+  promptTokens: string
+  completionTokens: string
+  totalTokens: string
+}) {
   function calculateApiCallPrice(
     promptTokens: number,
     completionTokens: number
@@ -156,25 +161,19 @@ export async function saveTokens( tokens: Tokens ) {
     return totalPrice
   }
 
-
-
-
   try {
-    return await db
-      .insert(tokensTable)
-      .values({
-        ...tokens,
-        totalPrice: calculateApiCallPrice(
-          tokens.promptTokens as unknown as number,
-          tokens.completionTokens as unknown as number
-        ) as unknown as string,
-      })
+    return await db.insert(tokensTable).values({
+      ...tokens,
+      totalPrice: calculateApiCallPrice(
+        tokens.promptTokens as unknown as number,
+        tokens.completionTokens as unknown as number
+      ) as unknown as string,
+    })
   } catch (error) {
     console.error('Failed to save tokens in database', error)
     throw error
   }
 }
-
 
 export async function getMessagesByChatId({ id }: { id: string }) {
   try {

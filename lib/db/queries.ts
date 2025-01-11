@@ -10,10 +10,12 @@ import { BlockKind } from '@/components/block'
 
 import { vote } from './schema/vote'
 import { message, type Message } from './schema/message'
+import { tokens as tokensTable, type Tokens } from './schema/tokens'
 import { type Suggestion, suggestion } from './schema/suggestion'
 import { document } from './schema/document'
 import { chat } from './schema/chat'
 import { user, User } from './schema/user'
+import { None } from 'framer-motion'
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -128,6 +130,51 @@ export async function saveMessages({ messages }: { messages: Array<Message> }) {
     throw error
   }
 }
+
+export async function saveTokens( tokens: Tokens ) {
+
+  function calculateApiCallPrice(
+    promptTokens: number,
+    completionTokens: number
+  ): number {
+    const pricePerMillionInputTokens = 0.15 // $0.15 per million input tokens
+    const pricePerMillionOutputTokens = 0.6 // $0.60 per million output tokens
+
+    // Convert tokens to millions for calculation
+    const inputTokensInMillions = promptTokens / 1_000_000
+    const outputTokensInMillions = completionTokens / 1_000_000
+
+    // Calculate the price
+    const priceForInputTokens =
+      inputTokensInMillions * pricePerMillionInputTokens
+    const priceForOutputTokens =
+      outputTokensInMillions * pricePerMillionOutputTokens
+
+    // Total price
+    const totalPrice = priceForInputTokens + priceForOutputTokens
+
+    return totalPrice
+  }
+
+
+
+
+  try {
+    return await db
+      .insert(tokensTable)
+      .values({
+        ...tokens,
+        totalPrice: calculateApiCallPrice(
+          tokens.promptTokens as unknown as number,
+          tokens.completionTokens as unknown as number
+        ) as unknown as string,
+      })
+  } catch (error) {
+    console.error('Failed to save tokens in database', error)
+    throw error
+  }
+}
+
 
 export async function getMessagesByChatId({ id }: { id: string }) {
   try {

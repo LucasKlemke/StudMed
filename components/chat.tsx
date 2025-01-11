@@ -50,7 +50,8 @@ export function Chat({
     id,
     body: { id, modelId: selectedModelId, subject: subject.id },
     initialMessages,
-    onFinish: () => {
+    onFinish: (message,{usage}) => {
+      console.log('Token usage:', usage)
       mutate('/api/history')
     },
   })

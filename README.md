@@ -59,3 +59,24 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
+3. Download your environment variables: `vercel env pull`
+
+## Drizzle
+
+Ao fazer alteracoes no drizzle execute : 
+
+```bash
+pnpm db:generate
+```
+
+Para gerar arquivo sql de migration
+
+
+```bash
+pnpm db:migrate
+```
+
+Para aplicar alterações no banco de dados

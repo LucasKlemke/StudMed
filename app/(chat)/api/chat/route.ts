@@ -24,6 +24,7 @@ import {
   saveDocument,
   saveMessages,
   saveSuggestions,
+  saveTokens,
 } from '@/lib/db/queries'
 import type { Suggestion } from '@/lib/db/schema/suggestion'
 import {
@@ -536,7 +537,7 @@ export async function POST(request: Request) {
             },
           },
         },
-        onFinish: async ({ response }) => {
+        onFinish: async ({ response, usage }) => {
           if (session.user?.id) {
             try {
               const responseMessagesWithoutIncompleteToolCalls =
@@ -562,6 +563,25 @@ export async function POST(request: Request) {
                     }
                   }
                 ),
+              })
+
+              //  id: string
+              //  createdAt: Date
+              //  promptTokens: string
+              //  completionTokens: string
+              //  totalTokens: string
+              //  userId: string
+              //  messageId: string
+              console.log('tokens utilizados', usage)
+              console.log({
+                ...usage,
+                userId: session.user.id,
+              })
+              await saveTokens({
+                ...usage,
+                id:generateUUID(),
+                createdAt: new Date(),
+                userId: session.user.id,
               })
             } catch (error) {
               console.error('Failed to save chat')

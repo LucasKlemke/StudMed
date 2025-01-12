@@ -73,6 +73,8 @@ function PureChatHeader({
         <DataFontSwitcher className="order-2 md:order-2 rounded-2xl" />
       )} */}
 
+      {!isReadonly && windowWidth <= 425 && <SubjectSwitcher />}
+
       {!isReadonly && (
         <VisibilitySelector
           chatId={chatId}

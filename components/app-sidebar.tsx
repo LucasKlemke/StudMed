@@ -23,28 +23,19 @@ import { Edit, Search } from 'lucide-react'
 import { SidebarToggle } from './sidebar-toggle'
 import { Input } from './ui/input'
 import { HistorySearch } from './history-search'
+import { useWindowSize } from 'usehooks-ts'
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter()
   const { setOpenMobile } = useSidebar()
-
+    const { width: windowWidth } = useWindowSize()
   return (
     <Sidebar className="group-data-[side=left]:border-r-0">
       <div className="flex w-full justify-between px-5 pt-5">
         <SidebarToggle />
         <div className="flex gap-x-3">
-          {/* <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                className="md:px-2 md:h-fit rounded-2xl"
-              >
-                <Search />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent align="end">Procurar</TooltipContent>
-          </Tooltip> */}
-          <HistorySearch user={user}/>
+          {windowWidth > 425 && <HistorySearch user={user} />}
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -74,8 +65,12 @@ export function AppSidebar({ user }: { user: User | undefined }) {
 
       <SidebarHeader>
         <SidebarMenu className="py-5">
-          <Label>Selecionar matéria</Label>
-          <SubjectSwitcher />
+          {windowWidth > 426 && (
+            <>
+              <Label>Selecionar matéria</Label>
+              <SubjectSwitcher />
+            </>
+          )}
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>

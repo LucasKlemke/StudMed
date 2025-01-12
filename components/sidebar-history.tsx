@@ -89,7 +89,7 @@ const PureChatItem = ({
             showOnHover={!isActive}
           >
             <MoreHorizontalIcon />
-            <span className="sr-only">More</span>
+            <span className="sr-only">Mais</span>
           </SidebarMenuAction>
         </DropdownMenuTrigger>
 
@@ -97,7 +97,7 @@ const PureChatItem = ({
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="cursor-pointer">
               <ShareIcon />
-              <span>Share</span>
+              <span>Compartilhar</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -136,7 +136,7 @@ const PureChatItem = ({
             onSelect={() => onDelete(chat.id)}
           >
             <TrashIcon />
-            <span>Delete</span>
+            <span>Excluir</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -174,16 +174,16 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     });
 
     toast.promise(deletePromise, {
-      loading: 'Deleting chat...',
+      loading: 'Excluindo chat...',
       success: () => {
         mutate((history) => {
           if (history) {
             return history.filter((h) => h.id !== id);
           }
         });
-        return 'Chat deleted successfully';
+        return 'Chat deletado com sucesso !';
       },
-      error: 'Failed to delete chat',
+      error: 'Falha ao excluir chat.',
     });
 
     setShowDeleteDialog(false);
@@ -198,7 +198,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
       <SidebarGroup>
         <SidebarGroupContent>
           <div className="text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2">
-            <div>Login to save and revisit previous chats!</div>
+            <div>Faça login para salvar e revisitar conversas anteriores!</div>
           </div>
         </SidebarGroupContent>
       </SidebarGroup>
@@ -240,7 +240,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
         <SidebarGroupContent>
           <div className="text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2">
             <div>
-              Your conversations will appear here once you start chatting!
+              Suas conversas aparecerão aqui assim que você começar a conversar!
             </div>
           </div>
         </SidebarGroupContent>
@@ -400,16 +400,16 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              chat and remove it from our servers.
+              Esta ação não pode ser desfeita. Isso excluirá permanentemente seu
+              chat e o removerá de nossos servidores.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete}>
-              Continue
+              Continuar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

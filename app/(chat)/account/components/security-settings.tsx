@@ -82,10 +82,10 @@ export default function SecuritySettings() {
         {isEditing ? (
           <>
             <Button type="submit" onClick={handleSubmit} className="mr-2">
-              Change Password
+              Mudar Senha
             </Button>
             <Button variant="outline" onClick={() => setIsEditing(false)}>
-              Cancel
+              Cancelar
             </Button>
           </>
         ) : (

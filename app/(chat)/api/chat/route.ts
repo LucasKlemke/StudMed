@@ -274,9 +274,17 @@ export async function POST(request: Request) {
               'Criar um documento para uma atividade de escrita. Esta ferramenta chamará outras funções que gerarão o conteúdo do documento com base no título e tipo.',
             parameters: z.object({
               title: z.string(),
+              context: z
+                .string()
+                .describe(
+                  'Informações adicionais para a criação do documento, como contexto ou instruções'
+                ),
+              basedInformation: z
+                .string()
+                .describe('Informações na qual se baseará o documento'),
               kind: z.enum(['text', 'code']),
             }),
-            execute: async ({ title, kind }) => {
+            execute: async ({ title, kind, context, basedInformation }) => {
               const id = generateUUID()
               let draftText = ''
 
@@ -300,12 +308,13 @@ export async function POST(request: Request) {
                 content: '',
               })
 
+              console.log('contexto', context)
+              console.log('basedInformation', basedInformation)
               if (kind === 'text') {
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
-                  system:
-                    'Write about the given topic. Markdown is supported. Use headings wherever appropriate.',
-                  prompt: title,
+                  system: `Escreva sobre o tópico dado. Markdown é suportado. Use títulos sempre que apropriado.`,
+                  prompt: `Tópico: ${title}, instruções: ${context}, basear-se em ${basedInformation}`,
                 })
 
                 for await (const delta of fullStream) {
@@ -587,6 +596,12 @@ export async function POST(request: Request) {
                   }
                 ),
               })
+
+              // const brazilTimeOffset = -3 // Brazil is typically UTC-3
+              // const now = new Date()
+              // const brazilTime = new Date(
+              //   now.getTime() + brazilTimeOffset * 60 * 60 * 1000
+              // )
 
               await saveTokens({
                 ...(usage as any),

@@ -25,13 +25,13 @@ export default function Page() {
 
   useEffect(() => {
     if (state.status === 'user_exists') {
-      toast.error('Account already exists');
+      toast.error('Conta ja existente');
     } else if (state.status === 'failed') {
-      toast.error('Failed to create account');
+      toast.error('Falha ao criar conta, tente novamente mais tarde');
     } else if (state.status === 'invalid_data') {
-      toast.error('Failed validating your submission!');
+      toast.error('Falha ao validar sua submissão!');
     } else if (state.status === 'success') {
-      toast.success('Account created successfully');
+      toast.success('Conta criada com sucesso !');
       setIsSuccessful(true);
       router.refresh();
     }

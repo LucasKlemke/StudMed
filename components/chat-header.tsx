@@ -13,6 +13,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { VisibilityType, VisibilitySelector } from './visibility-selector'
 import { SubjectSwitcher } from './subject-switcher'
 import { DataFontSwitcher } from './datafont-switcher'
+import { EditIcon } from 'lucide-react'
 
 function PureChatHeader({
   chatId,
@@ -34,45 +35,39 @@ function PureChatHeader({
 
   return (
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2 ">
-      <SidebarToggle />
-
-      <Button
-        variant="outline"
-        className=" border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
-      >
-        StudMed
-      </Button>
+      {(!open || windowWidth < 768) && <SidebarToggle />}
 
       {(!open || windowWidth < 768) && (
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant="outline"
-              className="order-2 hover:text-primary text-primary border-primary md:order-1 md:px-2 px-2 md:h-fit ml-auto md:ml-0 rounded-2xl"
+              className="md:px-2 md:h-fit rounded-2xl"
               onClick={() => {
                 router.push('/')
                 router.refresh()
               }}
             >
-              <PlusIcon />
-              <span className="md:sr-only">Novo chat</span>
+              <EditIcon />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Novo chat</TooltipContent>
         </Tooltip>
       )}
 
-      
+      <Button
+        variant="outline"
+        className="cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
+      >
+        StudMed
+      </Button>
+
       {/* {!isReadonly && (
         <ModelSelector
           selectedModelId={selectedModelId}
           className="order-1 md:order-2 rounded-2xl"
         />
       )} */}
-
-      {!isReadonly && (
-        <SubjectSwitcher className="order-2 md:order-2 rounded-2xl" />
-      )}
 
       {/* {!isReadonly && (
         <DataFontSwitcher className="order-2 md:order-2 rounded-2xl" />

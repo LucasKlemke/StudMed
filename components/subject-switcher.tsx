@@ -208,15 +208,14 @@ export function SubjectSwitcher<T extends { id: string; name: string }>({
             role="combobox"
             aria-expanded={open}
             aria-label={`Select a ${'Matéria'}`}
-            className={'  md:flex md:px-2 md:h-[34px] rounded-2xl'}
+            className={
+              'justify-start md:flex md:px-2 bg-transparent  rounded-lg'
+            }
           >
-            <BookOpen />
-            {windowWidth > 768 && (
-              <>
-                {selectedSubject?.name || `  ${'Matéria'}`}
-                <ChevronDownIcon />
-              </>
-            )}
+            <>
+              {selectedSubject?.name || `  ${'Matéria'}`}
+              <ChevronDownIcon />
+            </>
 
             {/* <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" /> */}
           </Button>

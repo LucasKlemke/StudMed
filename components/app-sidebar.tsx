@@ -17,6 +17,12 @@ import {
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
+import { SubjectSwitcher } from './subject-switcher'
+import { Label } from './ui/label'
+import { Edit, Search } from 'lucide-react'
+import { SidebarToggle } from './sidebar-toggle'
+import { Input } from './ui/input'
+import { HistorySearch } from './history-search'
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter()
@@ -24,8 +30,21 @@ export function AppSidebar({ user }: { user: User | undefined }) {
 
   return (
     <Sidebar className="group-data-[side=left]:border-r-0">
-      <SidebarHeader>
-        <SidebarMenu>
+      <div className="flex w-full justify-between px-5 pt-5">
+        <SidebarToggle />
+        <div className="flex gap-x-3">
+          {/* <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                className="md:px-2 md:h-fit rounded-2xl"
+              >
+                <Search />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent align="end">Procurar</TooltipContent>
+          </Tooltip> */}
+          <HistorySearch user={user}/>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -35,26 +54,28 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 }}
                 className="flex flex-row gap-3 items-center"
               >
-                <span className="text-lg rounded-2xl text-primary-foreground  bg-primary  cursor-pointer flex  items-center justify-center w-full mt-5">
-                  Novo Chat
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    type="button"
-                    className=" hover:bg-transparent hover:text-"
-                    onClick={() => {
-                      setOpenMobile(false)
-                      router.push('/')
-                      router.refresh()
-                    }}
-                  >
-                    <PlusIcon />
-                  </Button>
-                </span>
+                <Button
+                  onClick={() => {
+                    setOpenMobile(false)
+                    router.push('/')
+                    router.refresh()
+                  }}
+                  variant="outline"
+                  className="md:px-2 md:h-fit rounded-2xl"
+                >
+                  <Edit />
+                </Button>
               </Link>
             </TooltipTrigger>
             <TooltipContent align="end">Novo chat</TooltipContent>
           </Tooltip>
+        </div>
+      </div>
+
+      <SidebarHeader>
+        <SidebarMenu className="py-5">
+          <Label>Selecionar matéria</Label>
+          <SubjectSwitcher />
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>

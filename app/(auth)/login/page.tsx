@@ -49,11 +49,11 @@ export default function Page() {
       {windowWidth > 768 && (
         <div className="col-span-2 relative max-w-full overflow-hidden flex flex-col gap-12 bg-primary h-full">
           <Image
-            src="/images/doctor-from-future-concept.jpg"
+            src="/images/new_doctor.jpeg"
             alt="Picture of the author"
             objectFit="cover"
             fill
-            className="w-full h-full top-0 left-0 object-cover"
+            className="w-full h-full top-0 left-0 object-cover object-right"
           />
         </div>
       )}

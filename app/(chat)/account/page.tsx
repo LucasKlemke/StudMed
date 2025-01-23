@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import AccountInfo from './components/account-info'
 import SecuritySettings from './components/security-settings'
 import SubscriptionManagement from './components/subscription-managment'
+import { SidebarToggle } from '@/components/sidebar-toggle'
+import Title from './title'
 
 export const metadata: Metadata = {
   title: 'Account Management',
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
 export default function AccountPage() {
   return (
     <div className="container mx-10 py-10">
-      <h1 className="text-4xl font-bold mb-10">Gerenciar conta</h1>
+      <Title/>
+
       <div className="space-y-10">
         <SubscriptionManagement />
         <AccountInfo />

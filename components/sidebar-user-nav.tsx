@@ -8,7 +8,8 @@ import {
   Sun,
   ToggleLeft,
   ToggleRight,
-  User
+  User,
+  UserCircle
 } from 'lucide-react'
 import Image from 'next/image'
 import type { User as AuthUser } from 'next-auth'
@@ -38,14 +39,15 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent bg-background data-[state=open]:text-sidebar-accent-foreground h-10">
-              <Image
+              {/* <Image
                 src={`https://avatar.vercel.sh/${user.email}`}
                 alt={user.email ?? 'User Avatar'}
                 width={24}
                 height={24}
                 className="rounded-full"
-              />
-              <div className="flex flex-col">
+              /> */}
+              <UserCircle className="w-[24px] h-[24px]" />
+              <div className="flex flex-col pl-2">
                 <span className="truncate">{user?.username}</span>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>

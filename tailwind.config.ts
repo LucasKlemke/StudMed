@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: ['class'],
@@ -13,6 +13,9 @@ const config: Config = {
       mono: ['geist-mono'],
     },
     extend: {
+      bannerImg: {
+        bannerImg: 'url(/images/doctors.jpg)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -73,5 +76,5 @@ const config: Config = {
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
-};
-export default config;
+}
+export default config

@@ -84,7 +84,7 @@ export default function AccountInfo() {
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col items-start space-y-4 justify-start col-span-2 pb-4">
-                <Label>Avatar</Label>
+                {/* <Label>Avatar</Label>
                 <Avatar
                   // className={`${
                   //   isEditing ? 'h-20 w-20 ring-1 ring-primary' : 'h-20 w-20'
@@ -102,7 +102,7 @@ export default function AccountInfo() {
                       .map((n) => n[0])
                       .join('') : 'A'}
                   </AvatarFallback>
-                </Avatar>
+                </Avatar> */}
                 {/* {isEditing && (
               <Label htmlFor="avatar" className="cursor-pointer">
                 <Input

@@ -15,7 +15,7 @@ export function AuthForm({
   defaultEmail?: string;
 }) {
   return (
-    <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16 w-full">
+    <Form action={action} className="flex flex-col gap-4 px-0 md:px-4 sm:px-16 w-full">
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="email"
@@ -29,7 +29,6 @@ export function AuthForm({
           name="email"
           className="bg-muted text-xs md:text-sm"
           type="email"
-          placeholder="usuario@email.com"
           autoComplete="email"
           required
           autoFocus

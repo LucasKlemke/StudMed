@@ -1,6 +1,6 @@
 'use client'
 
-import type { ChatRequestOptions, Message } from 'ai'
+import type { ChatRequestOptions, CreateMessage, Message } from 'ai'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { memo, useMemo, useState } from 'react'
@@ -19,6 +19,7 @@ import { Button } from './ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { MessageEditor } from './message-editor'
 import { DocumentPreview } from './document-preview'
+import AnatomyQuizForm from '@/components/quiz'
 
 const PurePreviewMessage = ({
   chatId,
@@ -28,6 +29,7 @@ const PurePreviewMessage = ({
   setMessages,
   reload,
   isReadonly,
+  append,
 }: {
   chatId: string
   message: Message
@@ -40,6 +42,10 @@ const PurePreviewMessage = ({
     chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>
   isReadonly: boolean
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
 }) => {
   const [mode, setMode] = useState<'view' | 'edit'>('view')
 
@@ -106,6 +112,7 @@ const PurePreviewMessage = ({
                   })}
                 >
                   <Markdown>{message.content as string}</Markdown>
+
                 </div>
               </div>
             )}
@@ -153,6 +160,8 @@ const PurePreviewMessage = ({
                             result={result}
                             isReadonly={isReadonly}
                           />
+                        ) : toolName === 'createQuiz' ? (
+                          <AnatomyQuizForm result={result} />
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}
@@ -191,6 +200,7 @@ const PurePreviewMessage = ({
 
             {!isReadonly && (
               <MessageActions
+                append={append}
                 key={`action-${message.id}`}
                 chatId={chatId}
                 message={message}

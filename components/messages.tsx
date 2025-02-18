@@ -1,4 +1,4 @@
-import { ChatRequestOptions, Message } from 'ai'
+import { ChatRequestOptions, CreateMessage, Message } from 'ai'
 import { PreviewMessage, ThinkingMessage } from './message'
 import { useScrollToBottom } from './use-scroll-to-bottom'
 import { Overview } from './overview'
@@ -19,6 +19,10 @@ interface MessagesProps {
   ) => Promise<string | null | undefined>
   isReadonly: boolean
   isBlockVisible: boolean
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
 }
 
 function PureMessages({
@@ -29,6 +33,7 @@ function PureMessages({
   setMessages,
   reload,
   isReadonly,
+  append
 }: MessagesProps) {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>()
@@ -51,6 +56,7 @@ function PureMessages({
               ? votes.find((vote) => vote.messageId === message.id)
               : undefined
           }
+          append={append}
           setMessages={setMessages}
           reload={reload}
           isReadonly={isReadonly}

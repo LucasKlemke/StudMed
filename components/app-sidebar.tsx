@@ -24,6 +24,7 @@ import { SidebarToggle } from './sidebar-toggle'
 import { Input } from './ui/input'
 import { HistorySearch } from './history-search'
 import { useWindowSize } from 'usehooks-ts'
+import { DataSourceSwitcher } from './data-source-switcher'
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter()
@@ -66,10 +67,17 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       <SidebarHeader>
         <SidebarMenu className="py-5">
           {windowWidth > 426 && (
-            <>
-              <Label>Selecionar matéria</Label>
-              <SubjectSwitcher />
-            </>
+            <div className="w-full flex flex-col gap-y-4">
+              <div className="w-full flex flex-col gap-y-2">
+                <Label>Selecionar fonte</Label>
+                <DataSourceSwitcher />
+              </div>
+              <div className="w-full flex flex-col gap-y-2">
+                {' '}
+                <Label>Selecionar matéria</Label>
+                <SubjectSwitcher />
+              </div>
+            </div>
           )}
         </SidebarMenu>
       </SidebarHeader>

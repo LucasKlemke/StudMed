@@ -1,7 +1,7 @@
 import { PreviewMessage } from './message'
 import { useScrollToBottom } from './use-scroll-to-bottom'
 import { Vote } from '@/lib/db/schema/vote'
-import { ChatRequestOptions, Message } from 'ai'
+import { ChatRequestOptions, CreateMessage, Message } from 'ai'
 import { memo } from 'react'
 import equal from 'fast-deep-equal'
 import { UIBlock } from './block'
@@ -19,6 +19,10 @@ interface BlockMessagesProps {
   ) => Promise<string | null | undefined>
   isReadonly: boolean
   blockStatus: UIBlock['status']
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
 }
 
 function PureBlockMessages({
@@ -29,6 +33,7 @@ function PureBlockMessages({
   setMessages,
   reload,
   isReadonly,
+  append
 }: BlockMessagesProps) {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>()
@@ -40,6 +45,7 @@ function PureBlockMessages({
     >
       {messages.map((message, index) => (
         <PreviewMessage
+          append={append}
           chatId={chatId}
           key={message.id}
           message={message}

@@ -316,6 +316,7 @@ function PureBlock({
 
               <div className="flex flex-col h-full justify-between items-center gap-4">
                 <BlockMessages
+                  append={append}
                   chatId={chatId}
                   isLoading={isLoading}
                   votes={votes}

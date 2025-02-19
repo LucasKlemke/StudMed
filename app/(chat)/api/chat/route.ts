@@ -42,11 +42,13 @@ type AllowedTools =
   | 'updateDocument'
   | 'requestSuggestions'
   | 'webScraping'
+  | 'createQuiz'
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
   'updateDocument',
   'requestSuggestions',
+  'createQuiz',
 ]
 
 const scrappingTools: AllowedTools[] = ['webScraping']
@@ -267,7 +269,42 @@ export async function POST(request: Request) {
               return { url_data }
             },
           },
+          createQuiz: {
+            description: 'Criar um quiz com questões de fixação para o usuário',
+            parameters: z.object({
+              title: z.string(),
+              questions: z.array(
+                z.object({
+                  id: z.number(),
+                  question: z.string(),
+                  options: z.array(z.string()),
+                  correct: z.string(),
+                })
+              ),
+            }),
+            execute: async ({ title, questions }) => {
+              const id = generateUUID()
+              console.log('')
+              dataStream.writeData({
+                type: 'id',
+                content: id,
+              })
 
+              dataStream.writeData({
+                type: 'clear',
+                content: '',
+              })
+
+              const quiz = {
+                title,
+                questions,
+              }
+
+
+              console.log(quiz)
+              return { quiz, content: 'Um quiz foi criado e agora está vísivel para o usuário. Apenas diga que o quiz solicitado foi gerado. Nada além disso.' }
+            },
+          },
           // 2. Criar um documento
           createDocument: {
             description:

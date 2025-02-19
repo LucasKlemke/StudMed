@@ -1,4 +1,4 @@
-import type { Message } from 'ai'
+import type { ChatRequestOptions, CreateMessage, Message } from 'ai'
 import { toast } from 'sonner'
 import { useSWRConfig } from 'swr'
 import { useCopyToClipboard } from 'usehooks-ts'
@@ -16,17 +16,23 @@ import {
 } from './ui/tooltip'
 import { memo } from 'react'
 import equal from 'fast-deep-equal'
+import { MessageCircleQuestion, NotebookPen } from 'lucide-react'
 
 export function PureMessageActions({
   chatId,
   message,
   vote,
   isLoading,
+  append,
 }: {
   chatId: string
   message: Message
   vote: Vote | undefined
   isLoading: boolean
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
 }) {
   const { mutate } = useSWRConfig()
   const [_, copyToClipboard] = useCopyToClipboard()
@@ -160,6 +166,24 @@ export function PureMessageActions({
             </Button>
           </TooltipTrigger>
           <TooltipContent>Resposta incorreta</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              variant="inverted"
+              onClick={async () => {
+                append({
+                  role: 'user',
+                  content: `Por favor, gere questões para melhor fixação do conteúdo.`,
+                })
+              }}
+            >
+              <NotebookPen />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Gerar questões de fixação</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

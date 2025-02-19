@@ -1,17 +1,5 @@
 'use client'
-import {
-  ChevronUp,
-  Gem,
-  Info,
-  LogOut,
-  Moon,
-  Sun,
-  ToggleLeft,
-  ToggleRight,
-  User,
-  UserCircle
-} from 'lucide-react'
-import Image from 'next/image'
+import { ChevronUp, Info, LogOut, Moon, Sun, User, User2 } from 'lucide-react'
 import type { User as AuthUser } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
@@ -39,14 +27,7 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent bg-background data-[state=open]:text-sidebar-accent-foreground h-10">
-              {/* <Image
-                src={`https://avatar.vercel.sh/${user.email}`}
-                alt={user.email ?? 'User Avatar'}
-                width={24}
-                height={24}
-                className="rounded-full"
-              /> */}
-              <UserCircle className="w-[24px] h-[24px]" />
+              <User2 className="w-[24px] h-[24px]" />
               <div className="flex flex-col pl-2">
                 <span className="truncate">{user?.username}</span>
                 <span className="truncate text-xs">{user?.email}</span>

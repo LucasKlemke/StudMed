@@ -16,7 +16,15 @@ import {
 } from './ui/tooltip'
 import { memo } from 'react'
 import equal from 'fast-deep-equal'
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, ArrowUpWideNarrow, ChevronDown, ChevronUp, MessageCircleQuestion, NotebookPen } from 'lucide-react'
+import {
+  ArrowDownWideNarrow,
+  ArrowUpNarrowWide,
+  ArrowUpWideNarrow,
+  ChevronDown,
+  ChevronUp,
+  MessageCircleQuestion,
+  NotebookPen,
+} from 'lucide-react'
 
 export function PureMessageActions({
   chatId,
@@ -43,7 +51,7 @@ export function PureMessageActions({
 
   return (
     <TooltipProvider delayDuration={0}>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 no-scroll">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -60,7 +68,7 @@ export function PureMessageActions({
           <TooltipContent>Copiar</TooltipContent>
         </Tooltip>
 
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               className="py-1 px-2 h-fit text-primary !pointer-events-auto"
@@ -112,9 +120,9 @@ export function PureMessageActions({
             </Button>
           </TooltipTrigger>
           <TooltipContent>Resposta correta</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
 
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               className="py-1 px-2 h-fit text-primary !pointer-events-auto"
@@ -166,7 +174,7 @@ export function PureMessageActions({
             </Button>
           </TooltipTrigger>
           <TooltipContent>Resposta incorreta</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
 
         <Tooltip>
           <TooltipTrigger asChild>
@@ -215,7 +223,7 @@ export function PureMessageActions({
                 })
               }}
             >
-              <ArrowUpWideNarrow/>
+              <ArrowUpWideNarrow />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Detalhar</TooltipContent>

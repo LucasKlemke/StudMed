@@ -12,6 +12,7 @@ import {
 const TableBlock = ({ result }: { result: any }) => {
 
   const table = result.json
+  console.log(table)
   return (
     <Table>
       <TableHeader>

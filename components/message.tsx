@@ -21,6 +21,7 @@ import { MessageEditor } from './message-editor'
 import { DocumentPreview } from './document-preview'
 import AnatomyQuizForm from '@/components/quiz'
 import TableBlock from './table-block'
+import { Heart } from 'lucide-react'
 
 const PurePreviewMessage = ({
   chatId,
@@ -70,7 +71,7 @@ const PurePreviewMessage = ({
           {message.role === 'assistant' && (
             <div className="size-8 flex items-center rounded-full justify-center text-primary shrink-0 ring-border bg-background">
               <div className="translate-y-px">
-                <SparklesIcon size={14} />
+                <Heart size={20} />
               </div>
             </div>
           )}
@@ -254,7 +255,7 @@ export const ThinkingMessage = () => {
         )}
       >
         <div className="size-8 flex items-center rounded-full justify-center  shrink-0 ring-border">
-          <SparklesIcon size={14} />
+          <Heart size={20} />
         </div>
 
         <div className="flex flex-col gap-2 w-full">

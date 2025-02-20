@@ -22,6 +22,7 @@ import {
   ArrowUpWideNarrow,
   ChevronDown,
   ChevronUp,
+  FileText,
   MessageCircleQuestion,
   NotebookPen,
 } from 'lucide-react'
@@ -228,6 +229,25 @@ export function PureMessageActions({
           </TooltipTrigger>
           <TooltipContent>Detalhar</TooltipContent>
         </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              variant="inverted"
+              onClick={async () => {
+                append({
+                  role: 'user',
+                  content: `Gere um documento com exatamente o mesmo conteúdo da última resposta.`,
+                })
+              }}
+            >
+              <FileText />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Gerar documento</TooltipContent>
+        </Tooltip>
+      
       </div>
     </TooltipProvider>
   )

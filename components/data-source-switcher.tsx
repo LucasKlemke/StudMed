@@ -71,7 +71,7 @@ export function DataSourceSwitcher<T extends { id: string; name: string }>({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger className={`${className} `} asChild>
           <Button
-            disabled={disabled}
+            disabled
             variant="outline"
             role="combobox"
             aria-expanded={open}

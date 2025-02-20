@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useReward } from 'react-rewards'
+import { Check, RotateCcw } from 'lucide-react'
 
 interface Question {
   id: number
@@ -87,14 +88,31 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
             </RadioGroup>
           </div>
         ))}
-        <Button type="submit">Enviar</Button>
+        <div className="flex gap-x-3">
+          <Button disabled={quizResult ? true : false} type="submit">
+            {quizResult ? <Check /> : 'Enviar'}
+          </Button>
+          {quizResult && (
+            <Button
+              onClick={() => {
+                setQuizResult(null)
+                setAnswers({})
+                setSubmitted(false)
+              }}
+              variant="secondary"
+            >
+              Refazer <RotateCcw />
+            </Button>
+          )}
+        </div>
       </form>
 
       {quizResult && (
         <div
           className={`mt-6 p-4 space-y-4 rounded ${
-            quizResult?.includes('Parabéns') ?
-            'bg-yellow-500' : 'bg-primary'
+            quizResult?.includes('Parabéns')
+              ? 'bg-primary'
+              : 'bg-accent text-sidebar-foreground'
           }  text-primary-foreground`}
         >
           <p> {quizResult}</p>

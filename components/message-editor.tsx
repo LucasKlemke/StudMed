@@ -52,7 +52,7 @@ export function MessageEditor({
   }
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full no-scroll">
       <Textarea
         ref={textareaRef}
         className="bg-transparent outline-none overflow-hidden resize-none !text-base rounded-xl w-full"
@@ -60,7 +60,7 @@ export function MessageEditor({
         onChange={handleInput}
       />
 
-      <div className="flex flex-row gap-2 justify-end">
+      <div className="flex flex-row gap-2 justify-end no-scroll">
         <Button
           variant="outline"
           className="h-fit py-2 px-3"

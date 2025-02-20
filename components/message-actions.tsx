@@ -16,7 +16,7 @@ import {
 } from './ui/tooltip'
 import { memo } from 'react'
 import equal from 'fast-deep-equal'
-import { MessageCircleQuestion, NotebookPen } from 'lucide-react'
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, ArrowUpWideNarrow, ChevronDown, ChevronUp, MessageCircleQuestion, NotebookPen } from 'lucide-react'
 
 export function PureMessageActions({
   chatId,
@@ -183,7 +183,42 @@ export function PureMessageActions({
               <NotebookPen />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Gerar questões de fixação</TooltipContent>
+          <TooltipContent>Gerar questões</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              variant="inverted"
+              onClick={async () => {
+                append({
+                  role: 'user',
+                  content: `Por favor, simplifique a resposta, abortanto os pontos mais essênciais.`,
+                })
+              }}
+            >
+              <ArrowDownWideNarrow />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Simplificar</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              variant="inverted"
+              onClick={async () => {
+                append({
+                  role: 'user',
+                  content: `Por favor, torne o conteúdo o mais detalhado possível, aprofunde-se o máximo possível nos detalhes.`,
+                })
+              }}
+            >
+              <ArrowUpWideNarrow/>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Detalhar</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

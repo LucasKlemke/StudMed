@@ -71,7 +71,10 @@ export const getSystemPrompt = (subject: string) => {
 
       Objetivo:
       - Ajudar estudantes do curso de medicina a estudar para suas provas, explicando da maneira mais didática possível, para que o estudante possa entender e fixar o conteúdo, sempre oferecendo
-      exemplos práticos, resumos e dicas de estudo.`
+      exemplos práticos, resumos e dicas de estudo.
+      
+      Utilizie emojis, caso necessário, para facilitar a fixação de aprendizagem de explicações mais complexas.
+      `
 
     return `${regularPrompt}\n\n${blocksPrompt}`
   } else {
@@ -98,7 +101,10 @@ export const getSystemPrompt = (subject: string) => {
 
       Objetivo:
       - Ajudar estudantes do curso de medicina a estudar informações relacionadas a matéria ${subject}, explicando da maneira mais didática possível, para que o estudante possa entender e fixar o conteúdo, sempre oferecendo
-      exemplos práticos, resumos, e dicas de estudo. Nada além disto.`
+      exemplos práticos, resumos, e dicas de estudo. Nada além disto.
+      
+      Utilizie emojis, caso necessário, para facilitar a fixação de aprendizagem de explicações mais complexas.
+      `
 
     return `${regularPrompt}\n\n${blocksPrompt}`
   }

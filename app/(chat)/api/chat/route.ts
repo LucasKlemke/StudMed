@@ -2,7 +2,6 @@ import {
   type Message,
   convertToCoreMessages,
   createDataStreamResponse,
-  generateText,
   streamObject,
   streamText,
 } from 'ai'
@@ -43,12 +42,14 @@ type AllowedTools =
   | 'requestSuggestions'
   | 'webScraping'
   | 'createQuiz'
+  | 'createTable'
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
   'updateDocument',
   'requestSuggestions',
   'createQuiz',
+  'createTable',
 ]
 
 const scrappingTools: AllowedTools[] = ['webScraping']
@@ -300,9 +301,27 @@ export async function POST(request: Request) {
                 questions,
               }
 
-
               console.log(quiz)
-              return { quiz, content: 'Um quiz foi criado e agora está vísivel para o usuário. Apenas diga que o quiz solicitado foi gerado. Nada além disso.' }
+              return {
+                quiz,
+                content:
+                  'Um quiz foi criado e agora está vísivel para o usuário. Apenas diga que o quiz solicitado foi gerado. Nada além disso.',
+              }
+            },
+          },
+          createTable: {
+            description: 'Criar uma simples tabela',
+            parameters: z.object({
+              json: z
+                .string()
+                .describe('Um array de objetos JSON para criar a tabela'),
+            }),
+            execute: async ({ json }) => {
+              return {
+                json,
+                content:
+                  'Uma tabela foi gerada. Diga que a tabela foi gerada e sumarize brevemente. Nada além disso.',
+              }
             },
           },
           // 2. Criar um documento

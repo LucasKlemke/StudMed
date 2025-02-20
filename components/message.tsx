@@ -20,6 +20,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { MessageEditor } from './message-editor'
 import { DocumentPreview } from './document-preview'
 import AnatomyQuizForm from '@/components/quiz'
+import TableBlock from './table-block'
 
 const PurePreviewMessage = ({
   chatId,
@@ -87,13 +88,13 @@ const PurePreviewMessage = ({
             )}
 
             {message.content && mode === 'view' && (
-              <div className="flex flex-row gap-2 items-start">
+              <div className="flex flex-row gap-2 items-start no-scroll">
                 {message.role === 'user' && !isReadonly && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
                         variant="ghost"
-                        className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
+                        className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100 "
                         onClick={() => {
                           setMode('edit')
                         }}
@@ -112,7 +113,6 @@ const PurePreviewMessage = ({
                   })}
                 >
                   <Markdown>{message.content as string}</Markdown>
-
                 </div>
               </div>
             )}
@@ -162,6 +162,8 @@ const PurePreviewMessage = ({
                           />
                         ) : toolName === 'createQuiz' ? (
                           <AnatomyQuizForm result={result} />
+                        ) : toolName === 'createTable' ? (
+                          <TableBlock result={result} />
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}

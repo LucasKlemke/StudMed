@@ -111,9 +111,9 @@ export default function SubscriptionManagement() {
             <strong className="text-primary">{currentPlan.name} </strong> (
             {currentPlan.price.replace('/mês', '')})
           </p>
-          <p>
+          {/* <p>
             Acesso até: <strong>1 de Março de 2025</strong>
-          </p>
+          </p> */}
         </div>
       </CardContent>
       <CardFooter className="gap-x-4">

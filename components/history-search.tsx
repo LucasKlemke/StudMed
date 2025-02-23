@@ -87,7 +87,7 @@ export function HistorySearch<
         </PopoverTrigger>
         <PopoverContent
           className={` ${
-            windowWidth > 768 && 'absolute left-0 w-[500px]' 
+            windowWidth > 768 && 'absolute left-0 w-[500px]'
           } p-0 `}
         >
           <Command>
@@ -122,11 +122,13 @@ export function HistorySearch<
                   {history?.map((item) => (
                     <CommandItem key={item.id} className="text-sm ">
                       <Link href={`/chat/${item.id}`}>
-                        {' '}
-                        {item.title} {formatDate(item.createdAt as unknown as string)}
+                        {item.title}
+                        <span className="text-xs ml-2 font-light">
+                            {`${new Date(item.createdAt).getDate()} de ${new Date(item.createdAt).toLocaleString('pt-BR', { month: 'long' })}, ${new Date(item.createdAt).getFullYear()}`}
+                        </span>
                       </Link>
 
-                      <Check className={'ml-auto h-4 w-4 opacity-0'} />
+                      <Check className={'ml-auto h-4 w-4 opacity-0'} /> 
                     </CommandItem>
                   ))}
                 </CommandGroup>

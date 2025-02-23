@@ -2,10 +2,8 @@
 
 import type { Attachment, Message } from 'ai'
 import { useChat } from 'ai/react'
-import { AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
-import { useWindowSize } from 'usehooks-ts'
 
 import { ChatHeader } from '@/components/chat-header'
 import type { Vote } from '@/lib/db/schema/vote'
@@ -50,11 +48,18 @@ export function Chat({
     id,
     body: { id, modelId: selectedModelId, subject: subject.id },
     initialMessages,
-    onFinish: (message,{usage}) => {
+    onFinish: (message, { usage }) => {
       console.log('Token usage:', usage)
       mutate('/api/history')
     },
   })
+
+  useEffect(() => {
+    if (initialMessages.length === 0) {
+      console.log('mudara')
+      reload()
+    }
+  }, [id])
 
   const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
@@ -87,7 +92,6 @@ export function Chat({
           reload={reload}
           isReadonly={isReadonly}
           isBlockVisible={isBlockVisible}
-
         />
 
         <form className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">

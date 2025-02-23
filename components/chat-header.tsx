@@ -14,6 +14,7 @@ import { VisibilityType, VisibilitySelector } from './visibility-selector'
 import { SubjectSwitcher } from './subject-switcher'
 import { DataFontSwitcher } from './datafont-switcher'
 import { EditIcon } from 'lucide-react'
+import { StudMedLogo } from './studmed-logo'
 
 function PureChatHeader({
   chatId,
@@ -59,7 +60,8 @@ function PureChatHeader({
         variant="outline"
         className="cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
       >
-        StudMed
+        <StudMedLogo/>
+        Studmed
       </Button>
 
       {/* {!isReadonly && (

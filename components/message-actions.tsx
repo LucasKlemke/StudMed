@@ -203,7 +203,7 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: `Por favor, simplifique a resposta, abortanto os pontos mais essênciais.`,
+                  content: `Por favor, simplifique a resposta, abordando os pontos mais essênciais.`,
                 })
               }}
             >

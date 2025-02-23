@@ -54,13 +54,6 @@ export function Chat({
     },
   })
 
-  useEffect(() => {
-    if (initialMessages.length === 0) {
-      console.log('mudara')
-      reload()
-    }
-  }, [id])
-
   const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([])

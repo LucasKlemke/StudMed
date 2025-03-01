@@ -38,7 +38,7 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
       icon: <Blocks />,
       title: 'Explicação',
       label: 'sobre doenças cardiovasculares',
-      action: 'Crie um artigo sobre doenças cardiovasculares.',
+      action: 'Explique sobre doenças cardiovasculares.',
     },
   ]
 

@@ -58,7 +58,7 @@ function PureChatHeader({
 
       <Button
         variant="outline"
-        className="cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
+        className="text-primary hover:text-primary cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-4 rounded-2xl text-3xl"
       >
         Studmed
       </Button>

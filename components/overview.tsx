@@ -1,25 +1,28 @@
-
-import { TextFade } from './text-fade'
-import { TypingEffect } from './typing-effect'
+import { SuggestedActions } from './suggested-actions'
 import { useSession } from 'next-auth/react'
 
-export const Overview = () => {
-  const { data:session } = useSession()
+import type { Attachment, ChatRequestOptions, CreateMessage, Message } from 'ai'
+import type React from 'react'
+
+export const Overview = ({
+  append,
+  messages,
+  chatId,
+}: {
+  chatId: string
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>
+  messages: Array<Message>
+}) => {
 
   return (
-    <TextFade direction="up">
-      <div
-        key="overview"
-        className="max-w-3xl mx-auto md:mt-20 flex justify-center"
-      >
-        <div className="rounded-xl font-normal p-6 flex flex-col justify-center gap-2 leading-relaxed text-center max-w-xl">
-          <div className="flex flex-col justify-center gap-4 items-center">
-            <TypingEffect text={`Olá, ${session?.user?.username}`} />
-          </div>
-
-          {/* <p className="font-light">Study Assistant</p> */}
-        </div>
-      </div>
-    </TextFade>
+    <div className=" mx-auto h-full flex flex-col content-center gap-y-9 gap-x-2 md:mt-20 justify-center ">
+      <p className='text-center text-2xl md:text-4xl font-semibold'>Sugestões</p>
+      {messages.length === 0 && (
+        <SuggestedActions append={append} chatId={chatId} />
+      )}
+    </div>
   )
 }

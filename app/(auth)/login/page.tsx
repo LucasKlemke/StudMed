@@ -51,19 +51,20 @@ export default function Page() {
   }
 
   return (
-    <>
-      <div className="flex w-full justify-center items-center py-3 gap-x-3">
-        {/* <p className="text-3xl text-primary">Studmed</p>
-         */}
-        <p className="text-4xl text-primary">Studmed</p>
-        <StudMedLogo className="w-12 h-12  text-primary" />
-      </div>
-
-      <div className="flex justify-center w-screen items-center bg-background h-[80vh]">
+    <div className="dark:bg-background bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] h-screen">
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-background bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <div className="flex justify-center w-screen items-center  h-[80vh]">
         <div className="w-full md:w-1/3 px-4">
-          <p className="pb-5  p-0 md:py-5 text-3xl font-semibold text-start md:text-center">
+          <div className="flex w-full justify-center items-center py-3 gap-x-3">
+            {/* <p className="text-3xl text-primary">Studmed</p>
+             */}
+            <p className="text-2xl lg:text-4xl text-primary">Studmed</p>
+            <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
+            <p className=" lg:text-3xl">| Login</p>
+          </div>
+          {/* <p className="pb-5  p-0 md:py-5 text-3xl font-semibold text-start md:text-center">
             Bem-vindo
-          </p>
+          </p> */}
           <AuthForm action={handleSubmit} defaultEmail={email}>
             {invalidCredentials && (
               <Link href={'/recovery'}>Esqueceu a senha ? </Link>
@@ -88,6 +89,13 @@ export default function Page() {
           Política de privacidade
         </p>
       </div>
-    </>
+    </div>
+    // <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+    //   {/* Radial gradient for the container to give a faded look */}
+    //   <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+    //   <p className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+    //     Backgrounds
+    //   </p>
+    // </div>
   )
 }

@@ -97,7 +97,7 @@ export function DocumentPreview({
   if (!document) return <LoadingSkeleton />
 
   return (
-    <div className="relative w-full cursor-pointer">
+    <div className="relative w-full cursor-pointer bg-background ">
       <HitboxLayer hitboxRef={hitboxRef} result={result} setBlock={setBlock} />
       <DocumentHeader
         title={document.title}
@@ -110,7 +110,7 @@ export function DocumentPreview({
 
 const LoadingSkeleton = () => (
   <div className="w-full">
-    <div className="p-4 border rounded-t-2xl flex flex-row gap-2 items-center justify-between dark:bg-muted h-[57px] dark:border-zinc-700 border-b-0">
+    <div className="p-4 border rounded-t-2xl flex flex-row gap-2 items-center justify-between bg-background h-[57px] dark:border-zinc-700 border-b-0">
       <div className="flex flex-row items-center gap-3">
         <div className="text-muted-foreground">
           <div className="animate-pulse rounded-md size-4 bg-muted-foreground/20" />
@@ -121,7 +121,7 @@ const LoadingSkeleton = () => (
         <FullscreenIcon />
       </div>
     </div>
-    <div className="overflow-y-scroll border rounded-b-2xl p-8 pt-4 bg-muted border-t-0 dark:border-zinc-700">
+    <div className="overflow-y-scroll border rounded-b-2xl p-8 pt-4 bg-background border-t-0 dark:border-zinc-700">
       <InlineDocumentSkeleton />
     </div>
   </div>

@@ -109,7 +109,7 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
 
       {quizResult && (
         <div
-          className={`mt-6 p-4 space-y-4 rounded ${
+          className={`mt-6 p-4 space-y-4 rounded shadow-md dark:shadow-none ${
             quizResult?.includes('Parabéns')
               ? 'bg-primary'
               : 'bg-accent text-sidebar-foreground'
@@ -122,7 +122,7 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
               return (
                 <p key={q.id}>
                   {/* {` ${{idx}-{q.question}}`} */}
-                  {`${idx + 1}- ${q.question}`} - <strong>{q.correct}</strong>
+                  {`${idx + 1}- ${q.question}`} - <strong className='text-primary'>{q.correct}</strong>
                 </p>
               )
             })}

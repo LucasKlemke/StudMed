@@ -85,7 +85,6 @@ function PureMultimodalInput({
     }
   }
 
-
   const [localStorageInput, setLocalStorageInput] = useLocalStorage('input', '')
 
   useEffect(() => {
@@ -189,16 +188,10 @@ function PureMultimodalInput({
   )
 
   return (
-    <div className="relative w-full flex flex-col gap-4">
-      {messages.length === 0 &&
-        attachments.length === 0 &&
-        uploadQueue.length === 0 && (
-          <SuggestedActions append={append} chatId={chatId} />
-        )}
-
+    <div className="relative w-full flex flex-col gap-4 shadow-lg bg-transparent rounded-b-xl dark:shadow-non">
       <input
         type="file"
-        className="fixed -top-4 -left-4 size-0.5 opacity-0 pointer-events-none"
+        className="fixed -top-4 -left-4 size-0.5 opacity-0 pointer-events-none "
         ref={fileInputRef}
         multiple
         onChange={handleFileChange}
@@ -231,7 +224,7 @@ function PureMultimodalInput({
         value={input}
         onChange={handleInput}
         className={cx(
-          'min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700',
+          'min-h-[24px]  max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700',
           className
         )}
         rows={2}

@@ -56,7 +56,7 @@ export function PureMessageActions({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="py-1 px-2 h-fit text-primary"
+              className="py-1 px-2 h-fit text-primary bg-transparent"
               variant="inverted"
               onClick={async () => {
                 await copyToClipboard(message.content as string)
@@ -180,7 +180,7 @@ export function PureMessageActions({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto bg-transparent"
               variant="inverted"
               onClick={async () => {
                 append({
@@ -198,7 +198,7 @@ export function PureMessageActions({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto bg-transparent"
               variant="inverted"
               onClick={async () => {
                 append({
@@ -215,7 +215,7 @@ export function PureMessageActions({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto bg-transparent"
               variant="inverted"
               onClick={async () => {
                 append({
@@ -233,7 +233,7 @@ export function PureMessageActions({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="py-1 px-2 h-fit text-primary !pointer-events-auto"
+              className="py-1 px-2 h-fit text-primary !pointer-events-auto bg-transparent"
               variant="inverted"
               onClick={async () => {
                 append({
@@ -247,7 +247,6 @@ export function PureMessageActions({
           </TooltipTrigger>
           <TooltipContent>Gerar documento</TooltipContent>
         </Tooltip>
-      
       </div>
     </TooltipProvider>
   )

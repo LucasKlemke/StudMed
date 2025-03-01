@@ -314,7 +314,7 @@ function PureBlock({
                 )}
               </AnimatePresence>
 
-              <div className="flex flex-col h-full justify-between items-center gap-4">
+              <div className="flex dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col h-full justify-between items-center gap-4">
                 <BlockMessages
                   append={append}
                   chatId={chatId}

@@ -60,7 +60,6 @@ function PureChatHeader({
         variant="outline"
         className="cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-1 md:order-1 rounded-2xl text-3xl"
       >
-        <StudMedLogo/>
         Studmed
       </Button>
 

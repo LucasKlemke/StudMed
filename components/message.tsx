@@ -69,7 +69,7 @@ const PurePreviewMessage = ({
           )}
         >
           {message.role === 'assistant' && (
-            <div className="size-8 flex items-center rounded-full justify-center text-primary shrink-0 ring-border bg-background">
+            <div className="bg-transparent size-8 flex items-center rounded-full justify-center text-primary shrink-0 ring-border">
               <div className="translate-y-px">
                 <Heart size={20} />
               </div>

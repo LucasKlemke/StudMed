@@ -198,7 +198,7 @@ function PureBlockActions({
             <Button
               variant="outline"
               className={cn(
-                'p-2 h-fit !pointer-events-auto dark:hover:bg-zinc-700',
+                'p-2 h-fit !pointer-events-auto dark:hover:bg-zinc-700 border-none bg-transparent',
                 {
                   'bg-muted': mode === 'diff',
                 }
@@ -221,7 +221,7 @@ function PureBlockActions({
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
+            className="p-2 h-fit dark:hover:bg-zinc-700 border-none bg-transparent !pointer-events-auto"
             onClick={() => {
               handleVersionChange('prev')
             }}
@@ -237,7 +237,7 @@ function PureBlockActions({
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
+            className="p-2 h-fit dark:hover:bg-zinc-700 border-none bg-transparent !pointer-events-auto"
             onClick={() => {
               handleVersionChange('next')
             }}
@@ -253,7 +253,7 @@ function PureBlockActions({
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="p-2 h-fit dark:hover:bg-zinc-700 !pointer-events-auto"
+            className="p-2 h-fit dark:hover:bg-zinc-700 border-none bg-transparent !pointer-events-auto"
             onClick={() => {
               downloadPdf(block.content, document?.title ?? block.title)
             }}

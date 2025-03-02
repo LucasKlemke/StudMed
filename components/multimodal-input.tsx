@@ -24,6 +24,8 @@ import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
 import { SuggestedActions } from './suggested-actions'
 import equal from 'fast-deep-equal'
+import { Input } from './ui/input'
+import { SubjectSwitcher } from './subject-switcher'
 
 function PureMultimodalInput({
   chatId,
@@ -243,7 +245,8 @@ function PureMultimodalInput({
       />
 
       <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
-        <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
+        <SubjectSwitcher/>
+        {/* <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} /> */}
       </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">

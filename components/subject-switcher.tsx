@@ -200,7 +200,7 @@ export function SubjectSwitcher<T extends { id: string; name: string }>({
 
   return (
     <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} >
         <PopoverTrigger className={`${className} `} asChild>
           <Button
             disabled={disabled}
@@ -209,13 +209,12 @@ export function SubjectSwitcher<T extends { id: string; name: string }>({
             aria-expanded={open}
             aria-label={`Select a ${'Matéria'}`}
             className={
-              'justify-start md:flex md:px-2 bg-transparent  rounded-lg'
+              'justify-start md:flex md:px-2 bg-transparent text-xs  rounded-full'
             }
           >
-            <>
-              {selectedSubject?.name || `  ${'Matéria'}`}
-              <ChevronDownIcon />
-            </>
+            <BookOpen className="h-2 w-2" />
+            {selectedSubject?.name || `  ${'Matéria'}`}
+            <ChevronDownIcon />
 
             {/* <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" /> */}
           </Button>

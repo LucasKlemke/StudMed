@@ -1,5 +1,16 @@
 'use client'
-import { ChevronUp, Info, LogOut, Moon, Sun, User, User2 } from 'lucide-react'
+import {
+  ChevronUp,
+  ClipboardPlus,
+  Heart,
+  Info,
+  LogOut,
+  Moon,
+  Settings,
+  Sun,
+  User,
+  User2,
+} from 'lucide-react'
 import type { User as AuthUser } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
@@ -17,6 +28,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
+import { Button } from './ui/button'
 
 export function SidebarUserNav({ user }: { user: AuthUser }) {
   const { setTheme, theme } = useTheme()
@@ -26,14 +38,20 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent bg-background data-[state=open]:text-sidebar-accent-foreground h-10">
-              <User2 className="w-[24px] h-[24px]" />
-              <div className="flex flex-col pl-2">
-                <span className="truncate">{user?.username}</span>
-                <span className="truncate text-xs">{user?.email}</span>
+            <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent shadow-md dark:shadow-none border data-[state=open]:text-sidebar-accent-foreground h-12 rounded-xl">
+              <div className="flex flex-col pl-1">
+                <div className='flex items-center gap-x-2'>
+                  <ClipboardPlus className='h-5 w-5'/>
+                  <span className="truncate font-semibold text-lg">
+                    {user?.username}
+                  </span>
+                </div>
+                <span className="truncate text-xs text-sidebar-foreground/50">
+                  {user?.email}
+                </span>
               </div>
 
-              <ChevronUp className="ml-auto" />
+              <Settings className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

@@ -19,7 +19,7 @@ import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { SubjectSwitcher } from './subject-switcher'
 import { Label } from './ui/label'
-import { Edit, Search } from 'lucide-react'
+import { Edit, MessageCircleMore, Search, Settings } from 'lucide-react'
 import { SidebarToggle } from './sidebar-toggle'
 import { Input } from './ui/input'
 import { HistorySearch } from './history-search'
@@ -57,7 +57,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       </div>
 
       <SidebarHeader>
-        <SidebarMenu className="py-5">
+        {user && <SidebarUserNav user={user} />}
+
+        {/* <SidebarMenu className="py-5">
           {windowWidth > 426 && (
             <div className="w-full flex flex-col gap-y-4">
               <div className="w-full flex flex-col gap-y-2">
@@ -71,12 +73,12 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               </div>
             </div>
           )}
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarHeader>
       <SidebarContent>
         <SidebarHistory user={user} />
       </SidebarContent>
-      <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
+      {/* <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter> */}
     </Sidebar>
   )
 }

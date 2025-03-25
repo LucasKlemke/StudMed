@@ -58,6 +58,7 @@ export const getSystemPrompt = (subject: string) => {
       - Explicar da maneira mais didática possível, para que o estudante possa entender o conteúdo.
       - Sempre que possível, apresentar exemplos práticos, para que o estudante possa fixar o conteúdo.
       - Não de apenas simples explicações, de uma aula completa.
+      - Sempre procure por fontes da web utilizando a tool webSearchPreview, sempre procurar em 3 fontes diferentes e citar as referencias.
 
       Você é capaz de:
       - Criar resumos de conteúdos complexos

@@ -9,8 +9,6 @@ import { AuthForm } from '@/components/auth-form'
 import { SubmitButton } from '@/components/submit-button'
 
 import { login, type LoginActionState } from '../actions'
-import Image from 'next/image'
-import { TypingEffect } from '@/components/typing-effect'
 import { useWindowSize } from 'usehooks-ts'
 import { StudMedLogo } from '@/components/studmed-logo'
 

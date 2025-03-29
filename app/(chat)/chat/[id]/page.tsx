@@ -7,6 +7,7 @@ import { DEFAULT_MODEL_NAME, models } from '@/lib/ai/models'
 import { getChatById, getMessagesByChatId } from '@/lib/db/queries'
 import { convertToUIMessages } from '@/lib/utils'
 import { DataStreamHandler } from '@/components/data-stream-handler'
+import { User } from 'next-auth'
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
@@ -42,7 +43,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <>
       <Chat
-        id={chat.id}
+        key={id}
+        id={id}
+        user={session?.user as User}
         initialMessages={convertToUIMessages(messagesFromDb)}
         selectedModelId={selectedModelId}
         selectedVisibilityType={chat.visibility}

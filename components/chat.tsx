@@ -15,6 +15,7 @@ import { Messages } from './messages'
 import { VisibilityType } from './visibility-selector'
 import { useSubjectStore } from '@/store/subject'
 import { useBlockSelector } from '@/hooks/use-block'
+import type { User as AuthUser } from 'next-auth'
 
 export function Chat({
   id,
@@ -22,7 +23,9 @@ export function Chat({
   selectedModelId,
   selectedVisibilityType,
   isReadonly,
+  user,
 }: {
+  user: AuthUser
   id: string
   initialMessages: Array<Message>
   selectedModelId: string
@@ -31,8 +34,7 @@ export function Chat({
 }) {
   const { mutate } = useSWRConfig()
 
-  const { subject }: any = useSubjectStore()
-  // console.log(subject.name)
+  const { subject, webSearch }: any = useSubjectStore()
 
   const {
     messages,
@@ -46,10 +48,11 @@ export function Chat({
     reload,
   } = useChat({
     id,
-    body: { id, modelId: selectedModelId, subject: subject.id },
+    body: { id, modelId: selectedModelId, subject: subject.id, webSearch },
     initialMessages,
     onFinish: (message, { usage }) => {
-      console.log('Token usage:', usage)
+      // console.log(message)
+      // console.log('Token usage:', usage)
       mutate('/api/history')
     },
   })
@@ -63,9 +66,10 @@ export function Chat({
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
         {/* gradiente */}
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-background bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]"></div>
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center z-0 dark:bg-background bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]"></div>
 
         <ChatHeader
+          user={user}
           chatId={id}
           selectedModelId={selectedModelId}
           selectedVisibilityType={selectedVisibilityType}

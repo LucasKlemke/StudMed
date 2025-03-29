@@ -26,6 +26,8 @@ import { SuggestedActions } from './suggested-actions'
 import equal from 'fast-deep-equal'
 import { Input } from './ui/input'
 import { SubjectSwitcher } from './subject-switcher'
+import { Globe } from 'lucide-react'
+import { WebSearchButton } from './web-search-button'
 
 function PureMultimodalInput({
   chatId,
@@ -244,8 +246,9 @@ function PureMultimodalInput({
         }}
       />
 
-      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
-        <SubjectSwitcher/>
+      <div className="absolute bottom-0 p-2 w-fit flex items-center gap-x-2 flex-row justify-start">
+        <SubjectSwitcher />
+        <WebSearchButton />
         {/* <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} /> */}
       </div>
 

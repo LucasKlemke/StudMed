@@ -22,6 +22,7 @@ import { DocumentPreview } from './document-preview'
 import AnatomyQuizForm from '@/components/quiz'
 import TableBlock from './table-block'
 import { Heart } from 'lucide-react'
+import SearchBlock from './search-block'
 
 const PurePreviewMessage = ({
   chatId,
@@ -109,10 +110,10 @@ const PurePreviewMessage = ({
 
                 <div
                   className={cn('flex flex-col gap-4', {
-                  'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
-                    message.role === 'user',
-                  'bg-background border px-4 py-3 rounded-xl':
-                    message.role !== 'user',
+                    'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
+                      message.role === 'user',
+                    ' px-4 py-3 rounded-xl':
+                      message.role !== 'user',
                   })}
                 >
                   <Markdown>{message.content as string}</Markdown>
@@ -167,6 +168,8 @@ const PurePreviewMessage = ({
                           <AnatomyQuizForm result={result} />
                         ) : toolName === 'createTable' ? (
                           <TableBlock result={result} />
+                        ) : toolName === 'webSearch' ? (
+                          <SearchBlock result={result} isLoading={isLoading}/>
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}

@@ -2,6 +2,7 @@ import {
   type Message,
   convertToCoreMessages,
   createDataStreamResponse,
+  generateText,
   streamObject,
   streamText,
 } from 'ai'
@@ -10,11 +11,7 @@ import { z } from 'zod'
 import { auth } from '@/app/(auth)/auth'
 import { customModel } from '@/lib/ai'
 import { models } from '@/lib/ai/models'
-import {
-  codePrompt,
-  getSystemPrompt,
-  updateDocumentPrompt,
-} from '@/lib/ai/prompts'
+import { getSystemPrompt, updateDocumentPrompt } from '@/lib/ai/prompts'
 import {
   deleteChatById,
   getChatById,
@@ -33,6 +30,7 @@ import {
 } from '@/lib/utils'
 
 import { generateTitleFromUserMessage } from '../../actions'
+import { openai } from '@ai-sdk/openai'
 
 export const maxDuration = 60
 
@@ -40,9 +38,9 @@ type AllowedTools =
   | 'createDocument'
   | 'updateDocument'
   | 'requestSuggestions'
-  | 'webScraping'
   | 'createQuiz'
   | 'createTable'
+  | 'webSearch'
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
@@ -52,9 +50,10 @@ const blocksTools: AllowedTools[] = [
   'createTable',
 ]
 
-const scrappingTools: AllowedTools[] = ['webScraping']
+const webSearchSystemPrompt =
+  'Você SEMPRE deverá chamar a tool webSearch para responder a pergunta do usuário. Procure no mínimo em 3 fontes.'
 
-const allTools: AllowedTools[] = [...blocksTools, ...scrappingTools]
+const allTools: AllowedTools[] = [...blocksTools]
 
 export async function POST(request: Request) {
   const {
@@ -62,11 +61,13 @@ export async function POST(request: Request) {
     messages,
     subject,
     modelId,
+    webSearch,
   }: {
     id: string
     messages: Array<Message>
     modelId: string
     subject: string
+    webSearch: boolean
   } = await request.json()
 
   const session = await auth()
@@ -104,7 +105,9 @@ export async function POST(request: Request) {
     ],
   })
 
-  const systemPrompt = getSystemPrompt(subject)
+  const systemPrompt = `${getSystemPrompt(subject)}\n${
+    webSearch ? webSearchSystemPrompt : ''
+  }`
 
   return createDataStreamResponse({
     execute: (dataStream) => {
@@ -121,155 +124,11 @@ export async function POST(request: Request) {
         system: systemPrompt,
         // User -> "Write a story about a dragon"
         messages: coreMessages,
-        maxSteps: 5,
-        experimental_activeTools: allTools,
+        maxSteps: webSearch ? 1 : 5,
+        experimental_activeTools: webSearch ? ['webSearch'] : allTools,
 
         // tools
         tools: {
-          //     webScraping: {
-          //       description: `Realizar consulta na web e extrair informações da seguinte fonte : https://pubmed.ncbi.nlm.nih.gov/
-          // - Você deve editar a url adicionando o termo de busca, por exemplo: https://pubmed.ncbi.nlm.nih.gov/?term=systole&filter=simsearch2.ffrft&filter=years.2000-2025
-          // - Apos o termo, sempre aplicar os filtros &filter=simsearch2.ffrft&filter=years.2000-2025, para pegar conteudo gratuito e atualizado
-          // - O termo sempre devera ser adaptado para o ingles
-          // - Nunca devolver a url de busca como referencia
-          //       `,
-          //       parameters: z.object({
-          //         url: z.string().describe('O URL da página da web para consultar'),
-          //       }),
-          //       execute: async ({ url }) => {
-          //         const id = generateUUID()
-
-          //         dataStream.writeData({
-          //           type: 'id',
-          //           content: id,
-          //         })
-
-          //         dataStream.writeData({
-          //           type: 'clear',
-          //           content: '',
-          //         })
-
-          //         const response = await fetch(`https://r.jina.ai/${url}`)
-
-          //         const url_data = await response.text()
-
-          //         // const { text } = await generateText({
-          //         //   model: customModel(model.apiIdentifier),
-          //         //   prompt: 'What is love?',
-          //         // })
-
-          //         const { text: links } = await generateText({
-          //           temperature: 0.1,
-          //           model: customModel(model.apiIdentifier),
-          //           system:
-          //             'You are a web scraping tool. Given a web page content, extract the link of the first three articles and return an array with each link, do not add anything else besides the array.',
-          //           prompt: url_data,
-          //         })
-
-          //         const parsedLinks = JSON.parse(links)
-
-          //         const content = await Promise.all(
-          //           parsedLinks.map(async (link: string) => {
-          //             const article_response = await fetch(
-          //               `https://r.jina.ai/${link}`
-          //             )
-
-          //             const article_url_data = await article_response.text()
-
-          //             return article_url_data
-          //           })
-          //         ).then((articles) => articles.join('\n'))
-
-          //         // console.log('#############################content######', content)
-
-          //         return { content }
-
-          //         // Passo 1, consultar url de busca e selecionar os 3 primeiros links de artigos
-          //         // Passo 2, para cada link, extrair o conteudo do artigo
-          //         // Retornar o conteudo dos 3 artigos no seguinte modelo:
-          //         // Artigo 1:
-          //         //autores: nome completo dos autores
-          //         //titulo: titulo do artigo
-          //         //data: data de publicação
-          //         //link: link do artigo
-          //         //conteudo: conteudo do artigo
-          //         // ...
-
-          //         // const id = generateUUID()
-          //         // let draftText = ''
-          //         // console.log('WEBSCRAPPINGGGG')
-
-          //         // const { fullStream } = streamText({
-          //         //   model: customModel(model.apiIdentifier),
-          //         //   system:
-          //         //     'Você é uma IA médica que ensina estudantes de medicina, com base no conteúdo, crie um resumo super didático e completo, para que o estudante absorva  máximo de conhecimento possível. Markdown é suportado. Use títulos sempre que necessário.',
-          //         //   prompt: url_data,
-          //         // })
-
-          //         // for await (const delta of fullStream) {
-          //         //   const { type } = delta
-
-          //         //   if (type === 'text-delta') {
-          //         //     const { textDelta } = delta
-
-          //         //     draftText += textDelta
-          //         //     dataStream.writeData({
-          //         //       type: 'text-delta',
-          //         //       content: textDelta,
-          //         //     })
-          //         //   }
-          //         // }
-
-          //         // dataStream.writeData({ type: 'finish', content: '' })
-
-          //         // dataStream.writeData(url_data)
-          //         //   let title = 'Web Scraping'
-          //         //   let kind = 'text'
-          //         //  if (session.user?.id) {
-          //         //    await saveDocument({
-          //         //      id,
-          //         //      title,
-          //         //      kind,
-          //         //      content: draftText,
-          //         //      userId: session.user.id,
-          //         //    })
-          //         //  }
-
-          //         //  return {
-          //         //    id,
-          //         //    title,
-          //         //    kind,
-          //         //    content:
-          //         //      'Um documento foi criado e agora está visível para o usuário.',
-          //         //  }
-          //       },
-          //     },
-          webScraping: {
-            description: `Realizar consulta na web com base em uma url fornecida pelo usuário
-            `,
-            parameters: z.object({
-              url: z.string().describe('O URL da página da web para consultar'),
-            }),
-            execute: async ({ url }) => {
-              const id = generateUUID()
-
-              dataStream.writeData({
-                type: 'id',
-                content: id,
-              })
-
-              dataStream.writeData({
-                type: 'clear',
-                content: '',
-              })
-
-              const response = await fetch(`https://r.jina.ai/${url}`)
-
-              const url_data = await response.text()
-
-              return { url_data }
-            },
-          },
           createQuiz: {
             description: 'Criar um quiz com questões de fixação para o usuário',
             parameters: z.object({
@@ -364,8 +223,6 @@ export async function POST(request: Request) {
                 content: '',
               })
 
-              console.log('contexto', context)
-              console.log('basedInformation', basedInformation)
               if (kind === 'text') {
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
@@ -388,37 +245,7 @@ export async function POST(request: Request) {
                 }
 
                 dataStream.writeData({ type: 'finish', content: '' })
-              } else if (kind === 'code') {
-                const { fullStream } = streamObject({
-                  model: customModel(model.apiIdentifier),
-                  system: codePrompt,
-                  prompt: title,
-                  schema: z.object({
-                    code: z.string(),
-                  }),
-                })
-
-                for await (const delta of fullStream) {
-                  const { type } = delta
-
-                  if (type === 'object') {
-                    const { object } = delta
-                    const { code } = object
-
-                    if (code) {
-                      dataStream.writeData({
-                        type: 'code-delta',
-                        content: code ?? '',
-                      })
-
-                      draftText = code
-                    }
-                  }
-                }
-
-                dataStream.writeData({ type: 'finish', content: '' })
               }
-
               if (session.user?.id) {
                 await saveDocument({
                   id,
@@ -624,6 +451,77 @@ export async function POST(request: Request) {
               }
             },
           },
+          webSearch: {
+            description:
+              'Procurar por fontes na web. SEMPRE DEVERÁ CHAMAR ESSA TOOL',
+            parameters: z.object({
+              question: z.string().describe('A pergunta do usuário'),
+              sourceNumber: z
+                .string()
+                .describe('Número de fontes que deverão ser consultadas')
+                .default('3'),
+            }),
+            execute: async ({ question, sourceNumber }) => {
+              console.log('pergunta', question)
+
+              const result = await generateText({
+                model: openai.responses('gpt-4o-mini'),
+                prompt: `
+                Contexto:
+                Você é um professor universitário altamente experiente na área de medicina, especializado em auxiliar estudantes brasileiros de medicina humana em seus estudos acadêmicos.
+
+                Regras:
+                - Explique de forma clara, didática e detalhada, garantindo que o estudante compreenda o conteúdo.
+                - Sempre que possível, inclua exemplos práticos e relevantes para facilitar a fixação do conteúdo.
+                - Forneça uma explicação completa e estruturada, como se fosse uma aula abrangente.
+                - Baseie suas respostas em, no mínimo, 3 fontes confiáveis da web, garantindo precisão e qualidade.
+
+                Capacidades:
+                - Criar resumos claros e objetivos de conteúdos complexos.
+                - Explicar conceitos de forma didática e acessível.
+                - Gerar exemplos práticos e aplicáveis ao contexto médico.
+
+                Restrições:
+                - Não forneça informações erradas, incompletas ou sem embasamento.
+                - Não utilize fontes não confiáveis ou irrelevantes.
+
+                Objetivo:
+                - Auxiliar estudantes de medicina a estudar para provas e aprimorar seus conhecimentos, oferecendo explicações didáticas, exemplos práticos e resumos claros.
+                - Utilize emojis estrategicamente para tornar explicações complexas mais acessíveis e estimular o aprendizado.
+
+                O usuário fez a seguinte pergunta: "${question}". Sua busca deverá se limitar às seguintes fontes de websites: 
+                - PUBMED: https://pubmed.ncbi.nlm.nih.gov/
+                - SCIELO: https://www.scielo.br/
+                - LILACS: https://lilacs.bvsalud.org/
+                - SCHOLAR GOOGLE: https://scholar.google.com.br/?hl=pt
+
+                Instruções:
+                - Pesquise em todas as fontes listadas antes de responder.
+                - Certifique-se de que as fontes consultadas sejam em português (PT-BR) ou inglês.
+                - Inclua no mínimo 3 fontes consultadas na resposta.
+                - Apresente as fontes utilizadas de forma clara e organizada no final da resposta.
+                `,
+                tools: {
+                  web_search_preview: openai.tools.webSearchPreview({
+                    userLocation: {
+                      type: 'approximate',
+                      country: 'BR',
+                    },
+                  }),
+                },
+              })
+
+              console.log(result.sources)
+              console.log(result.text)
+
+              return {
+                sources: result.sources,
+                text: result.text,
+                content:
+                  'A pesquisa foi concluída. Com base no resultado, responda a pergunta inicial do usuário.',
+              }
+            },
+          },
         },
         onFinish: async ({ response, usage }) => {
           if (session.user?.id) {
@@ -652,12 +550,6 @@ export async function POST(request: Request) {
                   }
                 ),
               })
-
-              // const brazilTimeOffset = -3 // Brazil is typically UTC-3
-              // const now = new Date()
-              // const brazilTime = new Date(
-              //   now.getTime() + brazilTimeOffset * 60 * 60 * 1000
-              // )
 
               await saveTokens({
                 ...(usage as any),

@@ -11,52 +11,51 @@ import {
 } from '@/components/ui/carousel'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 
-const SearchBlock = ({ result }) => {
+const SearchBlock = ({ result, isLoading }: any) => {
   return (
     <div>
-      {result && (
-        <>
-          <div className="w-full no-scroll">
-            <p className="font-semibold">Fontes ({result.sources.length})</p>
-            <Carousel
-              opts={{
-                align: 'start',
-                loop: true,
-              }}
-              className="w-full"
-            >
-              <div className="flex gap-x-3 items-center">
-                <CarouselPrevious className="hover:scale-105" />
-                <CarouselContent>
-                  {result.sources.map((src, idx) => (
-                    <CarouselItem
-                      key={`source-${idx}`}
-                      className="md:basis-1/2 lg:basis-1/3 "
-                    >
-                      <Link href={src.url} target="_blank">
-                        <Card className="h-full bg-sidebar hover:border hover:border-primary">
-                          <CardContent className="p-4 flex-grow gap-x-2">
-                            <div className="flex items-center gap-x-1">
-                              <Globe className="pb-1" />
-                              <p className='text-sm'>{idx+1}</p>
-                            </div>
+      <div className="w-full no-scroll">
+        <p className="font-semibold">Fontes ({result.sources.length})</p>
+        <Carousel
+          opts={{
+            align: 'start',
+            loop: true,
+          }}
+          className="w-full py-4"
+        >
+          <div className="flex gap-x-3 items-center">
+            <CarouselPrevious className="hover:scale-105" />
+            <CarouselContent>
+              
+              {// @ts-ignore 
+              result.sources.map((src, idx) => (
+                <CarouselItem
+                  key={`source-${idx}`}
+                  className="md:basis-1/2 lg:basis-1/3 "
+                >
+                  <Link href={src.url} target="_blank">
+                    <Card className="h-full bg-sidebar hover:border hover:border-primary">
+                      <CardContent className="p-4 flex-grow gap-x-2">
+                        <div className="flex items-center gap-x-1">
+                          <Globe className="pb-1" />
+                          <p className="text-sm">{idx + 1}</p>
+                        </div>
 
-                            <p className="text-lg">
-                              {src?.title || 'Titulo não encontrado'}
-                            </p>
-                          </CardContent>
-                        </Card>
-                      </Link>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselNext className="hover:scale-105" />
-              </div>
-            </Carousel>
+                        <p className="text-lg">
+                          {src?.title || 'Titulo não encontrado'}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselNext className="hover:scale-105" />
           </div>
-          <Markdown>{result.text}</Markdown>
-        </>
-      )}
+        </Carousel>
+      </div>
+      <Markdown>{result.text}</Markdown>
+    
     </div>
   )
 }

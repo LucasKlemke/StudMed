@@ -112,7 +112,7 @@ const PurePreviewMessage = ({
                   className={cn('flex flex-col gap-4', {
                     'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
                       message.role === 'user',
-                    'bg-background border px-4 py-3 rounded-xl':
+                    ' px-4 py-3 rounded-xl':
                       message.role !== 'user',
                   })}
                 >
@@ -169,7 +169,7 @@ const PurePreviewMessage = ({
                         ) : toolName === 'createTable' ? (
                           <TableBlock result={result} />
                         ) : toolName === 'webSearch' ? (
-                          <SearchBlock result={result}/>
+                          <SearchBlock result={result} isLoading={isLoading}/>
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}

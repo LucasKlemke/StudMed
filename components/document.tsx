@@ -66,7 +66,7 @@ function PureDocumentToolResult({
         })
       }}
     >
-      <div className="text-primary mt-1">
+      <div className="text-primary mt-1 bg-background">
         {type === 'create' ? (
           <FileIcon />
         ) : type === 'update' ? (

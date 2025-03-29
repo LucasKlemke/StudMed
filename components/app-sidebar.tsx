@@ -57,7 +57,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       </div>
 
       <SidebarHeader>
-        {user && <SidebarUserNav user={user} />}
+        {/* {user && <SidebarUserNav user={user} />} */}
 
         {/* <SidebarMenu className="py-5">
           {windowWidth > 426 && (
@@ -78,6 +78,11 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       <SidebarContent>
         <SidebarHistory user={user} />
       </SidebarContent>
+      {windowWidth <= 425 && (
+        <div>
+          <SidebarUserNav user={user as User} />
+        </div>
+      )}
       {/* <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter> */}
     </Sidebar>
   )

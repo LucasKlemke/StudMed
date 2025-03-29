@@ -20,13 +20,10 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
   const [quizResult, setQuizResult] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState<boolean>(false)
   const { reward, isAnimating } = useReward('rewardId', 'confetti')
-
   const questions = result.quiz.questions
-
   const handleAnswerChange = (questionId: number, answer: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }))
   }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
@@ -37,18 +34,15 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
       }
     })
     const scorePercentage = (score / questions.length) * 100
-
     if (scorePercentage === 100) {
       reward()
     }
-
     setQuizResult(
       `${scorePercentage == 100 ? `Parabéns ! ` : ``}Você acertou ${score} de ${
         questions.length
       } questões. ${scorePercentage}%`
     )
   }
-
   return (
     <div className="pb-4 no-scroll">
       <form onSubmit={handleSubmit}>
@@ -106,7 +100,6 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
           )}
         </div>
       </form>
-
       {quizResult && (
         <div
           className={`mt-6 p-4 space-y-4 rounded shadow-md dark:shadow-none ${
@@ -122,7 +115,8 @@ const AnatomyQuizForm = ({ result }: { result: any }) => {
               return (
                 <p key={q.id}>
                   {/* {` ${{idx}-{q.question}}`} */}
-                  {`${idx + 1}- ${q.question}`} - <strong className='text-primary'>{q.correct}</strong>
+                  {`${idx + 1}- ${q.question}`} -{' '}
+                  <strong className="text-primary">{q.correct}</strong>
                 </p>
               )
             })}

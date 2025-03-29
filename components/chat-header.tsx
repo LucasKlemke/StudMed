@@ -15,14 +15,18 @@ import { SubjectSwitcher } from './subject-switcher'
 import { DataFontSwitcher } from './datafont-switcher'
 import { EditIcon } from 'lucide-react'
 import { StudMedLogo } from './studmed-logo'
+import { SidebarUserNav } from './sidebar-user-nav'
+import type { User as AuthUser } from 'next-auth'
 
 function PureChatHeader({
   chatId,
   selectedModelId,
+  user,
   selectedVisibilityType,
   isReadonly,
 }: {
   chatId: string
+  user: AuthUser
   selectedModelId: string
   selectedVisibilityType: VisibilityType
   isReadonly: boolean
@@ -96,6 +100,12 @@ function PureChatHeader({
           Deploy with Vercel
         </Link>
       </Button> */}
+
+      {windowWidth > 425 && (
+        <div className="order-4 ml-auto">
+          <SidebarUserNav user={user} />
+        </div>
+      )}
     </header>
   )
 }

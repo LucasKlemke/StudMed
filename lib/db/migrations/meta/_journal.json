@@ -5,141 +5,22 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1728598022383,
-      "tag": "0000_keen_devos",
+      "when": 1743636259905,
+      "tag": "0000_tidy_roland_deschain",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1730207363999,
-      "tag": "0001_sparkling_blue_marvel",
+      "when": 1743636804868,
+      "tag": "0001_busy_romulus",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1730725226313,
-      "tag": "0002_wandering_riptide",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1733403031014,
-      "tag": "0003_cloudy_glorian",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1733945232355,
-      "tag": "0004_odd_slayback",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1735842599675,
-      "tag": "0005_cold_daimon_hellstrom",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1735842833579,
-      "tag": "0006_lovely_storm",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1735842920740,
-      "tag": "0007_lyrical_zarek",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1735843513139,
-      "tag": "0008_fluffy_silver_centurion",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1735843608695,
-      "tag": "0009_freezing_the_initiative",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "7",
-      "when": 1735843661117,
-      "tag": "0010_quick_mandrill",
-      "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "7",
-      "when": 1735844576502,
-      "tag": "0011_old_killer_shrike",
-      "breakpoints": true
-    },
-    {
-      "idx": 12,
-      "version": "7",
-      "when": 1735844600835,
-      "tag": "0012_thick_juggernaut",
-      "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "7",
-      "when": 1735844616953,
-      "tag": "0013_superb_gabe_jones",
-      "breakpoints": true
-    },
-    {
-      "idx": 14,
-      "version": "7",
-      "when": 1736617229525,
-      "tag": "0014_powerful_joshua_kane",
-      "breakpoints": true
-    },
-    {
-      "idx": 15,
-      "version": "7",
-      "when": 1736621035044,
-      "tag": "0015_large_katie_power",
-      "breakpoints": true
-    },
-    {
-      "idx": 16,
-      "version": "7",
-      "when": 1736621106605,
-      "tag": "0016_stale_storm",
-      "breakpoints": true
-    },
-    {
-      "idx": 17,
-      "version": "7",
-      "when": 1736622649728,
-      "tag": "0017_adorable_turbo",
-      "breakpoints": true
-    },
-    {
-      "idx": 18,
-      "version": "7",
-      "when": 1736623518939,
-      "tag": "0018_even_peter_quill",
-      "breakpoints": true
-    },
-    {
-      "idx": 19,
-      "version": "7",
-      "when": 1736624734256,
-      "tag": "0019_motionless_wolverine",
+      "when": 1743639202021,
+      "tag": "0002_calm_shinko_yamashiro",
       "breakpoints": true
     }
   ]

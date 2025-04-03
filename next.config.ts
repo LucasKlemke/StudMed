@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
       {
         hostname: 'avatar.vercel.sh',
       },
+      {
+        hostname: 'st3.depositphotos.com',
+      },
     ],
   },
   async redirects() {

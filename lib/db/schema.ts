@@ -15,6 +15,8 @@ export const user = pgTable('User', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   email: varchar('email', { length: 64 }).notNull(),
+  hasAccess: boolean('hasAccess').notNull().default(false),
+  priceId: varchar('priceId', { length: 64 }),
   username: varchar('username', { length: 256 }).notNull().default('usuario'),
   password: varchar('password', { length: 64 }),
 })

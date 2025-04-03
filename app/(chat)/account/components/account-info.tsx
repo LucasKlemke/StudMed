@@ -15,13 +15,12 @@ import {
 import { UserPen } from 'lucide-react'
 import { getUserSession } from '../_actions/get_user'
 import { useSession } from 'next-auth/react'
+import { User } from 'next-auth'
 
-export default function AccountInfo() {
-  const { data: session, update } = useSession()
-  const [user, setUser] = useState(session?.user)
-  const [originalName, setOriginalName] = useState(session?.user?.username)
+export default function AccountInfo({ user }: { user: User }) {
+  const [originalName, setOriginalName] = useState(user?.username)
   const [name, setName] = useState(originalName)
-  const [email, setEmail] = useState(session?.user?.email)
+  const [email, setEmail] = useState(user?.email)
 
   const [isEditing, setIsEditing] = useState(false)
 

@@ -296,11 +296,7 @@ export default function AccountInfo({
                   </div>
 
                   <div className="flex flex-col space-y-3 w-full md:w-auto">
-                    <Link
-                      href={
-                        'https://billing.stripe.com/p/login/test_6oE8yB3Lh5U74mY7ss'
-                      }
-                    >
+                    <Link href={process.env.STRIPE_CUSTOMER_PORTAL_URL ?? ''}>
                       <Button
                         variant="outline"
                         onClick={() => console.log(subscription)}

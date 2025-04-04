@@ -2,7 +2,11 @@ import { Metadata } from 'next'
 
 import Title from './title'
 
-import Content from './components/content'
+import { fetchStripeSubscriptionByEmail } from '@/lib/stripe'
+import AccountInfo from './components/account-info'
+import { auth } from '@/app/(auth)/auth'
+import { User } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Account Management',
@@ -10,11 +14,19 @@ export const metadata: Metadata = {
 }
 
 export default async function AccountPage() {
-  return (
-    <div className="container mx-10 py-10">
-      <Title />
+  const session = await auth()
+  const subscription = await fetchStripeSubscriptionByEmail(
+    session?.user?.email as string
+  )
 
-      <Content />
+  if (!subscription) {
+    // redirect('/')
+  }
+
+  return (
+    <div className="container px-10 py-10">
+      <Title />
+      <AccountInfo subscription={subscription} user={session?.user as User} />
     </div>
   )
 }

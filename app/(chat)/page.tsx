@@ -20,7 +20,7 @@ export default async function Page() {
   const subscription = await fetchStripeSubscriptionByEmail(userEmail)
 
   if (!subscription) {
-    redirect('/pricing')
+    // redirect('/')
   }
 
   const selectedModelId =

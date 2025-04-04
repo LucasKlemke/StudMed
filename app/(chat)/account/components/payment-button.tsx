@@ -18,9 +18,10 @@ import { useSession } from 'next-auth/react'
 
 type PaymentButtonProps = {
   children: React.ReactNode
+  className?: string
 }
 
-const PaymentButton = ({ children }: PaymentButtonProps) => {
+const PaymentButton = ({ children, className }: PaymentButtonProps) => {
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
   )
@@ -43,15 +44,15 @@ const PaymentButton = ({ children }: PaymentButtonProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">Assine Agora</Button>
+        <Button className={`w-full ${className}`}>{children}</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='bg-white text-black'>
         <>
           <VisuallyHidden.Root>
             <DialogTitle>Assinatura Pro</DialogTitle>
           </VisuallyHidden.Root>
           <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-            <EmbeddedCheckout />
+            <EmbeddedCheckout/>
           </EmbeddedCheckoutProvider>
         </>
       </DialogContent>

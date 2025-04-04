@@ -25,3 +25,4 @@ export async function fetchStripeSubscriptionByEmail(email: string) {
 
   return subscription
 }
+

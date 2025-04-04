@@ -44,7 +44,7 @@ export default function PricingPage() {
   const selectedPlan = plans.find((plan) => plan.billingCycle === billingCycle)
 
   return (
-    <div className=" bg-gradient-to-b from-gray-50 to-gray-100 dark:from-emerald-900 dark:to-slate-950 py-20">
+    <div className=" bg-gradient-to-b h-screen from-gray-50 to-gray-100 dark:from-emerald-900 dark:to-slate-950 py-20">
       <div className="container px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">

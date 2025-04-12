@@ -7,14 +7,13 @@ import postgres from 'postgres'
 
 import { BlockKind } from '@/components/block'
 
-import { vote } from './schema/vote'
-import { message, type Message } from './schema/message'
-import { tokens as tokensTable, type Tokens } from './schema/tokens'
-import { type Suggestion, suggestion } from './schema/suggestion'
-import { document } from './schema/document'
-import { chat } from './schema/chat'
-import { user, User } from './schema/user'
-import { None } from 'framer-motion'
+import { vote } from '@/lib/db/schema'
+import { message, type Message } from '@/lib/db/schema'
+import { tokens as tokensTable, type Tokens } from '@/lib/db/schema'
+import { type Suggestion, suggestion } from '@/lib/db/schema'
+import { document } from '@/lib/db/schema'
+import { chat } from '@/lib/db/schema'
+import { user, User } from '@/lib/db/schema'
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth

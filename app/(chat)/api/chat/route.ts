@@ -22,7 +22,7 @@ import {
   saveSuggestions,
   saveTokens,
 } from '@/lib/db/queries'
-import type { Suggestion } from '@/lib/db/schema/suggestion'
+import type { Suggestion } from '@/lib/db/schema'
 import {
   generateUUID,
   getMostRecentUserMessage,

@@ -12,9 +12,9 @@ import {
 import useSWR, { useSWRConfig } from 'swr'
 import { useDebounceCallback, useWindowSize } from 'usehooks-ts'
 
-import type { Document } from '@/lib/db/schema/document'
-import type { Suggestion } from '@/lib/db/schema/suggestion'
-import type { Vote } from '@/lib/db/schema/vote'
+import type { Document } from '@/lib/db/schema'
+import type { Suggestion } from '@/lib/db/schema'
+import type { Vote } from '@/lib/db/schema'
 import { cn, fetcher } from '@/lib/utils'
 
 import { DiffView } from './diffview'

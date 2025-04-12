@@ -76,8 +76,8 @@ export function SubscriptionModal() {
 
   return (
     <Dialog open>
-      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden border-0 rounded-xl">
-        <div className="flex flex-col md:flex-row">
+      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden border-0 rounded-xl ">
+        <div className="flex flex-col md:flex-row ">
           {/* Left side - Illustration */}
           <div className="w-full md:w-1/2 bg-gradient-to-br from-teal-400 to-blue-600 p-6 flex items-center justify-center relative">
             <Image

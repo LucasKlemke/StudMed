@@ -11,123 +11,144 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Check, CreditCard } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
+import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
+import { year } from 'drizzle-orm/mysql-core'
+import { User } from 'next-auth'
+import PaymentButton from './payment-button'
 
 const plans = [
-  // {
-  //   name: 'Básico',
-  //   price: 'R$9.99/mês',
-  //   features: ['Feature 1', 'Feature 2', 'Feature 3'],
-  // },
-  // {
-  //   name: 'Premium',
-  //   price: 'R$19.99/mês',
-  //   features: ['All Basic features', 'Feature 4', 'Feature 5'],
-  // },
-  // {
-  //   name: 'Universidade',
-  //   price: '',
-  //   features: [
-  //     'All Pro features',
-  //     'Feature 6',
-  //     'Feature 7',
-  //     'Priority Support',
-  //   ],
-  // },
   {
-    name: 'Beta',
-    price: 'R$0.00/mês',
+    name: 'Premium',
+    description: 'Acesso completo a todos os recursos',
+    price: 29.99,
+    link: 'https://buy.stripe.com/test_aEUdUHgLYgDf8wMdQQ',
+    priceId: 'price_1R9Ze7C73rvGfwkJRjqu6l74',
+    billingCycle: 'monthly',
     features: [
-      'Acesso Limitado de 1 mês',
-      'Refêrencias acadêmicas',
+      'Seletor de matéria',
+      'Geração de questões de múltipla escolha',
       'Contexto Especializado',
       'Respostas rápidas e precisas',
-      'Questões de fixação',
+      'Seletor de matérias',
       'Geração de PDFs',
+      'Suporte prioritário',
+    ],
+  },
+  {
+    name: 'Premium',
+    description: 'Acesso completo a todos os recursos',
+    price: 299.99,
+    link: 'https://buy.stripe.com/test_bIY17V9jwgDf6oE7st',
+    priceId: 'price_1R9ZgkC73rvGfwkJQuRCQK2b',
+    billingCycle: 'yearly',
+    features: [
+      'Seletor de matéria',
+      'Geração de questões de múltipla escolha',
+      'Contexto Especializado',
+      'Respostas rápidas e precisas',
+      'Seletor de matérias',
+      'Geração de PDFs',
+      'Suporte prioritário',
     ],
   },
 ]
 
-export default function SubscriptionManagement() {
-  const [isEditing, setIsEditing] = useState(false)
-  const [currentPlan, setCurrentPlan] = useState(plans[0])
+export default function SubscriptionManagement({ user }: { user: User }) {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>(
+    'monthly'
+  )
 
-  const handleUpgrade = (plan: any) => {
-    // Here you would typically handle the upgrade process
-    console.log(`Upgrading to ${plan.name} plan`)
-    setCurrentPlan(plan)
-    setIsEditing(false)
-  }
+  const selectedPlan = plans.find((plan) => plan.billingCycle === billingCycle)
 
   return (
-    <Card className="w-3/4">
-      <CardHeader>
-        <CardTitle className="flex gap-x-3">
-          <CreditCard />
-          Gerenciar plano
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-          {plans.map((plan) => (
-            <Card
-              className={`${
-                plan.name === currentPlan.name ? 'ring-1 ring-primary sm:col-span-3 md:col-span-3 lg:col-span-1' : ''
-              }`}
-              key={plan.name}
-            >
-              <CardHeader>
-                <CardTitle
-                  className={`${
-                    plan.name === currentPlan.name ? 'text-primary' : ''
-                  }`}
-                >
-                  {plan.name}
-                </CardTitle>
-                <CardDescription>{plan.price}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc list-inside gap-y-2 flex flex-col">
-                  {plan.features.map((feature, index) => (
-                    <li className="flex justify-between" key={index}>
-                      {feature} <Check className="text-primary" />
+    <div className="container mx-auto px-4 py-8">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold mb-4">Escolha seu plano</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Acesso completo a todos os recursos com 14 dias de avaliação gratuita.
+        </p>
+
+        <div className="flex items-center justify-center mt-6 space-x-2">
+          <Label htmlFor="billing-toggle">Mensal</Label>
+          <Switch
+            id="billing-toggle"
+            checked={billingCycle === 'yearly'}
+            onCheckedChange={(checked) =>
+              setBillingCycle(checked ? 'yearly' : 'monthly')
+            }
+          />
+          <Label htmlFor="billing-toggle" className="flex items-center">
+            Anual
+            {billingCycle === 'yearly' && selectedPlan && (
+              <Badge
+                variant="outline"
+                className="ml-2 bg-green-50 text-green-700 border-green-200"
+              >
+                Economize{' '}
+                {Math.round(
+                  (1 - selectedPlan.price / (plans[0].price * 12)) * 100
+                )}
+                %
+              </Badge>
+            )}
+          </Label>
+        </div>
+      </div>
+
+      {selectedPlan && (
+        <div className="max-w-md mx-auto">
+          <Card className="border-primary shadow-md">
+            <CardHeader>
+              <CardTitle className="text-primary flex items-center gap-x-2">
+                <CreditCard />
+                {selectedPlan.name}
+              </CardTitle>
+              <CardDescription>{selectedPlan.description}</CardDescription>
+              <div className="mt-4">
+                <span className="text-3xl font-bold">
+                  R${selectedPlan.price.toFixed(2)}
+                </span>
+                <span className="text-muted-foreground">
+                  {billingCycle === 'monthly' ? '/mês' : '/ano'}
+                </span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <h4 className="font-medium">O que está incluído:</h4>
+                <ul className="space-y-2">
+                  {selectedPlan.features.map((feature, index) => (
+                    <li className="flex items-start" key={index}>
+                      <Check className="h-5 w-5 text-primary shrink-0 mr-2" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  onClick={() => handleUpgrade(plan)}
-                  disabled={plan.name === currentPlan.name}
-                >
-                  {plan.name === currentPlan.name ? 'Plano Atual' : 'Upgrade'}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+              </div>
+            </CardContent>
+            <CardFooter>
+              {/* <Link
+                href={`${selectedPlan.link}?prefilled_email=${user?.email}`}
+                target="_blank"
+                className="w-full"
+              >
+                <Button className="w-full">Assinar</Button>
+              </Link> */}
+              <PaymentButton>Compre agora</PaymentButton>
+            </CardFooter>
+          </Card>
         </div>
-        <div className="pt-3">
-          <p>
-            Plano atual{' '}
-            <strong className="text-primary">{currentPlan.name} </strong> (
-            {currentPlan.price.replace('/mês', '')})
-          </p>
-          {/* <p>
-            Acesso até: <strong>1 de Março de 2025</strong>
-          </p> */}
-        </div>
-      </CardContent>
-      <CardFooter className="gap-x-4">
-        {/* {isEditing ? (
-          <Button variant="outline" onClick={() => setIsEditing(false)}>
-            Cancelar
-          </Button>
-        ) : (
-          <Button onClick={() => setIsEditing(true)}>Atualizar plano</Button>
-        )} */}
-        {/* <Button className="w-full" variant="destructive">
-          Cancelar plano
-        </Button> */}
-      </CardFooter>
-    </Card>
+      )}
+
+      <div className="mt-8 text-center text-sm text-muted-foreground">
+        <p>
+          Ao assinar, você concorda com nossos termos de serviço e política de
+          privacidade.
+        </p>
+      </div>
+    </div>
   )
 }

@@ -1,1 +1,0 @@
-ALTER TABLE "Tokens" ADD COLUMN "totalPrice" numeric;

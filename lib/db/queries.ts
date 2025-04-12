@@ -33,9 +33,42 @@ export async function getUser(email: string): Promise<Array<User>> {
   }
 }
 
+export async function getUserById(id: string): Promise<Array<User>> {
+  try {
+    return await db.select().from(user).where(eq(user.id, id))
+  } catch (error) {
+    console.error('Failed to get user from database')
+    throw error
+  }
+}
+
 export async function updateUser(id: string, username: string) {
   try {
     await db.update(user).set({ username }).where(eq(user.id, id))
+  } catch (error) {
+    console.error('Failed to get user from database')
+    throw error
+  }
+}
+
+export async function updateUserAccess(id: string, hasAccess: boolean) {
+  try {
+    // @ts-ignore
+    await db.update(user).set({ hasAccess }).where(eq(user.id, id))
+  } catch (error) {
+    console.error('Failed to get user from database')
+    throw error
+  }
+}
+
+export async function updateUserPriceIdAndAccess(
+  id: string,
+  priceId: string,
+  hasAccess: boolean
+) {
+  try {
+    // @ts-ignore
+    await db.update(user).set({ priceId, hasAccess }).where(eq(user.id, id))
   } catch (error) {
     console.error('Failed to get user from database')
     throw error

@@ -8,6 +8,7 @@ import { getChatById, getMessagesByChatId } from '@/lib/db/queries'
 import { convertToUIMessages } from '@/lib/utils'
 import { DataStreamHandler } from '@/components/data-stream-handler'
 import { User } from 'next-auth'
+import { fetchStripeSubscriptionByEmail } from '@/lib/stripe'
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
@@ -34,6 +35,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     id,
   })
 
+  const userEmail = session?.user?.email as string
+  const subscription = await fetchStripeSubscriptionByEmail(userEmail)
+
   const cookieStore = await cookies()
   const modelIdFromCookie = cookieStore.get('model-id')?.value
   const selectedModelId =
@@ -43,6 +47,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <>
       <Chat
+        subscription={subscription}
         key={id}
         id={id}
         user={session?.user as User}

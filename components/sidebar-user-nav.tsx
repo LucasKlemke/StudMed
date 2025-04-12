@@ -61,8 +61,10 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
         </Link>
 
         <DropdownMenuItem className="cursor-pointer gap-2 py-2">
-          <Info className="h-4 w-4" />
-          <span>Suporte</span>
+          <Link href={'/support'} className="gap-2 flex items-center">
+            <Info className="h-4 w-4" />
+            <span>Suporte</span>
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

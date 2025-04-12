@@ -3,10 +3,7 @@
 import { useState } from 'react'
 import { Check, CreditCard } from 'lucide-react'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
+
 import {
   Card,
   CardContent,

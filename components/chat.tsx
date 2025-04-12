@@ -16,6 +16,7 @@ import { VisibilityType } from './visibility-selector'
 import { useSubjectStore } from '@/store/subject'
 import { useBlockSelector } from '@/hooks/use-block'
 import type { User as AuthUser } from 'next-auth'
+import { SubscriptionModal } from '@/app/(chat)/pricing/subscription-modal'
 
 export function Chat({
   id,
@@ -24,9 +25,11 @@ export function Chat({
   selectedVisibilityType,
   isReadonly,
   user,
+  subscription,
 }: {
   user: AuthUser
   id: string
+  subscription: any | null | undefined
   initialMessages: Array<Message>
   selectedModelId: string
   selectedVisibilityType: VisibilityType
@@ -64,9 +67,10 @@ export function Chat({
 
   return (
     <>
-      <div className="flex flex-col min-w-0 h-dvh bg-background dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
+      {!subscription && <SubscriptionModal />}
+
+      <div className="flex flex-col min-w-0 h-dvh bg-background ">
         {/* gradiente */}
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center z-0 dark:bg-background bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]"></div>
 
         <ChatHeader
           user={user}

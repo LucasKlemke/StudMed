@@ -53,6 +53,7 @@ export async function updateUser(id: string, username: string) {
 
 export async function updateUserAccess(id: string, hasAccess: boolean) {
   try {
+    // @ts-ignore
     await db.update(user).set({ hasAccess }).where(eq(user.id, id))
   } catch (error) {
     console.error('Failed to get user from database')
@@ -66,6 +67,7 @@ export async function updateUserPriceIdAndAccess(
   hasAccess: boolean
 ) {
   try {
+    // @ts-ignore
     await db.update(user).set({ priceId, hasAccess }).where(eq(user.id, id))
   } catch (error) {
     console.error('Failed to get user from database')

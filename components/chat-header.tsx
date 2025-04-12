@@ -39,7 +39,7 @@ function PureChatHeader({
   // console.log('chatId', chatId)
 
   return (
-    <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2 ">
+    <header className="flex sticky top-0 bg-transparent py-1.5 items-center px-2 md:px-2 gap-2 ">
       {(!open || windowWidth < 768) && <SidebarToggle />}
 
       {(!open || windowWidth < 768) && (
@@ -62,7 +62,7 @@ function PureChatHeader({
 
       <Button
         variant="outline"
-        className="text-primary hover:text-primary cursor-default hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-4 rounded-2xl text-3xl"
+        className="text-primary hover:text-primary cursor-default bg-transparent hover:bg-transparent border-none md:flex md:px-2 md:h-[34px] order-4 rounded-2xl text-3xl"
       >
         Studmed
       </Button>

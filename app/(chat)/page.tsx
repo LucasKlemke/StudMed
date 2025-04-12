@@ -6,8 +6,6 @@ import { generateUUID } from '@/lib/utils'
 import { DataStreamHandler } from '@/components/data-stream-handler'
 import { auth } from '../(auth)/auth'
 import { User } from 'next-auth'
-import { sub } from 'date-fns'
-import { redirect } from 'next/navigation'
 import { fetchStripeSubscriptionByEmail } from '@/lib/stripe'
 
 export default async function Page() {
@@ -19,10 +17,6 @@ export default async function Page() {
 
   const subscription = await fetchStripeSubscriptionByEmail(userEmail)
 
-  if (!subscription) {
-    // redirect('/')
-  }
-
   const selectedModelId =
     models.find((model) => model.id === modelIdFromCookie)?.id ||
     DEFAULT_MODEL_NAME
@@ -30,6 +24,7 @@ export default async function Page() {
   return (
     <>
       <Chat
+        subscription={subscription}
         user={session?.user as User}
         key={id}
         id={id}

@@ -6,7 +6,6 @@ import { fetchStripeSubscriptionByEmail } from '@/lib/stripe'
 import AccountInfo from './components/account-info'
 import { auth } from '@/app/(auth)/auth'
 import { User } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Account Management',
@@ -18,10 +17,6 @@ export default async function AccountPage() {
   const subscription = await fetchStripeSubscriptionByEmail(
     session?.user?.email as string
   )
-
-  if (!subscription) {
-    // redirect('/')
-  }
 
   return (
     <div className="container px-10 py-10">

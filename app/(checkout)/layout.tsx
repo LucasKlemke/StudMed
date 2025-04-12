@@ -4,10 +4,8 @@ import React from 'react'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="flex flex-col items-center justify-center py-40">
-      <Link href={'/'}>
-        <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
-      </Link>
+    <section className="flex bg-gradient-to-b from-gray-50 to-gray-100 dark:from-emerald-900 h-screen dark:to-slate-950 flex-col items-center justify-center py-40">
+     
       {children}
     </section>
   )

@@ -364,7 +364,7 @@ export default function AccountInfo({
                         </Button>
                       </Link>
 
-                      <Form action={cancelSubscriptionAction}>
+                      {/* <Form action={cancelSubscriptionAction}>
                         <input
                           type="hidden"
                           name="subscriptionId"
@@ -373,7 +373,7 @@ export default function AccountInfo({
                         <Button className="px-4 py-2 text-sm w-full font-medium bg-rose-500 hover:bg-rose-600 text-white">
                           <X className="h-4 w-4 mr-2" /> Cancelar assinatura
                         </Button>
-                      </Form>
+                      </Form> */}
                     </div>
                   </div>
                 </div>

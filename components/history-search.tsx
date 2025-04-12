@@ -17,7 +17,7 @@ import { Dialog } from '@/components/ui/dialog'
 
 import useSWR from 'swr'
 
-import type { Chat } from '@/lib/db/schema/chat'
+import type { Chat } from '@/lib/db/schema'
 import { fetcher } from '@/lib/utils'
 
 import {

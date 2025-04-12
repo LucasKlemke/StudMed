@@ -9,6 +9,7 @@ import {
   primaryKey,
   foreignKey,
   boolean,
+  numeric,
 } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('User', {
@@ -20,6 +21,28 @@ export const user = pgTable('User', {
   username: varchar('username', { length: 256 }).notNull().default('usuario'),
   password: varchar('password', { length: 64 }),
 })
+
+export const tokens = pgTable(
+  'Tokens',
+  {
+    id: uuid('id').notNull().defaultRandom(),
+    createdAt: timestamp('createdAt').notNull(),
+    promptTokens: numeric('promptTokens').notNull(),
+    completionTokens: numeric('completionTokens').notNull(),
+    totalTokens: numeric('totalTokens').notNull(),
+    totalPrice: numeric('totalPrice'),
+    userId: uuid('userId')
+      .notNull()
+      .references(() => user.id),
+  },
+  (table) => {
+    return {
+      pk: primaryKey({ columns: [table.id, table.createdAt] }),
+    }
+  }
+)
+
+export type Tokens = InferSelectModel<typeof tokens>
 
 export type User = InferSelectModel<typeof user>
 

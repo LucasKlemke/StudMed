@@ -69,7 +69,8 @@ export function Chat({
     <>
       {!subscription && <SubscriptionModal />}
 
-      <div className="flex flex-col min-w-0 h-dvh bg-background ">
+      <div className="flex flex-col min-w-0 h-dvh bg-background">
+
         {/* gradiente */}
 
         <ChatHeader
@@ -80,47 +81,51 @@ export function Chat({
           isReadonly={isReadonly}
         />
 
-        <Messages
-          chatId={id}
-          isLoading={isLoading}
-          votes={votes}
-          messages={messages.filter(
-            (message) =>
-              !message.toolInvocations ||
-              !message.toolInvocations.some(
-                (invocation) => invocation.toolName === 'webScraping'
-              )
-          )}
-          append={append}
-          setMessages={setMessages}
-          reload={reload}
-          isReadonly={isReadonly}
-          isBlockVisible={isBlockVisible}
-        />
+        <div className="flex-1 overflow-y-auto pb-24">
+          <Messages
+            chatId={id}
+            isLoading={isLoading}
+            votes={votes}
+            messages={messages.filter(
+              (message) =>
+                !message.toolInvocations ||
+                !message.toolInvocations.some(
+                  (invocation) => invocation.toolName === 'webScraping'
+                )
+            )}
+            append={append}
+            setMessages={setMessages}
+            reload={reload}
+            isReadonly={isReadonly}
+            isBlockVisible={isBlockVisible}
+          />
+        </div>
 
-        <form className="flex mx-auto px-4 bg-transparent pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">
-          {!isReadonly && (
-            <MultimodalInput
-              chatId={id}
-              input={input}
-              setInput={setInput}
-              handleSubmit={handleSubmit}
-              isLoading={isLoading}
-              stop={stop}
-              attachments={attachments}
-              setAttachments={setAttachments}
-              messages={messages.filter(
-                (message) =>
-                  !message.toolInvocations ||
-                  !message.toolInvocations.some(
-                    (invocation) => invocation.toolName === 'webScraping'
-                  )
-              )}
-              setMessages={setMessages}
-              append={append}
-            />
-          )}
-        </form>
+        <div className="bg-background px-4 pb-4 md:pb-6">
+          <form className="flex mx-auto px-4 bg-transparent pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">
+            {!isReadonly && (
+              <MultimodalInput
+                chatId={id}
+                input={input}
+                setInput={setInput}
+                handleSubmit={handleSubmit}
+                isLoading={isLoading}
+                stop={stop}
+                attachments={attachments}
+                setAttachments={setAttachments}
+                messages={messages.filter(
+                  (message) =>
+                    !message.toolInvocations ||
+                    !message.toolInvocations.some(
+                      (invocation) => invocation.toolName === 'webScraping'
+                    )
+                )}
+                setMessages={setMessages}
+                append={append}
+              />
+            )}
+          </form>
+        </div>
       </div>
 
       <Block

@@ -372,7 +372,7 @@ export function SubjectSwitcher<T extends { id: string; name: string }>({
                     >
                      <item.icon
                         className={cn(
-                          "h-4 w-4 rounded-sm bg-muted p-0.5 bg-transparent",
+                          "h-4 w-4 rounded-sm p-0.5 bg-transparent",
                           pastelColors[item.id] || "text-muted-foreground"
                         )}
                       />

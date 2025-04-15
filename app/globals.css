@@ -137,6 +137,10 @@
   }
 }
 
+html,body{
+  overflow-y: hidden;
+}
+
 .ProseMirror {
   outline: none;
 }

@@ -56,7 +56,7 @@ export default function Page() {
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
             {/* <p className="text-3xl text-primary">Studmed</p>
              */}
-            <p className="text-2xl lg:text-4xl text-primary">Studmed</p>
+            <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
             <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
             <p className=" lg:text-3xl">| Login</p>
           </div>

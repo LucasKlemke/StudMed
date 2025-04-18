@@ -58,42 +58,43 @@ import {
 } from "lucide-react"
 
 const pastelColors: Record<string, string> = {
-  fisiologia: "text-[#A5D8FF]",     
-  anatomia: "text-[#FFC9C9]",     
-  bioquimica: "text-[#FFE066]",    
-  embriologia: "text-[#D0BFFF]",      
-  histologia: "text-[#C3FAE8]",     
-  patologia: "text-[#FFD8A8]",     
-  farmacologia: "text-[#B2F2BB]",  
-  genetica_medica: "text-[#FCC2D7]",
-  imunologia: "text-[#D0EBFF]",
-  microbiologia: "text-[#FFF3BF]",
-  parasitologia: "text-[#E7C6FF]",
-  epidemiologia: "text-[#C5F6FA]",
-  clinica_medica: "text-[#B5E48C]",
-  pediatria: "text-[#F1C0E8]",
-  ginecologia_obstetricia: "text-[#FFDEEB]",
-  cirurgia_geral: "text-[#FFD6A5]",
-  psiquiatria: "text-[#BDB2FF]",
-  ortopedia_traumatologia: "text-[#D8F5A2]",
-  dermatologia: "text-[#FFD5CD]",
-  oftalmologia: "text-[#B2F2BB]",
-  otorrinolaringologia: "text-[#A0C4FF]",
-  neurologia: "text-[#D0EBFF]",
-  cardiologia: "text-[#FFADAD]",
-  radiologia: "text-[#E0C3FC]",
-  anestesiologia: "text-[#FDCB9E]",
-  reumatologia: "text-[#A3C4F3]",
-  endocrinologia: "text-[#CAF0F8]",
-  oncologia: "text-[#FFC6FF]",
-  toxicologia: "text-[#FFD6D6]",
-  nefrologia: "text-[#B5EAEA]",
-  pneumologia: "text-[#CDEAC0]",
-  gastroenterologia: "text-[#FAEDCD]",
-  hematologia: "text-[#FDC5F5]",
-  infectologia: "text-[#D0F4DE]",
-  geral: "text-[#DEE2FF]" 
+  fisiologia: "text-[#339af0] dark:text-[#A5D8FF]",
+  anatomia: "text-[#ff8787] dark:text-[#FFC9C9]",
+  bioquimica: "text-[#fab005] dark:text-[#FFE066]",
+  embriologia: "text-[#9775fa] dark:text-[#D0BFFF]",
+  histologia: "text-[#20c997] dark:text-[#C3FAE8]",
+  patologia: "text-[#ffa94d] dark:text-[#FFD8A8]",
+  farmacologia: "text-[#69db7c] dark:text-[#B2F2BB]",
+  genetica_medica: "text-[#f783ac] dark:text-[#FCC2D7]",
+  imunologia: "text-[#339af0] dark:text-[#D0EBFF]",
+  microbiologia: "text-[#ffd43b] dark:text-[#FFF3BF]",
+  parasitologia: "text-[#da77f2] dark:text-[#E7C6FF]",
+  epidemiologia: "text-[#66d9e8] dark:text-[#C5F6FA]",
+  clinica_medica: "text-[#82c91e] dark:text-[#B5E48C]",
+  pediatria: "text-[#e599f7] dark:text-[#F1C0E8]",
+  ginecologia_obstetricia: "text-[#f783ac] dark:text-[#FFDEEB]",
+  cirurgia_geral: "text-[#ffa94d] dark:text-[#FFD6A5]",
+  psiquiatria: "text-[#845ef7] dark:text-[#BDB2FF]",
+  ortopedia_traumatologia: "text-[#94d82d] dark:text-[#D8F5A2]",
+  dermatologia: "text-[#ff8787] dark:text-[#FFD5CD]",
+  oftalmologia: "text-[#51cf66] dark:text-[#B2F2BB]",
+  otorrinolaringologia: "text-[#74c0fc] dark:text-[#A0C4FF]",
+  neurologia: "text-[#339af0] dark:text-[#D0EBFF]",
+  cardiologia: "text-[#ff6b6b] dark:text-[#FFADAD]",
+  radiologia: "text-[#b197fc] dark:text-[#E0C3FC]",
+  anestesiologia: "text-[#ffa94d] dark:text-[#FDCB9E]",
+  reumatologia: "text-[#91a7ff] dark:text-[#A3C4F3]",
+  endocrinologia: "text-[#66d9e8] dark:text-[#CAF0F8]",
+  oncologia: "text-[#e599f7] dark:text-[#FFC6FF]",
+  toxicologia: "text-[#ff8787] dark:text-[#FFD6D6]",
+  nefrologia: "text-[#63e6be] dark:text-[#B5EAEA]",
+  pneumologia: "text-[#a9e34b] dark:text-[#CDEAC0]",
+  gastroenterologia: "text-[#f08c00] dark:text-[#FAEDCD]",
+  hematologia: "text-[#da77f2] dark:text-[#FDC5F5]",
+  infectologia: "text-[#63e6be] dark:text-[#D0F4DE]",
+  geral: "text-[#748ffc] dark:text-[#DEE2FF]"
 }
+
 
 const subjects = [
   {
@@ -371,7 +372,7 @@ export function SubjectSwitcher<T extends { id: string; name: string }>({
                     >
                      <item.icon
                         className={cn(
-                          "h-4 w-4 rounded-sm bg-muted p-0.5",
+                          "h-4 w-4 rounded-sm p-0.5 bg-transparent",
                           pastelColors[item.id] || "text-muted-foreground"
                         )}
                       />

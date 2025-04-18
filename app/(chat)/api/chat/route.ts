@@ -77,7 +77,8 @@ export async function POST(request: Request) {
   }
 
   // Model -> Gpt3, Gpt4, etc.
-  const model = models.find((model) => model.id === modelId)
+  // const model = models.find((model) => model.id === modelId)
+  const model = { apiIdentifier: 'gpt-4.1-mini' }
 
   if (!model) {
     return new Response('Model not found', { status: 404 })
@@ -168,6 +169,8 @@ export async function POST(request: Request) {
               }
             },
           },
+          // procurar os baguio
+          //  () => { //chama mais uma caralhada de funcoes => resposta  }
           createTable: {
             description: 'Criar uma simples tabela',
             parameters: z.object({

@@ -73,6 +73,8 @@ function PureMultimodalInput({
     }
   }, [])
 
+  const [files, setFiles] = useState<FileList | undefined>(undefined)
+
   const adjustHeight = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
@@ -119,10 +121,14 @@ function PureMultimodalInput({
     window.history.replaceState({}, '', `/chat/${chatId}`)
 
     handleSubmit(undefined, {
-      experimental_attachments: attachments,
+      experimental_attachments: files,
     })
 
     setAttachments([])
+    setFiles(undefined)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
     setLocalStorageInput('')
     resetHeight()
 
@@ -138,55 +144,11 @@ function PureMultimodalInput({
     chatId,
   ])
 
-  const uploadFile = async (file: File) => {
-    const formData = new FormData()
-    formData.append('file', file)
-
-    try {
-      const response = await fetch('/api/files/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        const { url, pathname, contentType } = data
-
-        return {
-          url,
-          name: pathname,
-          contentType: contentType,
-        }
-      }
-      const { error } = await response.json()
-      toast.error(error)
-    } catch (error) {
-      toast.error('Failed to upload file, please try again!')
-    }
-  }
-
   const handleFileChange = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(event.target.files || [])
 
-      setUploadQueue(files.map((file) => file.name))
-
-      try {
-        const uploadPromises = files.map((file) => uploadFile(file))
-        const uploadedAttachments = await Promise.all(uploadPromises)
-        const successfullyUploadedAttachments = uploadedAttachments.filter(
-          (attachment) => attachment !== undefined
-        )
-
-        setAttachments((currentAttachments) => [
-          ...currentAttachments,
-          ...successfullyUploadedAttachments,
-        ])
-      } catch (error) {
-        console.error('Error uploading files!', error)
-      } finally {
-        setUploadQueue([])
-      }
+      // setAttachments((prev) => [...prev, files])
     },
     [setAttachments]
   )
@@ -206,18 +168,6 @@ function PureMultimodalInput({
         <div className="flex flex-row gap-2 overflow-x-scroll items-end">
           {attachments.map((attachment) => (
             <PreviewAttachment key={attachment.url} attachment={attachment} />
-          ))}
-
-          {uploadQueue.map((filename) => (
-            <PreviewAttachment
-              key={filename}
-              attachment={{
-                url: '',
-                name: filename,
-                contentType: '',
-              }}
-              isUploading={true}
-            />
           ))}
         </div>
       )}
@@ -249,7 +199,11 @@ function PureMultimodalInput({
       <div className="absolute bottom-0 p-2 w-fit flex items-center gap-x-2 flex-row justify-start">
         <SubjectSwitcher />
         {/* <WebSearchButton /> */}
-        {/* <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} /> */}
+        <AttachmentsButton
+          setFiles={setFiles}
+          fileInputRef={fileInputRef}
+          isLoading={isLoading}
+        />
       </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
@@ -280,23 +234,46 @@ export const MultimodalInput = memo(
 
 function PureAttachmentsButton({
   fileInputRef,
+  setFiles,
   isLoading,
 }: {
   fileInputRef: React.MutableRefObject<HTMLInputElement | null>
+  setFiles: Dispatch<SetStateAction<FileList | undefined>>
   isLoading: boolean
 }) {
+  // First, add a state for tracking file count
+  const [fileCount, setFileCount] = useState(0)
   return (
-    <Button
-      className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
-      onClick={(event) => {
-        event.preventDefault()
-        fileInputRef.current?.click()
-      }}
-      disabled={isLoading}
-      variant="ghost"
-    >
-      <PaperclipIcon size={14} />
-    </Button>
+    <div className="flex items-center gap-1">
+      <Button
+        className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+        onClick={(event) => {
+          event.preventDefault()
+          fileInputRef.current?.click()
+        }}
+        disabled={isLoading}
+        variant="ghost"
+      >
+        <div className="flex items-center gap-1">
+          <PaperclipIcon size={14} />
+          {fileCount > 0 && <span className="text-xs">{fileCount}</span>}
+        </div>
+      </Button>
+
+      <input
+        type="file"
+        className="hidden"
+        onChange={(event) => {
+          if (event.target.files) {
+            setFiles(event.target.files)
+            setFileCount(event.target.files.length)
+          }
+        }}
+        multiple
+        accept=".pdf,application/pdf"
+        ref={fileInputRef}
+      />
+    </div>
   )
 }
 

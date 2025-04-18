@@ -31,6 +31,7 @@ import {
 
 import { generateTitleFromUserMessage } from '../../actions'
 import { openai } from '@ai-sdk/openai'
+import { m } from 'framer-motion'
 
 export const maxDuration = 60
 
@@ -72,13 +73,25 @@ export async function POST(request: Request) {
 
   const session = await auth()
 
+  // check if user has sent a PDF
+  const messagesHavePDF = messages.some((message) =>
+    message.experimental_attachments?.some(
+      (a) => a.contentType === 'application/pdf'
+    )
+  )
+
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 })
   }
 
   // Model -> Gpt3, Gpt4, etc.
   // const model = models.find((model) => model.id === modelId)
-  const model = { apiIdentifier: 'gpt-4.1-mini' }
+  const model = messagesHavePDF
+    ? { apiIdentifier: 'gpt-4.1' }
+    : { apiIdentifier: 'gpt-4.1-mini' }
+
+  console.log('$$$$$$$$$$$$$$')
+  console.log(model.apiIdentifier)
 
   if (!model) {
     return new Response('Model not found', { status: 404 })
@@ -94,7 +107,18 @@ export async function POST(request: Request) {
   const chat = await getChatById({ id })
 
   if (!chat) {
-    const title = await generateTitleFromUserMessage({ message: userMessage })
+    // Remove any messages that have a PDF attachment before generating the title
+    const messagesWithoutPDF = messages.map(
+      ({ experimental_attachments, parts, ...rest }) => rest
+    )
+
+    const coreMessagesWithoutPDF = convertToCoreMessages(messagesWithoutPDF)
+    const userMessageWithoutPDF = getMostRecentUserMessage(
+      coreMessagesWithoutPDF
+    )
+    const title = await generateTitleFromUserMessage({
+      message: userMessageWithoutPDF ?? userMessage,
+    })
     await saveChat({ id, userId: session.user.id, title })
   }
 
@@ -492,7 +516,7 @@ export async function POST(request: Request) {
                 - Auxiliar estudantes de medicina a estudar para provas e aprimorar seus conhecimentos, oferecendo explicações didáticas, exemplos práticos e resumos claros.
                 - Utilize emojis estrategicamente para tornar explicações complexas mais acessíveis e estimular o aprendizado.
 
-                O usuário fez a seguinte pergunta: "${question}". Sua busca deverá se limitar às seguintes fontes de websites: 
+                O usuário fez a seguinte pergunta: "${question}". Sua busca deverá se limitar às seguintes fontes de websites:
                 - PUBMED: https://pubmed.ncbi.nlm.nih.gov/
                 - SCIELO: https://www.scielo.br/
                 - LILACS: https://lilacs.bvsalud.org/

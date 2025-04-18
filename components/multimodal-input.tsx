@@ -264,9 +264,23 @@ function PureAttachmentsButton({
         type="file"
         className="hidden"
         onChange={(event) => {
-          if (event.target.files) {
-            setFiles(event.target.files)
-            setFileCount(event.target.files.length)
+          const files = event.target.files
+          if (files) {
+            // Check file size (max 4MB per file)
+            const maxSize = 4 * 1024 * 1024 // 4MB in bytes
+            for (let i = 0; i < files.length; i++) {
+              if (files[i].size > maxSize) {
+                toast.error(
+                  'O arquivo é muito grande. Máximo de 4MB por arquivo.'
+                )
+                event.target.value = ''
+                setFiles(undefined)
+                setFileCount(0)
+                return
+              }
+            }
+            setFiles(files)
+            setFileCount(files.length)
           }
         }}
         multiple

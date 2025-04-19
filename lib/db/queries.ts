@@ -6,7 +6,6 @@ import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 
 import { BlockKind } from '@/components/block'
-
 import { vote } from '@/lib/db/schema'
 import { message, type Message } from '@/lib/db/schema'
 import { tokens as tokensTable, type Tokens } from '@/lib/db/schema'
@@ -14,14 +13,13 @@ import { type Suggestion, suggestion } from '@/lib/db/schema'
 import { document } from '@/lib/db/schema'
 import { chat } from '@/lib/db/schema'
 import { user, User } from '@/lib/db/schema'
-
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
 // https://authjs.dev/reference/adapter/drizzle
 
 // biome-ignore lint: Forbidden non-null assertion.
 const client = postgres(process.env.DATABASE_URL!)
-const db = drizzle(client)
+export const db = drizzle(client)
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {

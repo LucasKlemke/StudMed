@@ -141,3 +141,11 @@ export const suggestion = pgTable(
 )
 
 export type Suggestion = InferSelectModel<typeof suggestion>
+
+export const passwordResetToken = pgTable('password_reset_token', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').notNull(),
+  token: text('token').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  expiresAt: timestamp('expires_at').notNull(),
+})

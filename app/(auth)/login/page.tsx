@@ -64,9 +64,6 @@ export default function Page() {
             Bem-vindo
           </p> */}
           <AuthForm action={handleSubmit} defaultEmail={email}>
-            {invalidCredentials && (
-              <Link href={'/recovery'}>Esqueceu a senha ? </Link>
-            )}
             <SubmitButton isSuccessful={isSuccessful}>Continuar</SubmitButton>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
               {'Não tem uma conta ? '}

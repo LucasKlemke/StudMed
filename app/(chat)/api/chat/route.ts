@@ -74,19 +74,13 @@ export async function POST(request: Request) {
     ),
   )
 
-  if (!session || !session.user || !session.user.id) {
-    return new Response('Unauthorized', { status: 401 })
-  }
-
   // Model -> Gpt3, Gpt4, etc.
   // const model = models.find((model) => model.id === modelId)
   const model = messagesHavePDF
     ? { apiIdentifier: 'gpt-4.1' }
     : { apiIdentifier: 'gpt-4.1-mini' }
 
-  console.log('$$$$$$$$$$$$$$')
-  console.log(model.apiIdentifier)
-
+  // check if there's no model
   if (!model) {
     return new Response('Model not found', { status: 404 })
   }
@@ -94,22 +88,31 @@ export async function POST(request: Request) {
   const coreMessages = convertToCoreMessages(messages)
   const userMessage = getMostRecentUserMessage(coreMessages)
 
+  // chef if there's no user message
   if (!userMessage) {
     return new Response('No user message found', { status: 400 })
   }
 
+  // check if user is logged in
+  if (!session || !session.user || !session.user.id) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
   const chat = await getChatById({ id })
 
+  // if !chat, generates a title with the llm based on the userMessage
   if (!chat) {
-    // Remove any messages that have a PDF attachment before generating the title
+    // remove experimental_attachments and parts from messages, to prevent
+    // sending them to the LLM (reduce token cost and avoid errors)
     const messagesWithoutPDF = messages.map(
       ({ experimental_attachments, parts, ...rest }) => rest,
     )
-
     const coreMessagesWithoutPDF = convertToCoreMessages(messagesWithoutPDF)
     const userMessageWithoutPDF = getMostRecentUserMessage(
       coreMessagesWithoutPDF,
     )
+
+    // generate title and save chat
     const title = await generateTitleFromUserMessage({
       message: userMessageWithoutPDF ?? userMessage,
     })
@@ -117,13 +120,13 @@ export async function POST(request: Request) {
   }
 
   const userMessageId = generateUUID()
-
   await saveMessages({
     messages: [
       { ...userMessage, id: userMessageId, createdAt: new Date(), chatId: id },
     ],
   })
 
+  // Define the system prompt for the assistant
   const systemPrompt = `${getSystemPrompt(subject)}\n${
     webSearch ? webSearchSystemPrompt : ''
   }`

@@ -8,34 +8,45 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { signOut } from 'next-auth/react'
 
 import { useState } from 'react'
-import { Brain, Check, GraduationCap, HandCoins, NotebookPen, Star } from 'lucide-react'
+import {
+  Brain,
+  Check,
+  GraduationCap,
+  HandCoins,
+  LogOut,
+  NotebookPen,
+  Star,
+} from 'lucide-react'
 import Image from 'next/image'
 
 import { Card, CardContent } from '@/components/ui/card'
 import PaymentButton from '../account/components/payment-button'
+import { SignOutForm } from '@/components/sign-out-form'
+import { Button } from '@/components/ui/button'
 
 const premiumFeatures = [
   {
     name: 'Seletor de Matéria',
     description: 'Escolha exatamente a disciplina que deseja estudar.',
-    icon: <GraduationCap/>,
+    icon: <GraduationCap />,
   },
   {
     name: 'Geração de Questões',
     description: 'Crie questões de múltipla escolha com base nos seus estudos.',
-    icon: <NotebookPen/>,
+    icon: <NotebookPen />,
   },
   {
     name: 'Contexto Especializado',
     description: 'Obtenha respostas com base no assunto escolhido.',
-    icon: <Brain/>,
+    icon: <Brain />,
   },
   {
     name: 'Preço Acessível',
     description: 'Tudo isso pelo preço de 2 energéticos',
-    icon: <HandCoins/>,
+    icon: <HandCoins />,
   },
 ]
 
@@ -91,8 +102,8 @@ export function SubscriptionModal() {
           </div>
 
           {/* Right side - Features */}
-          <div className="w-full md:w-1/2 bg-background text-white p-8 flex flex-col">
-            <div className="mb-2">
+          <div className="w-full md:w-1/2 bg-background  p-8 flex flex-col">
+            <div className="mb-2 flex items-center justify-between">
               <span className="px-4 py-1 bg-primary text-primary-foreground rounded-full text-sm font-medium">
                 Plano Premium
               </span>
@@ -132,6 +143,17 @@ export function SubscriptionModal() {
               <PaymentButton>
                 ASSINE AGORA — Por apenas R$29.90/mês
               </PaymentButton>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  signOut({
+                    redirectTo: '/',
+                  })
+                }}
+              >
+                <LogOut /> Sair
+              </Button>
 
               <p className="text-xs text-center text-muted-foreground">
                 Ao assinar, você concorda com nossos termos de serviço e

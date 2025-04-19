@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'

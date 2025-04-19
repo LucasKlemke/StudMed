@@ -65,7 +65,7 @@ const Hero = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20 relative aspect-video">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/zsgZCD6SVZY?si=JhmtVtFKe5tjTk04&autoplay=1&mute=1&controls=0&modestbranding=0&rel=0&playsinline=1&enablejsapi=1&showinfo=0"
+              src="https://www.youtube.com/embed/zsgZCD6SVZY?si=JhmtVtFKe5tjTk04&autoplay=1&mute=1&controls=0&modestbranding=0&rel=0&playsinline=1&enablejsapi=1&showinfo=0&loop=1&playlist=zsgZCD6SVZY"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

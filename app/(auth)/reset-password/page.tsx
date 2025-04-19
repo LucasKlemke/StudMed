@@ -9,7 +9,9 @@ import { toast } from 'sonner'
 import { StudMedLogo } from '@/components/studmed-logo'
 import Page from '../login/page'
 
-const PageContent = () => {
+const PageContent = () => {}
+
+export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
 
   const router = useRouter()
@@ -95,10 +97,4 @@ const PageContent = () => {
       </div>
     </div>
   )
-}
-
-export default function ResetPasswordPage() {
-  <Suspense>
-    <PageContent />
-  </Suspense>
 }

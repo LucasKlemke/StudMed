@@ -19,7 +19,7 @@ import { Button } from './ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { MessageEditor } from './message-editor'
 import { DocumentPreview } from './document-preview'
-import AnatomyQuizForm from '@/components/quiz'
+import QuizForm from '@/components/quiz'
 import TableBlock from './table-block'
 import { Heart } from 'lucide-react'
 import SearchBlock from './search-block'
@@ -165,7 +165,7 @@ const PurePreviewMessage = ({
                             isReadonly={isReadonly}
                           />
                         ) : toolName === 'createQuiz' ? (
-                          <AnatomyQuizForm result={result} />
+                          <QuizForm result={result} />
                         ) : toolName === 'createTable' ? (
                           <TableBlock result={result} />
                         ) : toolName === 'webSearch' ? (

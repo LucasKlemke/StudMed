@@ -12,6 +12,7 @@ export default async function Page() {
   const id = generateUUID()
 
   const [session, cookieStore] = await Promise.all([auth(), cookies()])
+
   const userEmail = session?.user?.email as string
   const modelIdFromCookie = cookieStore.get('model-id')?.value
 

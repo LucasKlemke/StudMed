@@ -1,22 +1,23 @@
-import type { Metadata } from 'next';
-import { Toaster } from 'sonner';
+import type { Metadata } from 'next'
+import { Toaster } from 'sonner'
 
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/theme-provider'
 
-import './globals.css';
+import './globals.css'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
   title: 'Studmed',
   description: 'Chatbot para estudantes de medicina.',
-};
+}
 
 export const viewport = {
   maximumScale: 1, // Disable auto-zoom on mobile Safari
-};
+}
 
-const LIGHT_THEME_COLOR = 'hsl(0 0% 100%)';
-const DARK_THEME_COLOR = 'hsl(240deg 10% 3.92%)';
+const LIGHT_THEME_COLOR = 'hsl(0 0% 100%)'
+const DARK_THEME_COLOR = 'hsl(240deg 10% 3.92%)'
 const THEME_COLOR_SCRIPT = `\
 (function() {
   var html = document.documentElement;
@@ -33,12 +34,12 @@ const THEME_COLOR_SCRIPT = `\
   var observer = new MutationObserver(updateThemeColor);
   observer.observe(html, { attributes: true, attributeFilter: ['class'] });
   updateThemeColor();
-})();`;
+})();`
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
@@ -63,8 +64,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster position="top-center" />
-          {children}
+          <Suspense>
+            <Toaster position="top-center" />
+            {children}
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

@@ -1,15 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { StudMedLogo } from '@/components/studmed-logo'
+import Page from '../login/page'
 
-export default function ResetPasswordPage() {
+const PageContent = () => {
   const searchParams = useSearchParams()
+
   const router = useRouter()
   const token = searchParams.get('token') || ''
 
@@ -93,4 +95,10 @@ export default function ResetPasswordPage() {
       </div>
     </div>
   )
+}
+
+export default function ResetPasswordPage() {
+  <Suspense>
+    <PageContent />
+  </Suspense>
 }

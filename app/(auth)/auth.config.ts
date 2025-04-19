@@ -11,16 +11,25 @@ export const authConfig = {
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
+      const pathname = nextUrl.pathname;
       const isLoggedIn = !!auth?.user;
       const isOnChat = nextUrl.pathname.startsWith('/');
       const isOnRegister = nextUrl.pathname.startsWith('/register');
       const isOnLogin = nextUrl.pathname.startsWith('/login');
+      const isOnReset = nextUrl.pathname.startsWith('/reset-password')
+      const isOnForgot = nextUrl.pathname.startsWith('/forgot-password')
+      const isSendResetEmail = pathname === '/api/auth/send-reset-email'
+      const isResetPassword = pathname === '/api/auth/reset-password'
 
-      if (isLoggedIn && (isOnLogin || isOnRegister)) {
+      if (isSendResetEmail || isResetPassword) {
+        return true
+      }
+
+      if (isLoggedIn && (isOnLogin || isOnRegister) && !isOnReset && !isOnForgot ) {
         return Response.redirect(new URL('/', nextUrl as unknown as URL));
       }
 
-      if (isOnRegister || isOnLogin) {
+      if (isOnRegister || isOnLogin || isOnReset || isOnForgot) {
         return true; // Always allow access to register and login pages
       }
 

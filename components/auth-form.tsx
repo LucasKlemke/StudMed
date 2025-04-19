@@ -2,6 +2,7 @@ import Form from 'next/form';
 
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import Link from 'next/link';
 
 export function AuthForm({
   action,
@@ -37,12 +38,20 @@ export function AuthForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="password"
-          className="text-zinc-600 text-xs md:text-base font-normal dark:text-zinc-400"
-        >
-          Senha:
-        </Label>
+        <div className="flex justify-between items-center">
+          <Label
+            htmlFor="password"
+            className="text-zinc-600 text-xs md:text-base font-normal dark:text-zinc-400"
+          >
+            Senha:
+          </Label>
+          <Link 
+            href="/forgot-password" 
+            className="text-xs text-primary hover:underline"
+          >
+            Esqueceu a senha?
+          </Link>
+        </div>
 
         <Input
           id="password"

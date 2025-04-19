@@ -1,3 +1,6 @@
+import { anatomiaPrompt } from './prompts/anatomia'
+import { fisiologiaPrompt } from './prompts/fisiologia'
+
 export const blocksPrompt = `
 Blocks is a special user interface mode that helps users with writing, editing, and other content creation tasks. When block is open, it is on the right side of the screen, while the conversation is on the left side. When creating or updating documents, changes are reflected in real-time on the blocks and visible to the user.
 
@@ -77,6 +80,12 @@ export const getSystemPrompt = (subject: string) => {
       Utilizie emojis para facilitar a fixação de aprendizagem de explicações mais complexas e estimular o usuário.
       `
 
+    return `${regularPrompt}\n\n${blocksPrompt}`
+  } else if (subject === 'fisiologia') {
+    let regularPrompt = fisiologiaPrompt
+    return `${regularPrompt}\n\n${blocksPrompt}`
+  } else if (subject === 'anatomia') {
+    let regularPrompt = anatomiaPrompt
     return `${regularPrompt}\n\n${blocksPrompt}`
   } else {
     let regularPrompt = `      

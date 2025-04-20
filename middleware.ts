@@ -6,5 +6,6 @@ export default NextAuth(authConfig).auth
 
 export const config = {
   // matcher: ['/((?!home|_next|favicon.ico|public).*)'],
-  matcher: ['/', '/:id', '/api/:path*', '/login', '/register', '/reset-password', '/forgot-password', '/home'],
+  //matcher: ['/', '/:id', '/api/:path*', '/login', '/register', '/reset-password', '/forgot-password', '/home'],
+  matcher: ['/chat/:path*', '/account/:path*', '/pricing', '/support'],
 }

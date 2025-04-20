@@ -42,7 +42,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               <Button
                 onClick={() => {
                   setOpenMobile(false)
-                  router.push('/')
+                  router.push('/chat')
                   router.refresh()
                 }}
                 variant="outline"

@@ -5,48 +5,31 @@ export const authConfig = {
     signIn: '/login',
     newUser: '/',
   },
-  providers: [
-    // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
-    // while this file is also used in non-Node.js environments
-  ],
+  providers: [],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const pathname = nextUrl.pathname
       const isLoggedIn = !!auth?.user
-      const isOnChat = nextUrl.pathname.startsWith('/')
-      const isOnRegister = nextUrl.pathname.startsWith('/register')
-      const isOnLogin = nextUrl.pathname.startsWith('/login')
-      const isOnReset = nextUrl.pathname.startsWith('/reset-password')
-      const isOnForgot = nextUrl.pathname.startsWith('/forgot-password')
-      const isSendResetEmail = pathname === '/api/auth/send-reset-email'
-      const isResetPassword = pathname === '/api/auth/reset-password'
-      const isOnHome = pathname === '/home'
 
-      if (isSendResetEmail || isResetPassword || isOnHome) {
-        return true
-      }
+      const isPublic =
+        pathname === '/' ||
+        pathname === '/home' ||
+        pathname.startsWith('/login') ||
+        pathname.startsWith('/register') ||
+        pathname.startsWith('/reset-password') ||
+        pathname.startsWith('/forgot-password') ||
+        pathname === '/api/auth/send-reset-email' ||
+        pathname === '/api/auth/reset-password'
 
-      if (
-        isLoggedIn &&
-        (isOnLogin || isOnRegister) &&
-        !isOnReset &&
-        !isOnForgot
-      ) {
-        return Response.redirect(new URL('/', nextUrl as unknown as URL))
-      }
+      const isProtected =
+        pathname.startsWith('/chat') ||
+        pathname.startsWith('/account') ||
+        pathname.startsWith('/support') ||
+        pathname.startsWith('/pricing')
 
-      if (isOnRegister || isOnLogin || isOnReset || isOnForgot) {
-        return true // Always allow access to register and login pages
-      }
+      if (isPublic) return true
 
-      if (isOnChat) {
-        if (isLoggedIn) return true
-        return false // Redirect unauthenticated users to login page
-      }
-
-      if (isLoggedIn) {
-        return Response.redirect(new URL('/', nextUrl as unknown as URL))
-      }
+      if (isProtected && !isLoggedIn) return false
 
       return true
     },

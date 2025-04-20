@@ -1,7 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import {  NotebookPen, FileInput, FilePlus, BrainCircuit, BookCopy } from 'lucide-react'
+import {
+  NotebookPen,
+  FileInput,
+  FilePlus,
+  BrainCircuit,
+  BookCopy,
+} from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
@@ -54,9 +60,7 @@ const Features = () => {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
+      transition: { staggerChildren: 0.15 },
     },
   }
 
@@ -68,12 +72,11 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="relative w-full py-24 md:py-36 overflow-hidden"
+      className="relative w-full py-20 sm:py-24 md:py-36 overflow-hidden"
     >
-      {/* Background decoration */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)]"></div>
 
-      <div className="container px-4 md:px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,16 +84,13 @@ const Features = () => {
           transition={{ duration: 0.7 }}
           className="flex flex-col items-center justify-center space-y-6 text-center mb-16"
         >
-          <Badge
-            className="rounded-full px-5 py-1.5 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-            variant="outline"
-          >
+          <Badge className="rounded-full px-5 py-1.5 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
             Funcionalidades
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-3xl text-balance">
             Tudo o que você precisa para estudar de forma eficiente
           </h2>
-          <p className="max-w-[800px] text-muted-foreground md:text-xl">
+          <p className="max-w-[800px] text-muted-foreground text-base sm:text-lg md:text-xl text-balance">
             Nossa plataforma oferece uma variedade de ferramentas e
             funcionalidades para otimizar seu aprendizado e maximizar seus
             resultados.
@@ -102,12 +102,12 @@ const Features = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {features.map((feature, i) => (
-            <motion.div key={i} variants={item} custom={i}>
+            <motion.div key={i} variants={item}>
               <Card className="h-full overflow-hidden border-border/40 bg-background/50 backdrop-blur-sm transition-all hover:shadow-lg hover:-translate-y-1 group">
-                <CardContent className="p-8 flex flex-col h-full">
+                <CardContent className="p-6 sm:p-8 flex flex-col h-full">
                   <div
                     className={`size-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}
                   >
@@ -116,7 +116,9 @@ const Features = () => {
                   <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className="text-muted-foreground text-sm sm:text-base">
+                    {feature.description}
+                  </p>
                 </CardContent>
               </Card>
             </motion.div>

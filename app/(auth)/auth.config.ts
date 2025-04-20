@@ -13,7 +13,6 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const pathname = nextUrl.pathname
       const isLoggedIn = !!auth?.user
-
       const isOnChat = nextUrl.pathname.startsWith('/')
       const isOnRegister = nextUrl.pathname.startsWith('/register')
       const isOnLogin = nextUrl.pathname.startsWith('/login')

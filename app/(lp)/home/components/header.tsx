@@ -111,7 +111,7 @@ const Header = ({
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden absolute top-16 inset-x-0 bg-background/95 backdrop-blur-lg border-b z-40"
+          className="md:hidden absolute top-16 inset-x-0 bg-background backdrop-blur-lg border-b z-40"
         >
           <div className="container px-4 py-4 flex flex-col gap-4">
             <Link

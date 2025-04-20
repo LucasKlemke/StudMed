@@ -13,6 +13,13 @@ const Header = ({
   isScrolled,
   setMobileMenuOpen,
   mobileMenuOpen,
+}: {
+  mounted: boolean
+  theme: string | undefined
+  toggleTheme: () => void
+  isScrolled: boolean
+  setMobileMenuOpen: (open: boolean) => void
+  mobileMenuOpen: boolean
 }) => {
   return (
     <header
@@ -62,15 +69,10 @@ const Header = ({
             )}
             <span className="sr-only">Mudar tema</span>
           </Button>
-          <Link
-            href="/login"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Entrar
-          </Link>
-          <Link href="/register">
+
+          <Link href="/chat">
             <Button className="rounded-full">
-              Cadastre-se
+              Entrar
               <ChevronRight className="ml-1 size-4" />
             </Button>
           </Link>
@@ -94,7 +96,11 @@ const Header = ({
             size="icon"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            {mobileMenuOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
             <span className="sr-only">Toggle menu</span>
           </Button>
         </div>
@@ -130,16 +136,9 @@ const Header = ({
               FAQ
             </Link>
             <div className="flex flex-col gap-2 pt-4 border-t mt-2">
-              <Link
-                href="/login"
-                className="py-2 text-sm font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Entrar
-              </Link>
-              <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/chat" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="rounded-full w-full">
-                  Cadastre-se
+                  Entrar
                   <ChevronRight className="ml-1 size-4" />
                 </Button>
               </Link>

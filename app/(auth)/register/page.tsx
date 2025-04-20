@@ -52,8 +52,10 @@ export default function Page() {
       <div className="flex justify-center w-screen items-center h-[80vh]">
         <div className="w-full md:w-1/3 px-4">
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
-            <p className="text-2xl lg:text-4xl text-primary">Studmed</p>
-            <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12 text-primary" />
+            <Link href="/home" className="flex items-center gap-3">
+              <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
+              <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
+            </Link>
             <p className="lg:text-3xl">| Cadastro</p>
           </div>
           <AuthForm action={handleSubmit} defaultEmail={email}>

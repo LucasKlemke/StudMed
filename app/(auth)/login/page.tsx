@@ -12,8 +12,6 @@ import { login, type LoginActionState } from '../actions'
 import { useWindowSize } from 'usehooks-ts'
 import { StudMedLogo } from '@/components/studmed-logo'
 
-
-
 export default function Page() {
   const router = useRouter()
 
@@ -24,7 +22,7 @@ export default function Page() {
     login,
     {
       status: 'idle',
-    }
+    },
   )
 
   useEffect(() => {
@@ -54,10 +52,13 @@ export default function Page() {
       <div className="flex justify-center w-screen items-center  h-[80vh]">
         <div className="w-full md:w-1/3 px-4">
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
+            <Link href="/home" className='flex items-center gap-3'>
+              <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
+              <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
+            </Link>
             {/* <p className="text-3xl text-primary">Studmed</p>
              */}
-            <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
-            <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
+
             <p className=" lg:text-3xl">| Login</p>
           </div>
           {/* <p className="pb-5  p-0 md:py-5 text-3xl font-semibold text-start md:text-center">

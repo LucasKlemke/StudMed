@@ -1,12 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { StudMedLogo } from '@/components/studmed-logo'
 import Header from './components/header'
 import Main from './components/main'
 import Footer from './components/footer'
+import { useSession } from 'next-auth/react'
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)

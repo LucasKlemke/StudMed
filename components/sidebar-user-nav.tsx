@@ -53,12 +53,12 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
         align="end"
         className="w-[--radix-popper-anchor-width]"
       >
-        <Link href="/account">
-          <DropdownMenuItem className="cursor-pointer gap-2 py-2">
+        <DropdownMenuItem>
+          <Link href={'/account'} className="cursor-pointer gap-2 py-2 flex items-center">
             <User className="h-4 w-4" />
             <span>Conta</span>
-          </DropdownMenuItem>
-        </Link>
+          </Link>
+        </DropdownMenuItem>
 
         <DropdownMenuItem className="cursor-pointer gap-2 py-2">
           <Link href={'/support'} className="gap-2 flex items-center">
@@ -87,7 +87,7 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
           className="cursor-pointer gap-2 py-2 text-destructive focus:text-destructive"
           onClick={() => {
             signOut({
-              redirectTo: '/',
+              redirectTo: '/login',
             })
           }}
         >

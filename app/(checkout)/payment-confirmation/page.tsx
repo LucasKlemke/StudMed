@@ -80,7 +80,7 @@ const CheckoutReturnPage = () => {
         </CardContent>
 
         <CardFooter className="flex flex-col pb-6">
-          <Link href="/" className="w-full">
+          <Link href="/chat" className="w-full">
             <Button className="w-full h-12 text-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-md hover:shadow-lg">
               Começar a usar agora! 🚀
             </Button>

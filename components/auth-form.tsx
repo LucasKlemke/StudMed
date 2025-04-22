@@ -8,6 +8,7 @@ export function AuthForm({
   children,
   defaultEmail = '',
   showNameField = false,
+  showForgotPasswordLink = false,
 }: {
   action: NonNullable<
     string | ((formData: FormData) => void | Promise<void>) | undefined
@@ -15,6 +16,7 @@ export function AuthForm({
   children: React.ReactNode
   defaultEmail?: string
   showNameField?: boolean
+  showForgotPasswordLink?: boolean
 }) {
   return (
     <Form
@@ -68,12 +70,14 @@ export function AuthForm({
           >
             Senha:
           </Label>
-          <Link
-            href="/forgot-password"
-            className="text-xs text-primary hover:underline"
-          >
-            Esqueceu a senha?
-          </Link>
+          {showForgotPasswordLink && (
+            <Link
+              href="/forgot-password"
+              className="text-xs text-primary hover:underline"
+            >
+              Esqueceu a senha?
+            </Link>
+          )}
         </div>
 
         <Input

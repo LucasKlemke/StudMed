@@ -149,3 +149,14 @@ export const passwordResetToken = pgTable('password_reset_token', {
   createdAt: timestamp('created_at').defaultNow(),
   expiresAt: timestamp('expires_at').notNull(),
 })
+
+// temp table to verify email
+export const emailVerificationToken = pgTable('email_verification_token', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name', { length: 256 }).notNull(),
+  email: varchar('email', { length: 64 }).notNull(),
+  password: varchar('password', { length: 64 }).notNull(),
+  token: text('token').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  expiresAt: timestamp('expires_at').notNull(),
+})

@@ -5,17 +5,16 @@ import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { useWindowSize } from 'usehooks-ts'
-
 import { AuthForm } from '@/components/auth-form'
 import { SubmitButton } from '@/components/submit-button'
 import { StudMedLogo } from '@/components/studmed-logo'
-
 import { register, type RegisterActionState } from '../actions'
 
 export default function Page() {
   const router = useRouter()
-
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isSuccessful, setIsSuccessful] = useState(false)
 
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
@@ -26,16 +25,28 @@ export default function Page() {
   )
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const verified = params.get('verified')
+  
+    if (verified === '1') {
+      toast.success('Email verificado com sucesso!')
+      setTimeout(() => {
+        router.push('/login')
+      }, 3000)
+    } else if (verified === '0') {
+      toast.error('Link de verificação expirado ou inválido.')
+    }
+  
     if (state.status === 'user_exists') {
-      toast.error('Conta ja existente')
+      toast.error('Email já cadastrado')
+      setEmail('')
     } else if (state.status === 'failed') {
       toast.error('Falha ao criar conta, tente novamente mais tarde')
     } else if (state.status === 'invalid_data') {
       toast.error('Falha ao validar sua submissão!')
     } else if (state.status === 'success') {
-      toast.success('Conta criada com sucesso !')
+      router.push('/verify-email')
       setIsSuccessful(true)
-      router.refresh()
     }
   }, [state, router])
 
@@ -58,7 +69,7 @@ export default function Page() {
             </Link>
             <p className="lg:text-3xl">| Cadastro</p>
           </div>
-          <AuthForm action={handleSubmit} defaultEmail={email} showNameField>
+          <AuthForm action={handleSubmit} showNameField>
             <SubmitButton isSuccessful={isSuccessful}>Cadastrar</SubmitButton>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
               {'Ja tem uma conta? '}

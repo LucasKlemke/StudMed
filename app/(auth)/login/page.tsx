@@ -4,20 +4,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-
 import { AuthForm } from '@/components/auth-form'
 import { SubmitButton } from '@/components/submit-button'
-
 import { login, type LoginActionState } from '../actions'
 import { useWindowSize } from 'usehooks-ts'
 import { StudMedLogo } from '@/components/studmed-logo'
 
 export default function Page() {
   const router = useRouter()
-
   const [email, setEmail] = useState('')
   const [isSuccessful, setIsSuccessful] = useState(false)
-
   const [state, formAction] = useActionState<LoginActionState, FormData>(
     login,
     {
@@ -56,15 +52,9 @@ export default function Page() {
               <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
               <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
             </Link>
-            {/* <p className="text-3xl text-primary">Studmed</p>
-             */}
-
             <p className=" lg:text-3xl">| Login</p>
           </div>
-          {/* <p className="pb-5  p-0 md:py-5 text-3xl font-semibold text-start md:text-center">
-            Bem-vindo
-          </p> */}
-          <AuthForm action={handleSubmit} defaultEmail={email}>
+          <AuthForm action={handleSubmit} defaultEmail={email} showForgotPasswordLink>
             <SubmitButton isSuccessful={isSuccessful}>Continuar</SubmitButton>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
               {'Não tem uma conta ? '}
@@ -86,12 +76,5 @@ export default function Page() {
         </p>
       </div>
     </div>
-    // <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
-    //   {/* Radial gradient for the container to give a faded look */}
-    //   <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-    //   <p className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-    //     Backgrounds
-    //   </p>
-    // </div>
   )
 }

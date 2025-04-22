@@ -1,8 +1,12 @@
 'use server';
 
 import { z } from 'zod';
-
+import { randomUUID } from 'crypto'
+import { hashSync, genSaltSync } from 'bcrypt-ts'
 import { createUser, getUser } from '@/lib/db/queries';
+import { sendVerificationEmail } from '@/lib/verify-email'
+import { db } from '@/lib/db/queries'
+import { emailVerificationToken } from '@/lib/db/schema'
 
 import { signIn } from './auth';
 
@@ -63,33 +67,38 @@ export interface RegisterActionState {
 
 export const register = async (
   _: RegisterActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<RegisterActionState> => {
   try {
     const validatedData = registerFormSchema.parse({
       name: formData.get('name'),
       email: formData.get('email'),
       password: formData.get('password'),
-    });
+    })
 
-    const [user] = await getUser(validatedData.email);
+    const [existingUser] = await getUser(validatedData.email)
+    if (existingUser) return { status: 'user_exists' }
 
-    if (user) {
-      return { status: 'user_exists' } as RegisterActionState;
-    }
-    await createUser(validatedData.name, validatedData.email, validatedData.password);
-    await signIn('credentials', {
+    const token = randomUUID()
+    const expires = new Date(Date.now() + 1000 * 60 * 60) // 1 hora
+    const hash = hashSync(validatedData.password, genSaltSync(10))
+
+    await db.insert(emailVerificationToken).values({
+      name: validatedData.name,
       email: validatedData.email,
-      password: validatedData.password,
-      redirect: false,
-    });
+      password: hash,
+      token,
+      expiresAt: expires,
+    })
 
-    return { status: 'success' };
+    await sendVerificationEmail(validatedData.email, token)
+
+    return { status: 'success' }
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { status: 'invalid_data' };
+      return { status: 'invalid_data' }
     }
 
-    return { status: 'failed' };
+    return { status: 'failed' }
   }
-};
+}

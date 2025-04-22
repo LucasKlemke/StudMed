@@ -4,7 +4,6 @@ import { genSaltSync, hashSync } from 'bcrypt-ts'
 import { and, asc, desc, eq, gt, gte } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-
 import { BlockKind } from '@/components/block'
 import { vote } from '@/lib/db/schema'
 import { message, type Message } from '@/lib/db/schema'
@@ -72,12 +71,12 @@ export async function updateUserPriceIdAndAccess(
   }
 }
 
-export async function createUser(email: string, password: string) {
+export async function createUser(name: string, email: string, password: string) {
   const salt = genSaltSync(10)
   const hash = hashSync(password, salt)
 
   try {
-    return await db.insert(user).values({ email, password: hash })
+    return await db.insert(user).values({ username: name, email, password: hash })
   } catch (error) {
     console.error('Failed to create user in database')
     throw error

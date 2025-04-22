@@ -58,7 +58,7 @@ export default function Page() {
             </Link>
             <p className="lg:text-3xl">| Cadastro</p>
           </div>
-          <AuthForm action={handleSubmit} defaultEmail={email}>
+          <AuthForm action={handleSubmit} defaultEmail={email} showNameField>
             <SubmitButton isSuccessful={isSuccessful}>Cadastrar</SubmitButton>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
               {'Ja tem uma conta? '}

@@ -1,4 +1,4 @@
-CREATE TABLE "email_verification_token" (
+CREATE TABLE IF NOT EXISTS "email_verification_token" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   "name" VARCHAR(256) NOT NULL,
   "email" VARCHAR(64) NOT NULL,

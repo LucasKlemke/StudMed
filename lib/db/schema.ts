@@ -18,7 +18,7 @@ export const user = pgTable('User', {
   email: varchar('email', { length: 64 }).notNull(),
   hasAccess: boolean('hasAccess').notNull().default(false),
   priceId: varchar('priceId', { length: 64 }),
-  username: varchar('username', { length: 256 }).notNull().default('usuario'),
+  username: varchar('username', { length: 256 }).notNull(),
   password: varchar('password', { length: 64 }),
 })
 
@@ -145,6 +145,17 @@ export type Suggestion = InferSelectModel<typeof suggestion>
 export const passwordResetToken = pgTable('password_reset_token', {
   id: uuid('id').defaultRandom().primaryKey(),
   userId: uuid('user_id').notNull(),
+  token: text('token').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  expiresAt: timestamp('expires_at').notNull(),
+})
+
+// temp table to verify email
+export const emailVerificationToken = pgTable('email_verification_token', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name', { length: 256 }).notNull(),
+  email: varchar('email', { length: 64 }).notNull(),
+  password: varchar('password', { length: 64 }).notNull(),
   token: text('token').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   expiresAt: timestamp('expires_at').notNull(),

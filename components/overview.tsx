@@ -1,7 +1,6 @@
 import { SuggestedActions } from './suggested-actions'
-import { useSession } from 'next-auth/react'
 
-import type { Attachment, ChatRequestOptions, CreateMessage, Message } from 'ai'
+import type {  ChatRequestOptions, CreateMessage, Message } from 'ai'
 import type React from 'react'
 
 export const Overview = ({

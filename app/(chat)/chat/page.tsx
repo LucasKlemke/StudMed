@@ -16,6 +16,7 @@ export default async function Page() {
   const userEmail = session?.user?.email as string
   const modelIdFromCookie = cookieStore.get('model-id')?.value
 
+  
   const subscription = await fetchStripeSubscriptionByEmail(userEmail)
 
   const selectedModelId =

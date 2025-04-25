@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import Stripe from 'stripe'
-import {
-  getUser,
-  getUserById,
-  updateUserAccess,
-  updateUserPriceIdAndAccess,
-} from '@/lib/db/queries'
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '')
 

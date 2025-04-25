@@ -5,7 +5,6 @@ import { useTheme } from 'next-themes'
 import Header from './components/header'
 import Main from './components/main'
 import Footer from './components/footer'
-import { useSession } from 'next-auth/react'
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)

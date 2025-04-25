@@ -1,3 +1,4 @@
+import exp from 'constants'
 import type { InferSelectModel } from 'drizzle-orm'
 import {
   pgTable,
@@ -22,6 +23,19 @@ export const user = pgTable('User', {
   password: varchar('password', { length: 64 }),
 })
 
+export const subscription = pgTable('Subscription', {
+  id: uuid('id').notNull().defaultRandom(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp('createdAt').notNull(),
+  expirationDate: timestamp('expirationDate').notNull(),
+  updatedAt: timestamp('updatedAt').notNull(),
+  stripeCustomerId: varchar('stripeCustomerId', { length: 255 }).notNull(),
+  stripeSubscriptionId: varchar('stripeSubscriptionId', { length: 255 }).notNull(),
+  plan: varchar('plan', { length: 64 }).notNull(),
+})
+
 export const tokens = pgTable(
   'Tokens',
   {
@@ -39,7 +53,7 @@ export const tokens = pgTable(
     return {
       pk: primaryKey({ columns: [table.id, table.createdAt] }),
     }
-  }
+  },
 )
 
 export type Tokens = InferSelectModel<typeof tokens>
@@ -88,7 +102,7 @@ export const vote = pgTable(
     return {
       pk: primaryKey({ columns: [table.chatId, table.messageId] }),
     }
-  }
+  },
 )
 
 export type Vote = InferSelectModel<typeof vote>
@@ -111,7 +125,7 @@ export const document = pgTable(
     return {
       pk: primaryKey({ columns: [table.id, table.createdAt] }),
     }
-  }
+  },
 )
 
 export type Document = InferSelectModel<typeof document>
@@ -137,7 +151,7 @@ export const suggestion = pgTable(
       columns: [table.documentId, table.documentCreatedAt],
       foreignColumns: [document.id, document.createdAt],
     }),
-  })
+  }),
 )
 
 export type Suggestion = InferSelectModel<typeof suggestion>

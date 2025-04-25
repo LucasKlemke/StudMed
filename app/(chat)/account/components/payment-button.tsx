@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
@@ -16,15 +15,15 @@ import {
 } from '@stripe/react-stripe-js'
 import { useCallback } from 'react'
 import { useSession } from 'next-auth/react'
+import { CreditCard } from 'lucide-react'
 
 type PaymentButtonProps = {
-  children: React.ReactNode
   className?: string
 }
 
-const PaymentButton = ({ children, className }: PaymentButtonProps) => {
+const PaymentButton = ({ className }: PaymentButtonProps) => {
   const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
   )
 
   const { data: session } = useSession()
@@ -45,15 +44,21 @@ const PaymentButton = ({ children, className }: PaymentButtonProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className={`w-full ${className}`}>{children}</Button>
+        <Button
+          variant="outline"
+          className="flex flex-col h-24 items-center justify-center gap-2"
+        >
+          <CreditCard className="h-6 w-6" />
+          <span>Cartão de crédito</span>
+        </Button>
       </DialogTrigger>
-      <DialogContent className='bg-white text-black'>
+      <DialogContent className="bg-white text-black">
         <>
           <VisuallyHidden.Root>
             <DialogTitle>Assinatura Pro</DialogTitle>
           </VisuallyHidden.Root>
           <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-            <EmbeddedCheckout/>
+            <EmbeddedCheckout />
           </EmbeddedCheckoutProvider>
         </>
       </DialogContent>

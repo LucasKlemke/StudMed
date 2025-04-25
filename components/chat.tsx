@@ -16,7 +16,7 @@ import { VisibilityType } from './visibility-selector'
 import { useSubjectStore } from '@/store/subject'
 import { useBlockSelector } from '@/hooks/use-block'
 import type { User as AuthUser } from 'next-auth'
-import { SubscriptionModal } from '@/app/(chat)/pricing/subscription-modal'
+import { SubscriptionModal } from '@/components/subscription-modal'
 
 export function Chat({
   id,
@@ -70,7 +70,6 @@ export function Chat({
       {!subscription && <SubscriptionModal />}
 
       <div className="flex flex-col min-w-0 h-dvh bg-background">
-
         {/* gradiente */}
 
         <ChatHeader
@@ -90,8 +89,8 @@ export function Chat({
               (message) =>
                 !message.toolInvocations ||
                 !message.toolInvocations.some(
-                  (invocation) => invocation.toolName === 'webScraping'
-                )
+                  (invocation) => invocation.toolName === 'webScraping',
+                ),
             )}
             append={append}
             setMessages={setMessages}
@@ -117,8 +116,8 @@ export function Chat({
                   (message) =>
                     !message.toolInvocations ||
                     !message.toolInvocations.some(
-                      (invocation) => invocation.toolName === 'webScraping'
-                    )
+                      (invocation) => invocation.toolName === 'webScraping',
+                    ),
                 )}
                 setMessages={setMessages}
                 append={append}

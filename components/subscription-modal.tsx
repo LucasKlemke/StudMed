@@ -1,30 +1,18 @@
 'use client'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { signOut } from 'next-auth/react'
 
 import { useState } from 'react'
 import {
   Brain,
-  Check,
   GraduationCap,
   HandCoins,
   LogOut,
   NotebookPen,
-  Star,
 } from 'lucide-react'
 import Image from 'next/image'
-
-import { Card, CardContent } from '@/components/ui/card'
-import PaymentButton from '../account/components/payment-button'
-import { SignOutForm } from '@/components/sign-out-form'
+import PaymentButton from '../app/(chat)/account/components/payment-button'
 import { Button } from '@/components/ui/button'
 
 const premiumFeatures = [
@@ -79,12 +67,6 @@ const productImages = [
 ]
 
 export function SubscriptionModal() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>(
-    'monthly'
-  )
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  const selectedPlan = plans.find((plan) => plan.billingCycle === billingCycle)
-
   return (
     <Dialog open>
       <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden border-0 rounded-xl ">

@@ -7,6 +7,7 @@ import { DataStreamHandler } from '@/components/data-stream-handler'
 import { auth } from '@/app/(auth)/auth'
 import { User } from 'next-auth'
 import { fetchStripeSubscriptionByEmail } from '@/lib/stripe'
+import { fetchUserSubscription } from '@/lib/subscription/retrieve-subscription'
 
 export default async function Page() {
   const id = generateUUID()
@@ -16,8 +17,8 @@ export default async function Page() {
   const userEmail = session?.user?.email as string
   const modelIdFromCookie = cookieStore.get('model-id')?.value
 
-  
   const subscription = await fetchStripeSubscriptionByEmail(userEmail)
+  const teste = await fetchUserSubscription(session?.user?.id as string)
 
   const selectedModelId =
     models.find((model) => model.id === modelIdFromCookie)?.id ||

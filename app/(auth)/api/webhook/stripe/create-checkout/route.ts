@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
       cancel_url: cancel_url,
     })
 
+
     return NextResponse.json({ url: checkout.url! })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })

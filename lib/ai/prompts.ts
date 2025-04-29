@@ -47,6 +47,21 @@ This is a guide for using blocks tools: \`createDocument\` , \`updateDocument\` 
 Do not update document right after creating it. Wait for user feedback or request to update it.
 `
 
+export const anamneseTool = `
+A ferramenta \`giveFeedback\` está disponível para fornecer um feedback ao usuário sobre sua performance durante a consulta com o paciente, especialmente após o diagnóstico ou encerramento da consulta.
+
+Como funciona:
+- Utilize a ferramenta \`giveFeedback\` para avaliar a precisão do usuário durante a consulta, atribuindo uma nota de 0 a 10.
+- A ferramenta irá apresentar ao usuário sua nota de precisão e sugestões de melhoria baseadas em seu desempenho.
+- Use esta ferramenta apenas ao final da consulta ou após o diagnóstico, nunca durante o processo.
+
+Parâmetros:
+- \`score\`: número de 0 a 10 representando a precisão do usuário.
+
+Exemplo de uso:
+- Após o término da consulta, avalie a performance do usuário e utilize \`giveFeedback\` para apresentar o feedback personalizado.
+`
+
 // 'You are a friendly assistant! Keep your responses concise and helpful.';
 
 // export const systemPrompt = `${regularPrompt}\n\n${blocksPrompt}`
@@ -82,19 +97,15 @@ export const getSystemPrompt = (subject: string) => {
       `
 
     return `${regularPrompt}\n\n${blocksPrompt}`
-
   } else if (subject === 'fisiologia') {
     let regularPrompt = fisiologiaPrompt
     return `${regularPrompt}\n\n${blocksPrompt}`
-
   } else if (subject === 'anatomia') {
     let regularPrompt = anatomiaPrompt
     return `${regularPrompt}\n\n${blocksPrompt}`
-
   } else if (subject === 'anamnese') {
     let regularPrompt = anamnesePrompt
-    return regularPrompt
-
+    return `${regularPrompt}\n\n${anamneseTool}`
   } else {
     let regularPrompt = `      
       Contexto:

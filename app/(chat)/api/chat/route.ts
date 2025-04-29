@@ -26,6 +26,7 @@ import { createDocument } from '@/lib/ai/tools/create-document'
 import { updateDocument } from '@/lib/ai/tools/update-document'
 import { requestSuggestions } from '@/lib/ai/tools/request-suggetions'
 import { webSearchTool } from '@/lib/ai/tools/web-search-tool'
+import { giveFeedback } from '@/lib/ai/tools/give-feedback'
 
 export const maxDuration = 60
 
@@ -150,18 +151,23 @@ export async function POST(request: Request) {
         experimental_activeTools: webSearch ? ['webSearch'] : allTools,
 
         // tools
-        tools: {
-          createQuiz: createQuiz({ dataStream }),
-          createTable: createTable(),
-          createDocument: createDocument({ dataStream, session, model }),
-          updateDocument: updateDocument({ dataStream, session, model }),
-          requestSuggestions: requestSuggestions({
-            dataStream,
-            session,
-            model,
-          }),
-          webSearch: webSearchTool(),
-        },
+        tools:
+          subject === 'anamnese'
+            ? {
+                giveFeedback: giveFeedback({ dataStream }),
+              }
+            : {
+                createQuiz: createQuiz({ dataStream }),
+                createTable: createTable(),
+                createDocument: createDocument({ dataStream, session, model }),
+                updateDocument: updateDocument({ dataStream, session, model }),
+                requestSuggestions: requestSuggestions({
+                  dataStream,
+                  session,
+                  model,
+                }),
+                webSearch: webSearchTool(),
+              },
         onFinish: async ({ response, usage }) => {
           if (session.user?.id) {
             try {

@@ -58,221 +58,226 @@ import {
 } from "lucide-react"
 
 const pastelColors: Record<string, string> = {
-  fisiologia: "text-[#339af0] dark:text-[#A5D8FF]",
+  // anamnese: "text-[] dark: text-[]",
   anatomia: "text-[#ff8787] dark:text-[#FFC9C9]",
-  bioquimica: "text-[#fab005] dark:text-[#FFE066]",
-  embriologia: "text-[#9775fa] dark:text-[#D0BFFF]",
-  histologia: "text-[#20c997] dark:text-[#C3FAE8]",
-  patologia: "text-[#ffa94d] dark:text-[#FFD8A8]",
-  farmacologia: "text-[#69db7c] dark:text-[#B2F2BB]",
-  genetica_medica: "text-[#f783ac] dark:text-[#FCC2D7]",
-  imunologia: "text-[#339af0] dark:text-[#D0EBFF]",
-  microbiologia: "text-[#ffd43b] dark:text-[#FFF3BF]",
-  parasitologia: "text-[#da77f2] dark:text-[#E7C6FF]",
-  epidemiologia: "text-[#66d9e8] dark:text-[#C5F6FA]",
-  clinica_medica: "text-[#82c91e] dark:text-[#B5E48C]",
-  pediatria: "text-[#e599f7] dark:text-[#F1C0E8]",
-  ginecologia_obstetricia: "text-[#f783ac] dark:text-[#FFDEEB]",
-  cirurgia_geral: "text-[#ffa94d] dark:text-[#FFD6A5]",
-  psiquiatria: "text-[#845ef7] dark:text-[#BDB2FF]",
-  ortopedia_traumatologia: "text-[#94d82d] dark:text-[#D8F5A2]",
-  dermatologia: "text-[#ff8787] dark:text-[#FFD5CD]",
-  oftalmologia: "text-[#51cf66] dark:text-[#B2F2BB]",
-  otorrinolaringologia: "text-[#74c0fc] dark:text-[#A0C4FF]",
-  neurologia: "text-[#339af0] dark:text-[#D0EBFF]",
-  cardiologia: "text-[#ff6b6b] dark:text-[#FFADAD]",
-  radiologia: "text-[#b197fc] dark:text-[#E0C3FC]",
   anestesiologia: "text-[#ffa94d] dark:text-[#FDCB9E]",
-  reumatologia: "text-[#91a7ff] dark:text-[#A3C4F3]",
+  bioquimica: "text-[#fab005] dark:text-[#FFE066]",
+  cardiologia: "text-[#ff6b6b] dark:text-[#FFADAD]",
+  cirurgia_geral: "text-[#ffa94d] dark:text-[#FFD6A5]",
+  clinica_medica: "text-[#82c91e] dark:text-[#B5E48C]",
+  dermatologia: "text-[#ff8787] dark:text-[#FFD5CD]",
+  embriologia: "text-[#9775fa] dark:text-[#D0BFFF]",
   endocrinologia: "text-[#66d9e8] dark:text-[#CAF0F8]",
-  oncologia: "text-[#e599f7] dark:text-[#FFC6FF]",
-  toxicologia: "text-[#ff8787] dark:text-[#FFD6D6]",
-  nefrologia: "text-[#63e6be] dark:text-[#B5EAEA]",
-  pneumologia: "text-[#a9e34b] dark:text-[#CDEAC0]",
+  epidemiologia: "text-[#66d9e8] dark:text-[#C5F6FA]",
+  farmacologia: "text-[#69db7c] dark:text-[#B2F2BB]",
+  fisiologia: "text-[#339af0] dark:text-[#A5D8FF]",
   gastroenterologia: "text-[#f08c00] dark:text-[#FAEDCD]",
+  geral: "text-[#748ffc] dark:text-[#DEE2FF]",
+  genetica_medica: "text-[#f783ac] dark:text-[#FCC2D7]",
+  ginecologia_obstetricia: "text-[#f783ac] dark:text-[#FFDEEB]",
   hematologia: "text-[#da77f2] dark:text-[#FDC5F5]",
+  histologia: "text-[#20c997] dark:text-[#C3FAE8]",
+  imunologia: "text-[#339af0] dark:text-[#D0EBFF]",
   infectologia: "text-[#63e6be] dark:text-[#D0F4DE]",
-  geral: "text-[#748ffc] dark:text-[#DEE2FF]"
-}
-
+  microbiologia: "text-[#ffd43b] dark:text-[#FFF3BF]",
+  nefrologia: "text-[#63e6be] dark:text-[#B5EAEA]",
+  neurologia: "text-[#339af0] dark:text-[#D0EBFF]",
+  oftalmologia: "text-[#51cf66] dark:text-[#B2F2BB]",
+  oncologia: "text-[#e599f7] dark:text-[#FFC6FF]",
+  ortopedia_traumatologia: "text-[#94d82d] dark:text-[#D8F5A2]",
+  otorrinolaringologia: "text-[#74c0fc] dark:text-[#A0C4FF]",
+  parasitologia: "text-[#da77f2] dark:text-[#E7C6FF]",
+  patologia: "text-[#ffa94d] dark:text-[#FFD8A8]",
+  pediatria: "text-[#e599f7] dark:text-[#F1C0E8]",
+  pneumologia: "text-[#a9e34b] dark:text-[#CDEAC0]",
+  psiquiatria: "text-[#845ef7] dark:text-[#BDB2FF]",
+  radiologia: "text-[#b197fc] dark:text-[#E0C3FC]",
+  reumatologia: "text-[#91a7ff] dark:text-[#A3C4F3]",
+  toxicologia: "text-[#ff8787] dark:text-[#FFD6D6]",
+};
 
 const subjects = [
   {
-    id: 'geral',
-    name: 'Geral',
-    icon: BookOpenText 
-  },
-  {
-    id: 'fisiologia',
-    name: 'Fisiologia',
-    icon: Activity 
+    id: 'anamnese',
+    name: 'Anamnese',
+    icon: BookOpen
   },
   {
     id: 'anatomia',
     name: 'Anatomia',
-    icon: Bone 
-  },
-  {
-    id: 'bioquimica',
-    name: 'Bioquímica',
-    icon: FlaskConical 
-  },
-  {
-    id: 'embriologia',
-    name: 'Embriologia',
-    icon: Baby 
-  },
-  {
-    id: 'histologia',
-    name: 'Histologia',
-    icon: Microscope 
-  },
-  {
-    id: 'patologia',
-    name: 'Patologia',
-    icon: TestTube 
-  },
-  {
-    id: 'farmacologia',
-    name: 'Farmacologia',
-    icon: Pill 
-  },
-  {
-    id: 'microbiologia',
-    name: 'Microbiologia',
-    icon: Bacteria 
-  },
-  {
-    id: 'imunologia',
-    name: 'Imunologia',
-    icon: Shield 
-  },
-  {
-    id: 'genetica_medica',
-    name: 'Genética Médica',
-    icon: Dna 
-  },
-  {
-    id: 'parasitologia',
-    name: 'Parasitologia',
-    icon: Virus 
-  },
-  {
-    id: 'epidemiologia',
-    name: 'Epidemiologia',
-    icon: Biohazard 
-  },
-  {
-    id: 'clinica_medica',
-    name: 'Clínica médica',
-    icon: Stethoscope 
-  },
-  {
-    id: 'pediatria',
-    name: 'Pediatria',
-    icon: Baby 
-  },
-  {
-    id: 'ginecologia_obstetricia',
-    name: 'Ginecologia e obstetrícia',
-    icon: Droplet 
-  },
-  {
-    id: 'cirurgia_geral',
-    name: 'Cirurgia geral',
-    icon: Syringe 
-  },
-  {
-    id: 'psiquiatria',
-    name: 'Psiquiatria',
-    icon: Smile 
-  },
-  {
-    id: 'ortopedia_traumatologia',
-    name: 'Ortopedia e traumatologia',
-    icon: Bone 
-  },
-  {
-    id: 'dermatologia',
-    name: 'Dermatologia',
-    icon: Flame 
-  },
-  {
-    id: 'oftalmologia',
-    name: 'Oftalmologia',
-    icon: Eye 
-  },
-  {
-    id: 'otorrinolaringologia',
-    name: 'Otorrinolaringologia',
-    icon: Ear 
-  },
-  {
-    id: 'neurologia',
-    name: 'Neurologia',
-    icon: Brain 
-  },
-  {
-    id: 'cardiologia',
-    name: 'Cardiologia',
-    icon: Heart 
-  },
-  {
-    id: 'radiologia',
-    name: 'Radiologia',
-    icon: ScanLine 
+    icon: Bone
   },
   {
     id: 'anestesiologia',
     name: 'Anestesiologia',
-    icon: Thermometer 
+    icon: Thermometer
   },
   {
-    id: 'reumatologia',
-    name: 'Reumatologia',
-    icon: Flame 
+    id: 'bioquimica',
+    name: 'Bioquímica',
+    icon: FlaskConical
+  },
+  {
+    id: 'cardiologia',
+    name: 'Cardiologia',
+    icon: Heart
+  },
+  {
+    id: 'cirurgia_geral',
+    name: 'Cirurgia geral',
+    icon: Syringe
+  },
+  {
+    id: 'clinica_medica',
+    name: 'Clínica médica',
+    icon: Stethoscope
+  },
+  {
+    id: 'dermatologia',
+    name: 'Dermatologia',
+    icon: Flame
+  },
+  {
+    id: 'embriologia',
+    name: 'Embriologia',
+    icon: Baby
   },
   {
     id: 'endocrinologia',
     name: 'Endocrinologia',
-    icon: Apple 
+    icon: Apple
   },
   {
-    id: 'oncologia',
-    name: 'Oncologia',
-    icon: Radiation 
+    id: 'epidemiologia',
+    name: 'Epidemiologia',
+    icon: Biohazard
   },
   {
-    id: 'toxicologia',
-    name: 'Toxicologia',
-    icon: Biohazard 
+    id: 'farmacologia',
+    name: 'Farmacologia',
+    icon: Pill
   },
   {
-    id: 'nefrologia',
-    name: 'Nefrologia',
-    icon: Kidney 
-  },
-  {
-    id: 'pneumologia',
-    name: 'Pneumologia',
-    icon: Lungs 
+    id: 'fisiologia',
+    name: 'Fisiologia',
+    icon: Activity
   },
   {
     id: 'gastroenterologia',
     name: 'Gastroenterologia',
-    icon: Flame 
+    icon: Flame
+  },
+  {
+    id: 'geral',
+    name: 'Geral',
+    icon: BookOpenText
+  },
+  {
+    id: 'genetica_medica',
+    name: 'Genética Médica',
+    icon: Dna
+  },
+  {
+    id: 'ginecologia_obstetricia',
+    name: 'Ginecologia e obstetrícia',
+    icon: Droplet
   },
   {
     id: 'hematologia',
     name: 'Hematologia',
-    icon: Droplet 
+    icon: Droplet
+  },
+  {
+    id: 'histologia',
+    name: 'Histologia',
+    icon: Microscope
+  },
+  {
+    id: 'imunologia',
+    name: 'Imunologia',
+    icon: Shield
   },
   {
     id: 'infectologia',
     name: 'Infectologia',
-    icon: Virus 
+    icon: Virus
   },
-]
+  {
+    id: 'microbiologia',
+    name: 'Microbiologia',
+    icon: Bacteria
+  },
+  {
+    id: 'nefrologia',
+    name: 'Nefrologia',
+    icon: Kidney
+  },
+  {
+    id: 'neurologia',
+    name: 'Neurologia',
+    icon: Brain
+  },
+  {
+    id: 'oftalmologia',
+    name: 'Oftalmologia',
+    icon: Eye
+  },
+  {
+    id: 'oncologia',
+    name: 'Oncologia',
+    icon: Radiation
+  },
+  {
+    id: 'ortopedia_traumatologia',
+    name: 'Ortopedia e traumatologia',
+    icon: Bone
+  },
+  {
+    id: 'otorrinolaringologia',
+    name: 'Otorrinolaringologia',
+    icon: Ear
+  },
+  {
+    id: 'parasitologia',
+    name: 'Parasitologia',
+    icon: Virus
+  },
+  {
+    id: 'patologia',
+    name: 'Patologia',
+    icon: TestTube
+  },
+  {
+    id: 'pediatria',
+    name: 'Pediatria',
+    icon: Baby
+  },
+  {
+    id: 'pneumologia',
+    name: 'Pneumologia',
+    icon: Lungs
+  },
+  {
+    id: 'psiquiatria',
+    name: 'Psiquiatria',
+    icon: Smile
+  },
+  {
+    id: 'radiologia',
+    name: 'Radiologia',
+    icon: ScanLine
+  },
+  {
+    id: 'reumatologia',
+    name: 'Reumatologia',
+    icon: Flame
+  },
+  {
+    id: 'toxicologia',
+    name: 'Toxicologia',
+    icon: Biohazard
+  },
+];
 
 interface SwitcherProps<T> {
   disabled?: boolean

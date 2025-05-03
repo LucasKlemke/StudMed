@@ -20,22 +20,25 @@ const CTA = () => {
           className="flex flex-col items-center justify-center space-y-6 text-center"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-balance">
-            Pronto para transformar seus estudos médicos?
+            A melhor IA para estudantes de medicina
           </h2>
           <p className="mx-auto max-w-[700px] text-base sm:text-xl text-muted-foreground text-balance">
-            Junte-se a milhares de estudantes de medicina que otimizaram seu
-            aprendizado e melhoraram seu desempenho com nossa plataforma.
+            Potencialize seus estudos com a plataforma de IA
+            <span className="font-bold text-primary">
+              {` `}mais avançada do mercado
+            </span>
+            , feita especialmente para quem estuda medicina.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link href="/chat">
               <Button size="lg" className="rounded-full h-12 px-8 text-base">
-                Comprar agora
+                Experimente agora
                 <ArrowRight className="ml-2 size-4" />
               </Button>
             </Link>
           </div>
           <p className="text-sm sm:text-base text-muted-foreground mt-2">
-            Cancele a qualquer momento. Sem taxas ocultas.
+            Sem compromisso. Cancele quando quiser.
           </p>
         </motion.div>
       </div>

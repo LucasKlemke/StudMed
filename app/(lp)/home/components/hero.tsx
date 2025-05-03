@@ -27,9 +27,11 @@ const Hero = () => {
             Estude medicina com a ajuda da IA
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            A plataforma de inteligência artificial que ajuda estudantes de
-            medicina a estudar de forma mais eficiente, gerar questões
-            personalizadas e dominar o conteúdo médico.
+            A
+            <span className="text-primary font-bold">
+              {` `} IA mais avançada do mercado, {``}
+            </span>
+            feita especialmente para quem estuda medicina.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={'/chat'}>
@@ -39,20 +41,20 @@ const Hero = () => {
               </Button>
             </Link>
           </div>
-          <div className="flex items-center justify-center gap-4 mt-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Check className="size-4 text-primary" />
-              <span>Cartão de crédito</span>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-base text-muted-foreground">
+            <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
+              <Check className="size-5 text-primary" />
+              <span className="font-medium">Líder em tecnologia IA médica</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Check className="size-4 text-primary" />
-              <span>Preço Acessível</span>
+            <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
+              <Check className="size-5 text-primary" />
+              <span className="font-medium">Desenvolvida para impulsionar seus estudos</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Check className="size-4 text-primary" />
-              <span>Cancele a qualquer momento</span>
+            <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
+              <Check className="size-5 text-primary" />
+              <span className="font-medium">Aproveite o preço promocional</span>
             </div>
-          </div>
+            </div>
         </motion.div>
 
         <motion.div

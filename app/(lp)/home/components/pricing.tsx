@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { Check, Flame, Percent } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -36,7 +36,8 @@ const Pricing = () => {
           </h2>
           <p className="max-w-[800px] text-muted-foreground text-base sm:text-lg text-balance">
             Durante nossa fase de validação, oferecemos um único plano com
-            acesso a todas as features. Comece a usar hoje logo após aprovação do pagamento.
+            acesso a todas as features. Comece a usar hoje logo após aprovação
+            do pagamento.
           </p>
         </motion.div>
 
@@ -49,13 +50,24 @@ const Pricing = () => {
           >
             <Card className="relative overflow-hidden border-primary shadow-lg bg-gradient-to-b from-background to-muted/10 backdrop-blur">
               <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-medium rounded-bl-lg">
-                Oferta Especial
+                Oferta Limitada !
               </div>
               <CardContent className="p-6 sm:p-8 flex flex-col h-full">
                 <h3 className="text-2xl font-bold">Plano Completo</h3>
-                <div className="flex items-baseline mt-4">
-                  <span className="text-4xl font-bold">R$29,90</span>
-                  <span className="text-muted-foreground ml-1">/mês</span>
+
+                <div className=" mt-4">
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm line-through text-slate-500">
+                      R$60,00
+                    </span>
+                    <span className="text-sm flex items-baseline text-primary">
+                      <Flame className="h-3 w-3" /> 50% de desconto
+                    </span>
+                  </div>
+                  <div className="flex items-baseline">
+                    <span className="text-4xl font-bold">R$29,90</span>
+                    <span className="text-muted-foreground ml-1">/mês</span>
+                  </div>
                 </div>
                 <p className="text-muted-foreground mt-2 text-sm sm:text-base">
                   Acesso completo a todas as funcionalidades da plataforma,
@@ -70,17 +82,20 @@ const Pricing = () => {
                     'Contexto especializado em medicina',
                     'Suporte prioritário',
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center text-sm sm:text-base">
+                    <li
+                      key={i}
+                      className="flex items-center text-sm sm:text-base"
+                    >
                       <Check className="mr-2 size-4 text-primary" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="text-sm text-muted-foreground mb-4">
-                  <p>Cadastre-se e comece a usar!</p>
+                    <p>Oferta promocional válida até 01/06.</p>
                 </div>
                 <Link href="/chat">
-                  <Button className="w-full mt-auto rounded-full bg-primary hover:bg-primary/90">
+                  <Button className="w-full mt-auto rounded-full bg-primary ">
                     Começar Agora
                   </Button>
                 </Link>

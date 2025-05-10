@@ -1,6 +1,12 @@
 'use client'
 
-import type { Attachment, Message } from 'ai'
+import type {
+  Attachment,
+  ChatRequest,
+  ChatRequestOptions,
+  CreateMessage,
+  Message,
+} from 'ai'
 import { useChat } from 'ai/react'
 import { useEffect, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
@@ -42,11 +48,10 @@ export function Chat({
   const {
     messages,
     setMessages,
-    handleSubmit,
-    //handleSubmit: chatHandleSubmit,
+    handleSubmit: chatHandleSubmit,
     input,
     setInput,
-    append,
+    append: chatAppend,
     isLoading,
     stop,
     reload,
@@ -61,15 +66,39 @@ export function Chat({
     },
   })
 
-  // function handleSubmit(){
-  //   // caso tenha subs chama-se chatHandleSubmit, caso nao tenha subs, verifica se ele ja fez 10 perguntas na semana, se sim, abre a modal
-  //   if(true){
-  //     chatHandleSubmit()
-  //   }
-  //   else{
+  const [openSubscriptionModal, setOpenSubscriptionModal] = useState(false)
 
-  //   }
-  // }
+  // HANDLESUBMITK KKKKKK
+  async function handleSubmit(
+    event?: {
+      preventDefault?: () => void
+    },
+    chatRequestOptions?: ChatRequestOptions,
+  ) {
+    // funcao do beregejohsnon
+    const hasAccess = false
+
+    if (!subscription || hasAccess) {
+      chatHandleSubmit(event, chatRequestOptions)
+    } else {
+      setOpenSubscriptionModal(true)
+    }
+  }
+
+  // APPEND KKKKK
+  async function append(
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions,
+  ): Promise<string | null | undefined> {
+    const hasAccess = false
+
+    if (!subscription || hasAccess) {
+      return chatAppend(message, chatRequestOptions)
+    } else {
+      setOpenSubscriptionModal(true)
+    }
+  }
+
   const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([])
@@ -77,7 +106,9 @@ export function Chat({
 
   return (
     <>
-      {!subscription && <SubscriptionModal />}
+      {openSubscriptionModal && (
+        <SubscriptionModal onClose={() => setOpenSubscriptionModal(false)} />
+      )}
 
       <div className="flex flex-col min-w-0 h-dvh bg-background">
         {/* gradiente */}

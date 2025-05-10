@@ -43,6 +43,7 @@ export function Chat({
     messages,
     setMessages,
     handleSubmit,
+    //handleSubmit: chatHandleSubmit,
     input,
     setInput,
     append,
@@ -60,6 +61,15 @@ export function Chat({
     },
   })
 
+  // function handleSubmit(){
+  //   // caso tenha subs chama-se chatHandleSubmit, caso nao tenha subs, verifica se ele ja fez 10 perguntas na semana, se sim, abre a modal
+  //   if(true){
+  //     chatHandleSubmit()
+  //   }
+  //   else{
+
+  //   }
+  // }
   const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([])

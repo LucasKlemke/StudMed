@@ -82,7 +82,6 @@ export function Chat({
     },
     chatRequestOptions?: ChatRequestOptions,
   ) {
-    // funcao do beregejohsnon
     const overLimit  = await isOverWeeklyMessageLimit(user.id!)
 
     if (subscription || !overLimit) {

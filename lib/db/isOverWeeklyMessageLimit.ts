@@ -23,5 +23,5 @@ export async function isOverWeeklyMessageLimit(userId: string): Promise<boolean>
     )
     const count = result[0]?.count ?? 0
   console.log(`[DEBUG] Messages this week: ${count}`)
-  return count > 5
+  return count > 10
 }

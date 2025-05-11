@@ -92,7 +92,6 @@ export function Chat({
     }
   }
 
-  // APPEND KKKKK
   async function append(
     message: Message | CreateMessage,
     chatRequestOptions?: ChatRequestOptions,

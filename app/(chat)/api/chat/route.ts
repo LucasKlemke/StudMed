@@ -2,11 +2,14 @@ import {
   type Message,
   convertToCoreMessages,
   createDataStreamResponse,
+  generateObject,
+  generateText,
   streamText,
 } from 'ai'
 import { auth } from '@/app/(auth)/auth'
 import { customModel } from '@/lib/ai'
 import { getSystemPrompt } from '@/lib/ai/prompts'
+import { z } from 'zod'
 import {
   deleteChatById,
   getChatById,
@@ -27,6 +30,8 @@ import { updateDocument } from '@/lib/ai/tools/update-document'
 import { requestSuggestions } from '@/lib/ai/tools/request-suggetions'
 import { webSearchTool } from '@/lib/ai/tools/web-search-tool'
 import { getInformation } from '@/lib/ai/tools/get-information'
+import { findRelevantContent } from '@/lib/ai/embedding'
+import { analyzeAndImproveQuestionForRAG } from '@/lib/ai/first-layer-agent'
 
 export const maxDuration = 60
 
@@ -36,7 +41,7 @@ type AllowedTools =
   | 'requestSuggestions'
   | 'createQuiz'
   | 'createTable'
-  | 'getInformation'
+  // | 'getInformation'
   | 'webSearch'
 
 const blocksTools: AllowedTools[] = [
@@ -45,7 +50,7 @@ const blocksTools: AllowedTools[] = [
   'requestSuggestions',
   'createQuiz',
   'createTable',
-  'getInformation',
+  // 'getInformation',
 ]
 
 const webSearchSystemPrompt =
@@ -60,17 +65,19 @@ export async function POST(request: Request) {
     subject,
     modelId,
     webSearch,
+    guytonRag,
   }: {
     id: string
     messages: Array<Message>
     modelId: string
     subject: string
     webSearch: boolean
+    guytonRag: boolean
   } = await request.json()
 
   const session = await auth()
 
-  // check if user has sent a PDF
+  // 1. check if user has sent a PDF
   const messagesHavePDF = messages.some((message) =>
     message.experimental_attachments?.some(
       (a) => a.contentType === 'application/pdf',
@@ -129,18 +136,55 @@ export async function POST(request: Request) {
     ],
   })
 
-  // Define the system prompt for the assistant
-  // const systemPrompt = `${getSystemPrompt(subject)}\n${
-  //   webSearch ? webSearchSystemPrompt : ''
-  // }`
-  const systemPrompt = `
-Você é um assistente especializado em fornecer respostas baseadas em informações extraídas de documentos. 
-- Sempre utilize a ferramenta "getInformation" para responder às perguntas do usuário.
-- Sempre cite a página da fonte utilizada na resposta, no seguinte formato: (página X do livro Guyton & Hall).
-- Se não encontrar a resposta nos documentos, responda apenas: "Não sei".
-- Seja claro, objetivo e não invente informações.
-- Sempre faça citação a URL do livro : [https://cssjd.org.br/imagens/editor/files/2019/Abril/Tratado%20de%20Fisiologia%20M%C3%A9dica.pdf]
-`
+  let systemPrompt = ''
+
+  if (guytonRag && !messagesHavePDF) {
+    const userQuestion = userMessage.content as string
+
+    const { improvedQuestion, needsRag } =
+      await analyzeAndImproveQuestionForRAG(userQuestion)
+
+    if (needsRag) {
+      // 1. recupera dados do guyton
+      const context = await findRelevantContent(improvedQuestion as string)
+
+      // 2. separa conteúdo mais importante e coerente em relacão à pergunta
+      // Usa o modelo para resumir e filtrar o contexto extraído do RAG,
+      // mantendo apenas as informações mais relevantes e coerentes com a pergunta do usuário,
+      // sempre preservando as referências de página.
+      const { text } = await generateText({
+        model: customModel('gpt-4.1-mini'),
+        system:
+          'Você é um assistente que recebe um contexto extraído do livro Guyton & Hall (com páginas) e uma pergunta do usuário. Seu objetivo é filtrar e resumir o contexto, mantendo apenas as informações mais relevantes e diretamente relacionadas à pergunta, sempre preservando as referências de página. Não invente informações e não remova as páginas citadas.',
+        prompt: `Pergunta do usuário: """${improvedQuestion}"""
+    Contexto extraído do livro (com páginas): """${context}"""
+    Retorne apenas as partes do contexto que respondem diretamente à pergunta, mantendo as referências de página. Se nada for relevante, responda: "Não há informações relevantes no contexto extraído."`,
+      })
+      const filteredContext = text
+
+      systemPrompt = `
+      Você é um assistente especializado em responder perguntas de estudantes de medicina, utilizando exclusivamente o conteúdo do livro "Guyton & Hall Tratado de Fisiologia Médica 12ª edição" como fonte. 
+      - Todas as respostas devem ser baseadas 100% nas informações encontradas neste livro.
+      - Sempre cite a página da fonte utilizada na resposta, no seguinte formato: (página X do livro Guyton & Hall Tratado de Fisiologia Médica 12ª edição).
+      - Se não encontrar a resposta no livro, responda apenas: "Não consigo responder à sua pergunta pois não encontrei nada sobre isso no livro Guyton."
+      - Seja claro, objetivo e nunca invente informações ou utilize outras fontes.
+      - Seja sempre didático, utilize formatos de resposta que ajudem o usuário a entender melhor o assunto.
+      - Sempre faça refêrencia a URL do livro na resposta: [https://cssjd.org.br/imagens/editor/files/2019/Abril/Tratado%20de%20Fisiologia%20M%C3%A9dica.pdf]
+      
+      Contexto extraído do livro:
+      ${filteredContext}
+      `
+    } else {
+      systemPrompt = `${getSystemPrompt(subject)}\n${
+        webSearch ? webSearchSystemPrompt : ''
+      }`
+    }
+  } else {
+    // Define the system prompt for the assistant
+    systemPrompt = `${getSystemPrompt(subject)}\n${
+      webSearch ? webSearchSystemPrompt : ''
+    }`
+  }
 
   return createDataStreamResponse({
     execute: (dataStream) => {
@@ -171,8 +215,8 @@ Você é um assistente especializado em fornecer respostas baseadas em informaç
             session,
             model,
           }),
-          // rag
-          getInformation: getInformation(),
+          // // rag
+          // getInformation: getInformation(),
           webSearch: webSearchTool(),
         },
         onFinish: async ({ response, usage }) => {

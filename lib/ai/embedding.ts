@@ -16,7 +16,9 @@ export const generateEmbedding = async (value: string): Promise<number[]> => {
 }
 
 export const findRelevantContent = async (userQuery: string) => {
+  // 1. Transforma a pergunta em embedding ("o que é a diabetes?" -> [0.1, 0.2, 0.3])
   const userQueryEmbedded = await generateEmbedding(userQuery)
+
   const similarity = sql<number>`1 - (${cosineDistance(
     guytonChunks.embedding,
     userQueryEmbedded,
@@ -37,5 +39,12 @@ export const findRelevantContent = async (userQuery: string) => {
     page: guide.page,
   }))
 
-  return data
+  // 2. Transforme data em uma única string
+  const stringData = data
+    .map((item) => {
+      return `Página ${item.page}: ${item.content}`
+    })
+    .join('\n\n')
+
+  return stringData
 }

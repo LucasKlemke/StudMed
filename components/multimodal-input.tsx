@@ -15,9 +15,7 @@ import {
 } from 'react'
 import { toast } from 'sonner'
 import { useLocalStorage, useWindowSize } from 'usehooks-ts'
-
 import { sanitizeUIMessages } from '@/lib/utils'
-
 import { ArrowUpIcon, PaperclipIcon, StopIcon } from './icons'
 import { PreviewAttachment } from './preview-attachment'
 import { Button } from './ui/button'
@@ -28,12 +26,14 @@ import { Input } from './ui/input'
 import { SubjectSwitcher } from './subject-switcher'
 import { Globe } from 'lucide-react'
 import { WebSearchButton } from './web-search-button'
+import PaymentButton from '@/app/(chat)/account/components/payment-button'
 import { BookRagButton } from './book-rag-button'
 
 function PureMultimodalInput({
   chatId,
   input,
   setInput,
+  blockedMessageUser,
   isLoading,
   stop,
   attachments,
@@ -46,6 +46,7 @@ function PureMultimodalInput({
 }: {
   chatId: string
   input: string
+  blockedMessageUser : boolean
   setInput: (value: string) => void
   isLoading: boolean
   stop: () => void
@@ -172,6 +173,14 @@ function PureMultimodalInput({
           ))}
         </div>
       )}
+      {blockedMessageUser && (
+      <div className="flex justify-between items-center text-sm bg-muted border border-border rounded-md px-3 py-2">
+        <span className="text-muted-foreground">
+          Você atingiu o limite gratuito de 10 mensagens esta semana.
+        </span>
+        <PaymentButton className='w-[7rem]'>Assinar agora</PaymentButton>
+      </div>
+    )}
 
       <Textarea
         ref={textareaRef}
@@ -230,6 +239,7 @@ export const MultimodalInput = memo(
     if (prevProps.input !== nextProps.input) return false
     if (prevProps.isLoading !== nextProps.isLoading) return false
     if (!equal(prevProps.attachments, nextProps.attachments)) return false
+    if (prevProps.blockedMessageUser !== nextProps.blockedMessageUser) return false
 
     return true
   }

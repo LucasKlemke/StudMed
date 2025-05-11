@@ -37,7 +37,7 @@ export function Chat({
 }) {
   const { mutate } = useSWRConfig()
 
-  const { subject, webSearch }: any = useSubjectStore()
+  const { subject, webSearch, guytonRag }: any = useSubjectStore()
 
   const {
     messages,
@@ -51,7 +51,13 @@ export function Chat({
     reload,
   } = useChat({
     id,
-    body: { id, modelId: selectedModelId, subject: subject.id, webSearch },
+    body: {
+      id,
+      modelId: selectedModelId,
+      subject: subject.id,
+      webSearch,
+      guytonRag,
+    },
     initialMessages,
     onFinish: (message, { usage }) => {
       // console.log(message)

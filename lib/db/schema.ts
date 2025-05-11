@@ -10,6 +10,8 @@ import {
   foreignKey,
   boolean,
   numeric,
+  integer,
+  vector,
 } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('User', {
@@ -39,7 +41,7 @@ export const tokens = pgTable(
     return {
       pk: primaryKey({ columns: [table.id, table.createdAt] }),
     }
-  }
+  },
 )
 
 export type Tokens = InferSelectModel<typeof tokens>
@@ -60,6 +62,15 @@ export const chat = pgTable('Chat', {
 })
 
 export type Chat = InferSelectModel<typeof chat>
+
+export const guytonChunks = pgTable('guyton_chunks', {
+  id: uuid('id').primaryKey(),
+  document: text('document').notNull(),
+  page: integer('page').notNull(),
+  embedding: vector('embedding', { dimensions: 1536 }).notNull(),
+})
+
+export type GuytonChunks = InferSelectModel<typeof guytonChunks>
 
 export const message = pgTable('Message', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
@@ -88,7 +99,7 @@ export const vote = pgTable(
     return {
       pk: primaryKey({ columns: [table.chatId, table.messageId] }),
     }
-  }
+  },
 )
 
 export type Vote = InferSelectModel<typeof vote>
@@ -111,7 +122,7 @@ export const document = pgTable(
     return {
       pk: primaryKey({ columns: [table.id, table.createdAt] }),
     }
-  }
+  },
 )
 
 export type Document = InferSelectModel<typeof document>
@@ -137,7 +148,7 @@ export const suggestion = pgTable(
       columns: [table.documentId, table.documentCreatedAt],
       foreignColumns: [document.id, document.createdAt],
     }),
-  })
+  }),
 )
 
 export type Suggestion = InferSelectModel<typeof suggestion>

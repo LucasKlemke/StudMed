@@ -27,6 +27,7 @@ import { SubjectSwitcher } from './subject-switcher'
 import { Globe } from 'lucide-react'
 import { WebSearchButton } from './web-search-button'
 import PaymentButton from '@/app/(chat)/account/components/payment-button'
+import { BookRagButton } from './book-rag-button'
 
 function PureMultimodalInput({
   chatId,
@@ -207,7 +208,9 @@ function PureMultimodalInput({
 
       <div className="absolute bottom-0 p-2 w-fit flex items-center gap-x-2 flex-row justify-start">
         <SubjectSwitcher />
+        
         {/* <WebSearchButton /> */}
+        <BookRagButton/>
         <AttachmentsButton
           setFiles={setFiles}
           fileInputRef={fileInputRef}

@@ -1,5 +1,5 @@
 {
-  "id": "369ae23f-e622-482e-a9e5-5d6f10963189",
+  "id": "fc476658-05c0-4981-be04-3a214535260c",
   "prevId": "6627fd67-fdd5-4522-89d4-8f7b3358435f",
   "version": "7",
   "dialect": "postgresql",
@@ -150,32 +150,38 @@
         "name": {
           "name": "name",
           "type": "varchar(256)",
+          "primaryKey": false,
           "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar(64)",
+          "primaryKey": false,
           "notNull": true
         },
         "password": {
           "name": "password",
           "type": "varchar(64)",
+          "primaryKey": false,
           "notNull": true
         },
         "token": {
           "name": "token",
           "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
+          "primaryKey": false,
           "notNull": false,
           "default": "now()"
         },
         "expires_at": {
           "name": "expires_at",
           "type": "timestamp",
+          "primaryKey": false,
           "notNull": true
         }
       },
@@ -187,7 +193,43 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-
+    "public.guyton_chunks": {
+      "name": "guyton_chunks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "document": {
+          "name": "document",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page": {
+          "name": "page",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "embedding": {
+          "name": "embedding",
+          "type": "vector(1536)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.Message": {
       "name": "Message",
       "schema": "",

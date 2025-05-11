@@ -26,6 +26,7 @@ import { createDocument } from '@/lib/ai/tools/create-document'
 import { updateDocument } from '@/lib/ai/tools/update-document'
 import { requestSuggestions } from '@/lib/ai/tools/request-suggetions'
 import { webSearchTool } from '@/lib/ai/tools/web-search-tool'
+import { getInformation } from '@/lib/ai/tools/get-information'
 
 export const maxDuration = 60
 
@@ -35,6 +36,7 @@ type AllowedTools =
   | 'requestSuggestions'
   | 'createQuiz'
   | 'createTable'
+  | 'getInformation'
   | 'webSearch'
 
 const blocksTools: AllowedTools[] = [
@@ -43,6 +45,7 @@ const blocksTools: AllowedTools[] = [
   'requestSuggestions',
   'createQuiz',
   'createTable',
+  'getInformation',
 ]
 
 const webSearchSystemPrompt =
@@ -127,9 +130,17 @@ export async function POST(request: Request) {
   })
 
   // Define the system prompt for the assistant
-  const systemPrompt = `${getSystemPrompt(subject)}\n${
-    webSearch ? webSearchSystemPrompt : ''
-  }`
+  // const systemPrompt = `${getSystemPrompt(subject)}\n${
+  //   webSearch ? webSearchSystemPrompt : ''
+  // }`
+  const systemPrompt = `
+Você é um assistente especializado em fornecer respostas baseadas em informações extraídas de documentos. 
+- Sempre utilize a ferramenta "getInformation" para responder às perguntas do usuário.
+- Sempre cite a página da fonte utilizada na resposta, no seguinte formato: (página X do livro Guyton & Hall).
+- Se não encontrar a resposta nos documentos, responda apenas: "Não sei".
+- Seja claro, objetivo e não invente informações.
+- Sempre faça citação a URL do livro : [https://cssjd.org.br/imagens/editor/files/2019/Abril/Tratado%20de%20Fisiologia%20M%C3%A9dica.pdf]
+`
 
   return createDataStreamResponse({
     execute: (dataStream) => {
@@ -160,6 +171,8 @@ export async function POST(request: Request) {
             session,
             model,
           }),
+          // rag
+          getInformation: getInformation(),
           webSearch: webSearchTool(),
         },
         onFinish: async ({ response, usage }) => {

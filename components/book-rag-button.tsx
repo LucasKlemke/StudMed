@@ -1,4 +1,6 @@
-// components/switcher.tsx
+// components/book-rag-button.tsx
+// This file defines the BookRagButton component, which toggles the GuytonRag state
+// and provides a tooltip for searching in Guyton (beta).
 
 'use client'
 

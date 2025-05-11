@@ -158,7 +158,7 @@ export function Chat({
                 input={input}
                 setInput={setInput}
                 handleSubmit={handleSubmit}
-                blockedMessageUser = {blockedMessageUser}
+                blockedMessageUser={blockedMessageUser}
                 isLoading={isLoading}
                 stop={stop}
                 attachments={attachments}
@@ -179,6 +179,7 @@ export function Chat({
       </div>
 
       <Block
+        blockedMessageUser={blockedMessageUser}
         chatId={id}
         input={input}
         setInput={setInput}

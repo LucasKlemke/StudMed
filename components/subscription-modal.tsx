@@ -42,9 +42,9 @@ const premiumFeatures = [
 // Sample images - replace these with your actual images
 const productImages = ['/images/subscription.png']
 
-export function SubscriptionModal() {
+export function SubscriptionModal({ onClose }: { onClose: () => void }) {
   return (
-    <Dialog open>
+    <Dialog open onOpenChange={onClose}>
       <DialogContent className="md:max-w-[1000px] p-0 overflow-hidden border-0 rounded-xl ">
         <div className="flex flex-col md:flex-row ">
           {/* Left side - Illustration */}

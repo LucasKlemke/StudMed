@@ -1,14 +1,18 @@
 'use client'
 
-import type { Attachment, Message } from 'ai'
+import type {
+  Attachment,
+  ChatRequest,
+  ChatRequestOptions,
+  CreateMessage,
+  Message,
+} from 'ai'
 import { useChat } from 'ai/react'
 import { useEffect, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
-
 import { ChatHeader } from '@/components/chat-header'
 import type { Vote } from '@/lib/db/schema'
 import { fetcher } from '@/lib/utils'
-
 import { Block, type UIBlock } from './block'
 import { MultimodalInput } from './multimodal-input'
 import { Messages } from './messages'
@@ -17,6 +21,7 @@ import { useSubjectStore } from '@/store/subject'
 import { useBlockSelector } from '@/hooks/use-block'
 import type { User as AuthUser } from 'next-auth'
 import { SubscriptionModal } from '@/components/subscription-modal'
+import { isOverWeeklyMessageLimit } from '@/lib/db/isOverWeeklyMessageLimit'
 
 export function Chat({
   id,
@@ -42,10 +47,10 @@ export function Chat({
   const {
     messages,
     setMessages,
-    handleSubmit,
+    handleSubmit: chatHandleSubmit,
     input,
     setInput,
-    append,
+    append: chatAppend,
     isLoading,
     stop,
     reload,
@@ -65,6 +70,43 @@ export function Chat({
       mutate('/api/history')
     },
   })
+  const [blockedMessageUser, setBlockedMessageUser] = useState(false)
+  const [openSubscriptionModal, setOpenSubscriptionModal] = useState(false)
+
+  // HANDLESUBMITK KKKKKK
+  async function handleSubmit(
+    event?: {
+      preventDefault?: () => void
+    },
+    chatRequestOptions?: ChatRequestOptions,
+  ) {
+    // funcao do beregejohsnon
+    const overLimit  = await isOverWeeklyMessageLimit(user.id!)
+
+    if (subscription || !overLimit) {
+      chatHandleSubmit(event, chatRequestOptions)
+    } else {
+      console.log('PASSOU 1')
+      setBlockedMessageUser(true)
+      setOpenSubscriptionModal(true)
+    }
+  }
+
+  // APPEND KKKKK
+  async function append(
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions,
+  ): Promise<string | null | undefined> {
+    const overLimit = await isOverWeeklyMessageLimit(user.id!)
+
+    if (subscription || !overLimit) {
+      return chatAppend(message, chatRequestOptions)
+    } else {
+      console.log('PASSOU 2')
+      setBlockedMessageUser(true)
+      setOpenSubscriptionModal(true)
+    }
+  }
 
   const { data: votes } = useSWR<Array<Vote>>(`/api/vote?chatId=${id}`, fetcher)
 
@@ -73,7 +115,9 @@ export function Chat({
 
   return (
     <>
-      {!subscription && <SubscriptionModal />}
+      {openSubscriptionModal && (
+        <SubscriptionModal onClose={() => setOpenSubscriptionModal(false)} />
+      )}
 
       <div className="flex flex-col min-w-0 h-dvh bg-background">
         {/* gradiente */}
@@ -114,6 +158,7 @@ export function Chat({
                 input={input}
                 setInput={setInput}
                 handleSubmit={handleSubmit}
+                blockedMessageUser = {blockedMessageUser}
                 isLoading={isLoading}
                 stop={stop}
                 attachments={attachments}

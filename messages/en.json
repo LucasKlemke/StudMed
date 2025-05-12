@@ -1,12 +1,105 @@
 {
   "Home": {
+    "Header": {
+      "features": "Features",
+      "price": "Pricing",
+      "FAQ": "FAQ",
+      "toggleTheme": "Toggle theme",
+      "loginButton": "Login"
+    },
     "Hero": {
       "badge": "Now available",
       "title": "Study medicine with the help of AI",
       "button": "Buy now",
       "description1": "The",
       "description2": "most advanced AI on the market,",
-      "description3": "made especially for those studying medicine."
+      "description3": "made especially for those studying medicine.",
+      "feature1": "Leader in medical AI technology",
+      "feature2": "Developed to boost your studies",
+      "feature3": "Take advantage of the promotional price"
+    },
+    "Features": {
+      "badge": "Features",
+      "title": "Everything you need to study efficiently",
+      "description": "Our platform offers a variety of tools and features to optimize your learning and maximize your results.",
+      "featureTitle1": "Real-time question generation",
+      "featureDescription1": "Automatically and instantly create questions to practice and review medical content.",
+      "featureTitle2": "Subject selector",
+      "featureDescription2": "Easily choose the subject or topic you want to study and focus on your goals.",
+      "featureTitle3": "PDF import",
+      "featureDescription3": "Upload PDF materials and turn them into personalized questions or summaries.",
+      "featureTitle4": "Document generation",
+      "featureDescription4": "Automatically create summaries, mind maps, and other study documents.",
+      "featureTitle5": "Medical-specialized context",
+      "featureDescription5": "Content and question generation tailored to the medical field, with specific language and approach."
+    },
+    "HowItWorks": {
+      "badge": "How it works?",
+      "title": "How it works?",
+      "description": "Start using Studmed in minutes and see the difference our platform can make for your studies.",
+      "stepTitle1": "Sign up",
+      "stepDescription1": "Create your account in seconds with your email and password.",
+      "stepTitle2": "Payment",
+      "stepDescription2": "Choose the ideal plan and make a secure payment.",
+      "stepTitle3": "Start using",
+      "stepDescription3": "Access all features and optimize your studies with AI."
+    },
+    "Pricing": {
+      "badge": "Pricing",
+      "title": "Full Platform Access",
+      "description": "During our validation phase, we offer a single plan with access to all features. Start using it today right after payment approval.",
+      "cardBadge": "Limited Offer!",
+      "cardTitle": "Full Plan",
+      "cardPrice": "R$60.00",
+      "cardDiscount": "50% discount",
+      "cardDiscountPrice": "R$29.90",
+      "cardMonth": "/month",
+      "cardDescription": "Full access to all platform features, cancel anytime.",
+      "cardFeature1": "Real-time question generation",
+      "cardFeature2": "Subject selector",
+      "cardFeature3": "PDF import",
+      "cardFeature4": "Document generation",
+      "cardFeature5": "Medical-specialized context",
+      "cardFeature6": "Priority support",
+      "cardlLimitedOffer": "Promotional offer valid until 06/01.",
+      "cardButton": "Start now"
+    },
+    "FAQ": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "description": "Here are some common questions we receive about our platform. If you have any additional questions, feel free to contact us.",
+      "faqQuestion1": "What features are available in the MVP?",
+      "faqAnswer1": "Our current focus is to offer the essential features to validate the proposal. More advanced features are already being developed and will be released soon.",
+      "faqQuestion2": "How can I sign up and access the platform?",
+      "faqAnswer2": "The registration process is simple and fast. Use the registration form on the homepage to create your account and start using the available resources.",
+      "faqQuestion3": "Is there support for advanced features?",
+      "faqAnswer3": "At the moment, we only offer support for basic features. As the project progresses, advanced features will be implemented and supported.",
+      "faqQuestion4": "When will new features be available?",
+      "faqAnswer4": "We are constantly working to improve the platform. Stay tuned for our updates, as new features will be released as the project evolves.",
+      "faqQuestion5": "How can I send feedback or report issues?",
+      "faqAnswer5": "We value your opinion! Use the contact link or access the Feedback section to send us your suggestions and report any issues."
+    },
+    "CTA": {
+      "title": "The best AI for medical students",
+      "description1": "Boost your studies with the AI platform",
+      "description2": "most advanced on the market",
+      "description3": ", made especially for those studying medicine.",
+      "button": "Try now",
+      "footer": "No commitment. Cancel anytime."
+    },
+    "Footer": {
+      "description": "Optimize your medical studies with our AI platform. Improve your performance and prepare for exams efficiently.",
+      "allRights": "All rights reserved.",
+      "legalLinkName1": "Privacy Policy",
+      "legalLinkName2": "Terms of Service",
+      "legalLinkName3": "Cookie Policy",
+      "footerLinkTitle1": "Product",
+      "footerLinkTitle1Name1": "Features",
+      "footerLinkTitle1Name2": "Pricing",
+      "footerLinkTitle2": "Resources",
+      "footerLinkTitle2Name1": "Support",
+      "footerLinkTitle3": "Company",
+      "footerLinkTitle3Name1": "About"
     }
   }
 }

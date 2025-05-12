@@ -28,6 +28,7 @@ import { Globe } from 'lucide-react'
 import { WebSearchButton } from './web-search-button'
 import PaymentButton from '@/app/(chat)/account/components/payment-button'
 import { BookRagButton } from './book-rag-button'
+import { useTranslations } from 'next-intl'
 
 function PureMultimodalInput({
   chatId,
@@ -46,7 +47,7 @@ function PureMultimodalInput({
 }: {
   chatId: string
   input: string
-  blockedMessageUser : boolean
+  blockedMessageUser: boolean
   setInput: (value: string) => void
   isLoading: boolean
   stop: () => void
@@ -56,13 +57,13 @@ function PureMultimodalInput({
   setMessages: Dispatch<SetStateAction<Array<Message>>>
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>
   handleSubmit: (
     event?: {
       preventDefault?: () => void
     },
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => void
   className?: string
 }) {
@@ -152,8 +153,10 @@ function PureMultimodalInput({
 
       // setAttachments((prev) => [...prev, files])
     },
-    [setAttachments]
+    [setAttachments],
   )
+
+  const t = useTranslations('Chat.MultiModalInput')
 
   return (
     <div className="relative w-full flex flex-col gap-4 shadow-lg bg-transparent rounded-b-xl dark:shadow-non">
@@ -174,22 +177,22 @@ function PureMultimodalInput({
         </div>
       )}
       {blockedMessageUser && (
-      <div className="flex justify-between items-center text-sm bg-muted border border-border rounded-md px-3 py-2">
-        <span className="text-muted-foreground">
-          Você atingiu o limite gratuito de 10 mensagens esta semana.
-        </span>
-        <PaymentButton className='w-[7rem]'>Assinar agora</PaymentButton>
-      </div>
-    )}
+        <div className="flex justify-between items-center text-sm bg-muted border border-border rounded-md px-3 py-2">
+          <span className="text-muted-foreground">{t('paymentWarning')}</span>
+          <PaymentButton className="w-[7rem]">
+            {t('paymentButton')}
+          </PaymentButton>
+        </div>
+      )}
 
       <Textarea
         ref={textareaRef}
-        placeholder="Envie uma mensagem..."
+        placeholder={t('placeholder')}
         value={input}
         onChange={handleInput}
         className={cx(
           'min-h-[24px]  max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-background pb-10 dark:border-zinc-700',
-          className
+          className,
         )}
         rows={2}
         autoFocus
@@ -208,9 +211,9 @@ function PureMultimodalInput({
 
       <div className="absolute bottom-0 p-2 w-fit flex items-center gap-x-2 flex-row justify-start">
         <SubjectSwitcher />
-        
+
         {/* <WebSearchButton /> */}
-        <BookRagButton/>
+        <BookRagButton />
         <AttachmentsButton
           setFiles={setFiles}
           fileInputRef={fileInputRef}
@@ -239,10 +242,11 @@ export const MultimodalInput = memo(
     if (prevProps.input !== nextProps.input) return false
     if (prevProps.isLoading !== nextProps.isLoading) return false
     if (!equal(prevProps.attachments, nextProps.attachments)) return false
-    if (prevProps.blockedMessageUser !== nextProps.blockedMessageUser) return false
+    if (prevProps.blockedMessageUser !== nextProps.blockedMessageUser)
+      return false
 
     return true
-  }
+  },
 )
 
 function PureAttachmentsButton({
@@ -284,7 +288,7 @@ function PureAttachmentsButton({
             for (let i = 0; i < files.length; i++) {
               if (files[i].size > maxSize) {
                 toast.error(
-                  'O arquivo é muito grande. Máximo de 4MB por arquivo.'
+                  'O arquivo é muito grande. Máximo de 4MB por arquivo.',
                 )
                 event.target.value = ''
                 setFiles(undefined)

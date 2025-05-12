@@ -101,5 +101,65 @@
       "footerLinkTitle3": "Empresa",
       "footerLinkTitle3Name1": "Sobre"
     }
+  },
+  "Chat": {
+    "SuggestedActions": {
+      "title": "Sugestões",
+      "title1": "Gerar artigo",
+      "label1": "sobre diabetes tipo 2",
+      "action1": "Crie um artigo sobre diabetes tipo 2.",
+      "title2": "Gerar quiz",
+      "label2": "sobre anatomia humana",
+      "action2": "Crie um quiz sobre anatomia humana.",
+      "title3": "Documento PDF",
+      "label3": "entender a hipertensão",
+      "action3": "Gere um documento me explicando sobre o que é hipertensão.",
+      "title4": "Explicação",
+      "label4": "sobre doenças cardiovasculares",
+      "action4": "Explique sobre doenças cardiovasculares."
+    },
+    "MultiModalInput": {
+      "placeholder": "Envie uma mensagem...",
+      "paymentButton": "Assinar agora",
+      "paymentWarning": "Você atingiu o limite gratuito de 10 mensagens esta semana."
+    },
+    "SubjectSwitcher": {
+      "placeholder": "Buscar matéria",
+      "subjectName1": "Geral",
+      "subjectName2": "Fisiologia",
+      "subjectName3": "Anatomia",
+      "subjectName4": "Bioquímica",
+      "subjectName5": "Embriologia",
+      "subjectName6": "Histologia",
+      "subjectName7": "Patologia",
+      "subjectName8": "Farmacologia",
+      "subjectName9": "Microbiologia",
+      "subjectName10": "Imunologia",
+      "subjectName11": "Genética Médica",
+      "subjectName12": "Parasitologia",
+      "subjectName13": "Epidemiologia",
+      "subjectName14": "Clínica médica",
+      "subjectName15": "Pediatria",
+      "subjectName16": "Ginecologia e obstetrícia",
+      "subjectName17": "Cirurgia geral",
+      "subjectName18": "Psiquiatria",
+      "subjectName19": "Ortopedia e traumatologia",
+      "subjectName20": "Dermatologia",
+      "subjectName21": "Oftalmologia",
+      "subjectName22": "Otorrinolaringologia",
+      "subjectName23": "Neurologia",
+      "subjectName24": "Cardiologia",
+      "subjectName25": "Radiologia",
+      "subjectName26": "Anestesiologia",
+      "subjectName27": "Reumatologia",
+      "subjectName28": "Endocrinologia",
+      "subjectName29": "Oncologia",
+      "subjectName30": "Toxicologia",
+      "subjectName31": "Nefrologia",
+      "subjectName32": "Pneumologia",
+      "subjectName33": "Gastroenterologia",
+      "subjectName34": "Hematologia",
+      "subjectName35": "Infectologia"
+    }
   }
 }

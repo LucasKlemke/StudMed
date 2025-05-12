@@ -5,40 +5,43 @@ import { Button } from './ui/button'
 import { ChatRequestOptions, CreateMessage, Message } from 'ai'
 import { memo } from 'react'
 import { Blocks, MessageCircleQuestion, Search, Text } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface SuggestedActionsProps {
   chatId: string
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>
 }
 
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
+  const t = useTranslations('Chat.SuggestedActions')
+
   const suggestedActions = [
     {
       icon: <Search />,
-      title: 'Gerar artigo',
-      label: 'sobre diabetes tipo 2',
-      action: 'Crie um artigo sobre diabetes tipo 2.',
+      title: t('title1'),
+      label: t('label1'),
+      action: t('action1'),
     },
     {
       icon: <MessageCircleQuestion />,
-      title: 'Gerar quiz',
-      label: 'sobre anatomia humana',
-      action: 'Crie um quiz sobre anatomia humana.',
+      title: t('title2'),
+      label: t('label2'),
+      action: t('action2'),
     },
     {
       icon: <Text />,
-      title: 'Documento PDF',
-      label: 'entender a hipertensão',
-      action: 'Gere um documento me explicando sobre o que é hipertensão.',
+      title: t('title3'),
+      label: t('label3'),
+      action: t('action3'),
     },
     {
       icon: <Blocks />,
-      title: 'Explicação',
-      label: 'sobre doenças cardiovasculares',
-      action: 'Explique sobre doenças cardiovasculares.',
+      title: t('title4'),
+      label: t('label4'),
+      action: t('action4'),
     },
   ]
 

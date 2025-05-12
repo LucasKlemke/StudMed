@@ -1,0 +1,22 @@
+{
+  "Home": {
+    "Hero": {
+      "badge": "Ja disponível",
+      "title": "Estude medicina com a ajuda da IA",
+      "button": "Comprar agora",
+      "description1": "A",
+      "description2": "IA mais avançada do mercado,",
+      "description3": "feita especialmente para quem estuda medicina.",
+      "feature1": "Líder em tecnologia IA médica",
+      "feature2": "Desenvolvida para impulsionar seus estudos",
+      "feature3": "Aproveite o preço promocional"
+    },
+    "Features": {
+      "badge": "Funcionalidades",
+      "title": "Tudo o que você precisa para estudar de forma eficiente",
+      "description": "Nossa plataforma oferece uma variedade de ferramentas e funcionalidades para otimizar seu aprendizado e maximizar seus resultados.",
+      "featureTitle1":"Geração de questões em tempo real",
+      "featureDescription1": "" 
+    }
+  }
+}

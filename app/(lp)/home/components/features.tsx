@@ -11,6 +11,7 @@ import {
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 
 const features = [
   {
@@ -68,7 +69,7 @@ const Features = () => {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   }
-
+  const t = useTranslations('Home.Features')
   return (
     <section
       id="features"

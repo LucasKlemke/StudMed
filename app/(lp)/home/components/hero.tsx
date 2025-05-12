@@ -4,8 +4,10 @@ import { Check, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 const Hero = () => {
+  const t = useTranslations('Home.Hero')
   return (
     <section className="w-full overflow-hidden ">
       <div className="x-4 md:px-6 relative py-20 ">
@@ -21,40 +23,40 @@ const Hero = () => {
             className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium"
             variant="secondary"
           >
-            Ja disponível
+            {t('badge')}
           </Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-            Estude medicina com a ajuda da IA
+            {t('title')}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            A
+            {t('description1')}
             <span className="text-primary font-bold">
-              {` `} IA mais avançada do mercado, {``}
+              {` `} {t('description2')} {``}
             </span>
-            feita especialmente para quem estuda medicina.
+            {t('description3')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={'/chat'}>
               <Button size="lg" className="rounded-full h-12 px-8 text-base">
-                Comprar agora
+                {t('button')}
                 <ArrowRight className="ml-2 size-4" />
               </Button>
             </Link>
           </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-base text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-base text-muted-foreground">
             <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
               <Check className="size-5 text-primary" />
-              <span className="font-medium">Líder em tecnologia IA médica</span>
-            </div>
-            <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
-              <Check className="size-5 text-primary" />
-              <span className="font-medium">Desenvolvida para impulsionar seus estudos</span>
+              <span className="font-medium">{t('feature1')}</span>
             </div>
             <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
               <Check className="size-5 text-primary" />
-              <span className="font-medium">Aproveite o preço promocional</span>
+              <span className="font-medium">{t('feature2')}</span>
             </div>
+            <div className="flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-full shadow-sm">
+              <Check className="size-5 text-primary" />
+              <span className="font-medium">{t('feature3')}</span>
             </div>
+          </div>
         </motion.div>
 
         <motion.div

@@ -161,5 +161,76 @@
       "subjectName34": "Hematologia",
       "subjectName35": "Infectologia"
     }
+  },
+
+  "Auth":{
+    "AuthForm": {
+      "name": "Nome:",
+      "email": "Email:",
+      "password": "Senha:",
+      "forgotPassword": "Esqueceu a senha?"
+    },
+    "ForgotPassword":{
+      "recoverPassword": "Recuperar Senha",
+      "emailLabel": "Digite seu e-mail",
+      "recoverLink": "Enviar link de redefinição",
+      "sendingLink": "Enviando...",
+      "rememberedPassword": "Lembrou sua senha?",
+      "backToLgin": " Voltar para login",
+      "termsOfUse": "Termos de uso",
+      "privacyPolicy": "Políticas de Privacidade",
+      "toastSuccess": "E-mail enviado com sucesso!",
+      "userNotFound": "Usuário não encontrado"
+    },
+    "Login": {
+      "title": "Login",
+      "continue": "Continuar",
+      "noAccount": "Não tem uma conta?",
+      "register": "Cadastre-se",
+      "free": "grátis.",
+      "termsOfUse": "Termos de uso",
+      "privacyPolicy": "Política de privacidade",
+      "invalidCredentials": "Credenciais inválidas!",
+      "invalidData": "Falha ao validar sua submissão!"
+    },
+    "Register": {
+      "title": "Cadastro",
+      "submit": "Cadastrar",
+      "alreadyHaveAccount": "Já tem uma conta?",
+      "login": "Entrar",
+      "termsOfUse": "Termos de uso",
+      "privacyPolicy": "Política de privacidade",
+      "emailVerified": "Email verificado com sucesso!",
+      "expiredLink": "Link de verificação expirado ou inválido.",
+      "emailExists": "Email já cadastrado",
+      "createFailed": "Falha ao criar conta, tente novamente mais tarde",
+      "invalidData": "Falha ao validar sua submissão!"
+    },
+    "ResetPassword": {
+      "title": "Nova Senha",
+      "newPasswordPlaceholder": "Nova senha",
+      "confirmPasswordPlaceholder": "Confirme a nova senha",
+      "submit": "Redefinir Senha",
+      "submitting": "Atualizando...",
+      "passwordsDoNotMatch": "As senhas não coincidem",
+      "success": "Senha redefinida com sucesso!",
+      "error": "Erro ao redefinir senha.",
+      "rememberedPassword": "Lembrou sua senha?",
+      "backToLogin": " Voltar para login",
+      "termsOfUse": "Termos de uso",
+      "privacyPolicy": "Política de privacidade"
+    },
+    "VerifyEmail": {
+      "title": "Verificação",
+      "successTitle": "Email verificado com sucesso!",
+      "expiredTitle": "Link inválido ou expirado",
+      "defaultTitle": "Confirme seu e-mail",
+      "successMessage": "Você será redirecionado para o login em instantes.",
+      "expiredMessage": "O link de verificação é inválido ou expirou. Solicite um novo link.",
+      "defaultMessage": "Enviamos um link de confirmação para o e-mail informado. Aguardando a confirmação...",
+      "linkValidity": "O link é válido por 1 hora.",
+      "termsOfUse": "Termos de uso",
+      "privacyPolicy": "Política de privacidade"
+    }
   }
 }

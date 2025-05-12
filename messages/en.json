@@ -161,5 +161,77 @@
       "subjectName34": "Hematology",
       "subjectName35": "Infectology"
     }
-  }
+  },
+
+  "Auth": {
+    "AuthForm": {
+      "name": "Name:",
+      "email": "Email:",
+      "password": "Password:",
+      "forgotPassword": "Forgot your password?"
+    },
+    "ForgotPassword": {
+      "recoverPassword": "Recover Password",
+      "emailLabel": "Enter your email",
+      "recoverLink": "Send reset link",
+      "sendingLink": "Sending...",
+      "rememberedPassword": "Remembered your password?",
+      "backToLgin": " Back to login",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "toastSuccess": "Email sent successfully!",
+      "userNotFound": "User not found"
+    },
+    "Login": {
+      "title": "Login",
+      "continue": "Continue",
+      "noAccount": "Don't have an account?",
+      "register": "Sign up",
+      "free": "for free.",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "invalidCredentials": "Invalid credentials!",
+      "invalidData": "Failed validating your submission!"
+    },
+    "Register": {
+      "title": "Register",
+      "submit": "Sign up",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "emailVerified": "Email successfully verified!",
+      "expiredLink": "Verification link expired or invalid.",
+      "emailExists": "Email already registered",
+      "createFailed": "Failed to create account, please try again later",
+      "invalidData": "Failed validating your submission!"
+    },
+    "ResetPassword": {
+      "title": "New Password",
+      "newPasswordPlaceholder": "New password",
+      "confirmPasswordPlaceholder": "Confirm new password",
+      "submit": "Reset Password",
+      "submitting": "Updating...",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "success": "Password successfully reset!",
+      "error": "Error resetting password.",
+      "rememberedPassword": "Remembered your password?",
+      "backToLogin": " Back to login",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "VerifyEmail": {
+      "title": "Verification",
+      "successTitle": "Email successfully verified!",
+      "expiredTitle": "Invalid or expired link",
+      "defaultTitle": "Confirm your email",
+      "successMessage": "You will be redirected to login shortly.",
+      "expiredMessage": "The verification link is invalid or has expired. Please request a new one.",
+      "defaultMessage": "We’ve sent a confirmation link to your email. Waiting for confirmation...",
+      "linkValidity": "The link is valid for 1 hour.",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy"
+    }
+}
+
 }

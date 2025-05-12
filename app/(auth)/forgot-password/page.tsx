@@ -3,14 +3,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { toast } from 'sonner'
-
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { StudMedLogo } from '@/components/studmed-logo'
+import { useTranslations } from 'next-intl'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const t = useTranslations('Auth.ForgotPassword')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,9 +28,9 @@ export default function ForgotPasswordPage() {
     setLoading(false)
 
     if (res.ok) {
-      toast.success('E-mail enviado com sucesso!')
+      toast.success(t('toastSuccess'))
     } else {
-      toast.error('Usuário não encontrado.')
+      toast.error(t('userNotFound'))
     }
   }
 
@@ -39,37 +40,37 @@ export default function ForgotPasswordPage() {
       <div className="flex justify-center w-screen items-center h-[80vh]">
         <div className="w-full md:w-1/3 px-4">
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
-            <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
+            <p className="text-2xl lg:text-4xl text-primary">Studmed</p>
             <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12 text-primary" />
-            <p className="lg:text-3xl">| Recuperar Senha</p>
+            <p className="lg:text-3xl">| {t('recoverPassword')}</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4 mt-6">
             <Input
               type="email"
-              placeholder="Digite seu e-mail"
+              placeholder={t('emailLabel')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <Button type="submit" disabled={loading} className="w-full">
-              {loading ? 'Enviando...' : 'Enviar link de redefinição'}
+              {loading ? t('sendingLink') : t('recoverLink')}
             </Button>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
-              {'Lembrou sua senha? '}
+              {t('rememberedPassword')}
               <Link
                 href="/login"
                 className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
               >
-                Voltar para login
+                {t('backToLgin')}
               </Link>
             </p>
           </form>
         </div>
       </div>
       <div className="w-full gap-x-3 flex justify-center items-center">
-        <p className="text-primary text-xs md:text-sm">Termos de uso</p>|
+        <p className="text-primary text-xs md:text-sm">{t('termsOfUse')}</p>|
         <p className="text-primary text-xs md:text-sm">
-          Política de privacidade
+        {t('privacyPolicy')}
         </p>
       </div>
     </div>

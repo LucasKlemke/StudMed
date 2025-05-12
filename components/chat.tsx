@@ -40,6 +40,14 @@ export function Chat({
   selectedVisibilityType: VisibilityType
   isReadonly: boolean
 }) {
+  // verify language
+  const userLanguage =
+    typeof window !== 'undefined'
+      ? navigator.language === 'pt-BR'
+        ? 'ptBR'
+        : 'en'
+      : 'en'
+
   const { mutate } = useSWRConfig()
 
   const { subject, webSearch, guytonRag }: any = useSubjectStore()
@@ -62,6 +70,7 @@ export function Chat({
       subject: subject.id,
       webSearch,
       guytonRag,
+      userLanguage,
     },
     initialMessages,
     onFinish: (message, { usage }) => {
@@ -81,7 +90,7 @@ export function Chat({
     chatRequestOptions?: ChatRequestOptions,
   ) {
     // funcao do beregejohsnon
-    const overLimit  = await isOverWeeklyMessageLimit(user.id!)
+    const overLimit = await isOverWeeklyMessageLimit(user.id!)
 
     if (subscription || !overLimit) {
       chatHandleSubmit(event, chatRequestOptions)

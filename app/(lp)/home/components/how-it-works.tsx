@@ -2,25 +2,25 @@
 
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
+import { useTranslations } from 'next-intl'
 
 const HowItWorks = () => {
+  const t = useTranslations('Home.HowItWorks')
   const steps = [
     {
       step: '01',
-      title: 'Cadastro',
-      description: 'Crie sua conta em poucos segundos com seu e-mail e senha.',
+      title: t('stepTitle1'),
+      description: t('stepDescription1'),
     },
     {
       step: '02',
-      title: 'Pagamento',
-      description:
-        'Escolha o plano ideal e realize o pagamento de forma segura.',
+      title: t('stepTitle3'),
+      description: t('stepDescription3'),
     },
     {
       step: '03',
-      title: 'Comece a utilizar',
-      description:
-        'Acesse todas as funcionalidades e otimize seus estudos com IA.',
+      title: t('stepTitle3'),
+      description: t('stepDescription3'),
     },
   ]
 
@@ -41,14 +41,13 @@ const HowItWorks = () => {
             className="rounded-full px-4 py-1.5 text-sm font-medium"
             variant="secondary"
           >
-            Como funciona?
+            {t('badge')}
           </Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-            Como Funciona
+            {t('title')}
           </h2>
           <p className="max-w-[800px] text-muted-foreground text-base sm:text-lg text-balance">
-            Comece a usar o Studmed em minutos e veja a diferença que nossa
-            plataforma pode fazer para seus estudos.
+            {t('description')}
           </p>
         </motion.div>
 

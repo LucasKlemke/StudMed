@@ -15,8 +15,47 @@
       "badge": "Funcionalidades",
       "title": "Tudo o que você precisa para estudar de forma eficiente",
       "description": "Nossa plataforma oferece uma variedade de ferramentas e funcionalidades para otimizar seu aprendizado e maximizar seus resultados.",
-      "featureTitle1":"Geração de questões em tempo real",
-      "featureDescription1": "" 
+      "featureTitle1": "Geração de questões em tempo real",
+      "featureDescription1": "Crie questões automaticamente e instantaneamente para praticar e revisar conteúdos médicos.",
+      "featureTitle2": "Seletor de matéria",
+      "featureDescription2": "Escolha facilmente a disciplina ou tema que deseja estudar e foque nos seus objetivos.",
+      "featureTitle3": "Importação de PDFs",
+      "featureDescription3": "Faça upload de materiais em PDF e transforme-os em questões ou resumos personalizados.",
+      "featureTitle4": "Geração de documentos",
+      "featureDescription4": "Crie resumos, mapas mentais e outros documentos de estudo de forma automática.",
+      "featureTitle5": "Contexto especializado em medicina",
+      "featureDescription5": "Conteúdo e geração de questões adaptados à área médica, com linguagem e abordagem específicas."
+    },
+    "HowItWorks": {
+      "badge": "Como funciona ?",
+      "title": "Como funciona ?",
+      "description": "Comece a usar o Studmed em minutos e veja a diferença que nossa plataforma pode fazer para seus estudos.",
+      "stepTitle1": "Cadastro",
+      "stepDescription1": "Crie sua conta em poucos segundos com seu e-mail e senha.",
+      "stepTitle2": "Pagamento",
+      "stepDescription2": "Escolha o plano ideal e realize o pagamento de forma segura.",
+      "stepTitle3": "Comece a utilizar",
+      "stepDescription3": "Acesse todas as funcionalidades e otimize seus estudos com IA."
+    },
+    "Pricing": {
+      "badge": "Preço",
+      "title": "Acesso Completo à Plataforma",
+      "description": "Durante nossa fase de validação, oferecemos um único plano com acesso a todas as features. Comece a usar hoje logo após aprovação do pagamento.",
+      "cardBadge": "Oferta Limitada !",
+      "cardTitle": "Plano Completo",
+      "cardPrice": "R$60,00",
+      "cardDiscount": "50% de desconto",
+      "cardDiscountPrice": "R$29,90",
+      "cardMonth": "/mês",
+      "cardDescription": "Acesso completo a todas as funcionalidades da plataforma, podendo cancelar a qualquer momento.",
+      "cardFeature1": "Geração de questões em tempo real",
+      "cardFeature2": "Seletor de matéria",
+      "cardFeature3": "Importação de PDFs",
+      "cardFeature4": "Geração de documentos",
+      "cardFeature5": "Contexto especializado em medicina",
+      "cardFeature6": "Suporte prioritário",
+      "cardlLimitedOffer": "Oferta promocional válida até 01/06.",
+      "cardButton": "Começar agora"
     }
   }
 }

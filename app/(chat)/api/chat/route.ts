@@ -186,6 +186,26 @@ export async function POST(request: Request) {
     }`
   }
 
+  // traducao Y-combinator
+  const { object: languageCheck } = await generateObject({
+    model: customModel('gpt-4.1-mini'),
+    schema: z.object({
+      language: z.enum(['ptBR', 'en']),
+    }),
+    prompt: `
+  Determine the language in which the assistant should respond based on the user's question below. 
+  If the question is written in Portuguese or requests a response in Portuguese, return "ptBR". 
+  If the question is written in English or requests a response in English, return "en". 
+  Respond only with "ptBR" or "en".
+
+  User question: """${userMessage.content}"""
+    `,
+  })
+
+  if(languageCheck.language === 'en'){
+    systemPrompt += "\n A resposta deverá sem em INGLÊS (EN)"
+  }
+
   return createDataStreamResponse({
     execute: (dataStream) => {
       dataStream.writeData({

@@ -4,8 +4,10 @@ import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 const CTA = () => {
+  const t = useTranslations('Home.CTA')
   return (
     <section className="w-full py-20 sm:py-24 md:py-32 relative overflow-hidden">
       {/* Background decorativo */}
@@ -20,25 +22,26 @@ const CTA = () => {
           className="flex flex-col items-center justify-center space-y-6 text-center"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-balance">
-            A melhor IA para estudantes de medicina
+            {t('title')}
           </h2>
           <p className="mx-auto max-w-[700px] text-base sm:text-xl text-muted-foreground text-balance">
-            Potencialize seus estudos com a plataforma de IA
+            {t('description1')}
             <span className="font-bold text-primary">
-              {` `}mais avançada do mercado
+              {` `}
+              {t('description2')}
             </span>
-            , feita especialmente para quem estuda medicina.
+            {t('description3')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link href="/chat">
               <Button size="lg" className="rounded-full h-12 px-8 text-base">
-                Experimente agora
+                {t('button')}
                 <ArrowRight className="ml-2 size-4" />
               </Button>
             </Link>
           </div>
           <p className="text-sm sm:text-base text-muted-foreground mt-2">
-            Sem compromisso. Cancele quando quiser.
+            {t('footer')}
           </p>
         </motion.div>
       </div>

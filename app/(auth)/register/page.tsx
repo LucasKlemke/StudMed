@@ -9,9 +9,11 @@ import { AuthForm } from '@/components/auth-form'
 import { SubmitButton } from '@/components/submit-button'
 import { StudMedLogo } from '@/components/studmed-logo'
 import { register, type RegisterActionState } from '../actions'
+import { useTranslations } from 'next-intl'
 
 export default function Page() {
   const router = useRouter()
+  const t = useTranslations('Auth.Register')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -27,28 +29,28 @@ export default function Page() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const verified = params.get('verified')
-  
+
     if (verified === '1') {
-      toast.success('Email verificado com sucesso!')
+      toast.success(t('emailVerified'))
       setTimeout(() => {
         router.push('/login')
       }, 3000)
     } else if (verified === '0') {
-      toast.error('Link de verificação expirado ou inválido.')
+      toast.error(t('expiredLink'))
     }
-  
+
     if (state.status === 'user_exists') {
-      toast.error('Email já cadastrado')
+      toast.error(t('emailExists'))
       setEmail('')
     } else if (state.status === 'failed') {
-      toast.error('Falha ao criar conta, tente novamente mais tarde')
+      toast.error(t('createFailed'))
     } else if (state.status === 'invalid_data') {
-      toast.error('Falha ao validar sua submissão!')
+      toast.error(t('invalidData'))
     } else if (state.status === 'success') {
       router.push('/verify-email')
       setIsSuccessful(true)
     }
-  }, [state, router])
+  }, [state, router, t])
 
   const { width: windowWidth } = useWindowSize()
 
@@ -65,29 +67,29 @@ export default function Page() {
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
             <Link href="/home" className="flex items-center gap-3">
               <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
-              <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12  text-primary" />
+              <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12 text-primary" />
             </Link>
-            <p className="lg:text-3xl">| Cadastro</p>
+            <p className="lg:text-3xl">| {t('title')}</p>
           </div>
           <AuthForm action={handleSubmit} showNameField>
-            <SubmitButton isSuccessful={isSuccessful}>Cadastrar</SubmitButton>
+            <SubmitButton isSuccessful={isSuccessful}>
+              {t('submit')}
+            </SubmitButton>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
-              {'Ja tem uma conta? '}
+              {t('alreadyHaveAccount')}{' '}
               <Link
                 href="/login"
                 className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
               >
-                Entrar
+                {t('login')}
               </Link>
             </p>
           </AuthForm>
         </div>
       </div>
       <div className="w-full gap-x-3 flex justify-center items-center">
-        <p className="text-primary text-xs md:text-sm">Termos de uso</p>|
-        <p className="text-primary text-xs md:text-sm">
-          Política de privacidade
-        </p>
+        <p className="text-primary text-xs md:text-sm">{t('termsOfUse')}</p>|
+        <p className="text-primary text-xs md:text-sm">{t('privacyPolicy')}</p>
       </div>
     </div>
   )

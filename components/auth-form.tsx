@@ -2,6 +2,8 @@ import Form from 'next/form'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+
 
 export function AuthForm({
   action,
@@ -18,6 +20,8 @@ export function AuthForm({
   showNameField?: boolean
   showForgotPasswordLink?: boolean
 }) {
+  const t = useTranslations('Auth.AuthForm')
+
   return (
     <Form
       action={action}
@@ -29,7 +33,7 @@ export function AuthForm({
             htmlFor="name"
             className="text-zinc-600 text-xs md:text-base font-normal dark:text-zinc-400"
           >
-            Nome:
+            {t('name')}
           </Label>
 
           <Input
@@ -48,7 +52,7 @@ export function AuthForm({
           htmlFor="email"
           className="text-zinc-600 text-xs md:text-base font-normal dark:text-zinc-400"
         >
-          Email:
+          {t('email')}
         </Label>
 
         <Input
@@ -68,14 +72,14 @@ export function AuthForm({
             htmlFor="password"
             className="text-zinc-600 text-xs md:text-base font-normal dark:text-zinc-400"
           >
-            Senha:
+             {t('password')}
           </Label>
           {showForgotPasswordLink && (
             <Link
               href="/forgot-password"
               className="text-xs text-primary hover:underline"
             >
-              Esqueceu a senha?
+               {t('forgotPassword')}
             </Link>
           )}
         </div>

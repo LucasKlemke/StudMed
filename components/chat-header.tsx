@@ -17,6 +17,7 @@ import { EditIcon } from 'lucide-react'
 import { StudMedLogo } from './studmed-logo'
 import { SidebarUserNav } from './sidebar-user-nav'
 import type { User as AuthUser } from 'next-auth'
+import { useTranslations } from 'next-intl'
 
 function PureChatHeader({
   chatId,
@@ -34,6 +35,7 @@ function PureChatHeader({
   const router = useRouter()
   const { open } = useSidebar()
   const { width: windowWidth } = useWindowSize()
+  const t = useTranslations('Chat.SidebarToggle')
 
   // console.log('chatId', chatId)
 
@@ -55,7 +57,7 @@ function PureChatHeader({
               <EditIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Novo chat</TooltipContent>
+          <TooltipContent>{t('newChat')}</TooltipContent>
         </Tooltip>
       )}
 
@@ -79,13 +81,13 @@ function PureChatHeader({
 
       {!isReadonly && windowWidth <= 425 && <SubjectSwitcher />}
 
-      {!isReadonly && (
+      {/* {!isReadonly && (
         <VisibilitySelector
           chatId={chatId}
           selectedVisibilityType={selectedVisibilityType}
           className="order-1 md:order-3 rounded-2xl"
         />
-      )}
+      )} */}
 
       {/* <Button
         className="bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-50 dark:text-zinc-900 hidden md:flex py-1.5 px-2 h-fit md:h-[34px] order-4 md:ml-auto"

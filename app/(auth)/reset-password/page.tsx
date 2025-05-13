@@ -1,18 +1,17 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { StudMedLogo } from '@/components/studmed-logo'
-import Page from '../login/page'
-
-const PageContent = () => {}
+import { useTranslations } from 'next-intl'
 
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
+  const t = useTranslations('Auth.ResetPassword')
 
   const router = useRouter()
   const token = searchParams.get('token') || ''
@@ -25,7 +24,7 @@ export default function ResetPasswordPage() {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      toast.error('As senhas não coincidem')
+      toast.error(t('passwordsDoNotMatch'))
       return
     }
 
@@ -42,10 +41,10 @@ export default function ResetPasswordPage() {
     setLoading(false)
 
     if (res.ok) {
-      toast.success('Senha redefinida com sucesso!')
+      toast.success(t('success'))
       router.push('/login')
     } else {
-      toast.error('Erro ao redefinir senha.')
+      toast.error(t('error'))
     }
   }
 
@@ -57,43 +56,41 @@ export default function ResetPasswordPage() {
           <div className="flex w-full justify-center items-center py-3 gap-x-3">
             <p className="text-2xl lg:text-4xl text-primary">StudMed</p>
             <StudMedLogo className="w-6 h-6 lg:w-12 lg:h-12 text-primary" />
-            <p className="lg:text-3xl">| Nova Senha</p>
+            <p className="lg:text-3xl">| {t('title')}</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4 mt-6">
             <Input
               type="password"
-              placeholder="Nova senha"
+              placeholder={t('newPasswordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <Input
               type="password"
-              placeholder="Confirme a nova senha"
+              placeholder={t('confirmPasswordPlaceholder')}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
             <Button type="submit" disabled={loading} className="w-full">
-              {loading ? 'Atualizando...' : 'Redefinir Senha'}
+              {loading ? t('submitting') : t('submit')}
             </Button>
             <p className="text-center text-xs md:text-sm text-gray-600 mt-4 dark:text-zinc-400">
-              {'Lembrou sua senha? '}
+              {t('rememberedPassword')}{' '}
               <Link
                 href="/login"
                 className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
               >
-                Voltar para login
+                {t('backToLogin')}
               </Link>
             </p>
           </form>
         </div>
       </div>
       <div className="w-full gap-x-3 flex justify-center items-center">
-        <p className="text-primary text-xs md:text-sm">Termos de uso</p>|
-        <p className="text-primary text-xs md:text-sm">
-          Política de privacidade
-        </p>
+        <p className="text-primary text-xs md:text-sm">{t('termsOfUse')}</p>|
+        <p className="text-primary text-xs md:text-sm">{t('privacyPolicy')}</p>
       </div>
     </div>
   )

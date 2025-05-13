@@ -66,6 +66,7 @@ export async function POST(request: Request) {
     modelId,
     webSearch,
     guytonRag,
+    userLanguage,
   }: {
     id: string
     messages: Array<Message>
@@ -73,6 +74,7 @@ export async function POST(request: Request) {
     subject: string
     webSearch: boolean
     guytonRag: boolean
+    userLanguage: string
   } = await request.json()
 
   const session = await auth()
@@ -184,6 +186,10 @@ export async function POST(request: Request) {
     systemPrompt = `${getSystemPrompt(subject)}\n${
       webSearch ? webSearchSystemPrompt : ''
     }`
+  }
+
+  if (userLanguage === 'en') {
+    systemPrompt += '\n A resposta deverá sem em INGLÊS (EN)'
   }
 
   return createDataStreamResponse({

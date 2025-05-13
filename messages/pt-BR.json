@@ -160,17 +160,27 @@
       "subjectName33": "Gastroenterologia",
       "subjectName34": "Hematologia",
       "subjectName35": "Infectologia"
+    },
+    "BookRagButton": {
+      "tooltip": "Procurar no Guyton (beta)"
+    },
+    "SidebarUserMenu": {
+      "account": "Conta",
+      "support": "Support",
+      "darkMode": "Modo escuro",
+      "lightMode": "Modo claro",
+      "exit": "Sair"
     }
   },
 
-  "Auth":{
+  "Auth": {
     "AuthForm": {
       "name": "Nome:",
       "email": "Email:",
       "password": "Senha:",
       "forgotPassword": "Esqueceu a senha?"
     },
-    "ForgotPassword":{
+    "ForgotPassword": {
       "recoverPassword": "Recuperar Senha",
       "emailLabel": "Digite seu e-mail",
       "recoverLink": "Enviar link de redefinição",

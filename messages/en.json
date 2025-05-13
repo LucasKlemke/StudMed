@@ -160,9 +160,18 @@
       "subjectName33": "Gastroenterology",
       "subjectName34": "Hematology",
       "subjectName35": "Infectology"
+    },
+    "BookRagButton": {
+      "tooltip": "Search in Guyton (beta)"
+    },
+    "SidebarUserMenu": {
+      "account": "Account",
+      "support": "Support",
+      "darkMode": "Dark mode",
+      "lightMode": "Light mode",
+      "exit": "Logout"
     }
   },
-
   "Auth": {
     "AuthForm": {
       "name": "Name:",
@@ -232,6 +241,5 @@
       "termsOfUse": "Terms of Use",
       "privacyPolicy": "Privacy Policy"
     }
-}
-
+  }
 }

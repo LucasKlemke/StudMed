@@ -170,9 +170,9 @@
       "darkMode": "Modo escuro",
       "lightMode": "Modo claro",
       "exit": "Sair"
-    }
+    },
+    "SidebarToggle": { "toggle": "Alternar Sidebar", "newChat": "Novo Chat" }
   },
-
   "Auth": {
     "AuthForm": {
       "name": "Nome:",
@@ -241,6 +241,29 @@
       "linkValidity": "O link é válido por 1 hora.",
       "termsOfUse": "Termos de uso",
       "privacyPolicy": "Política de privacidade"
+    }
+  },
+  "UserInfo": {
+    "AccountInfo": {
+      "manageAccount": "Gerenciar Conta",
+      "title": "Minha Assinatura",
+      "activeBadge": "Ativo",
+      "inactiveBadge": "Inativo",
+      "cardDescription": "Gerencia sua assinatura e informações de pagamento",
+      "noSubscription": "Nenhuma Assinatura Ativa",
+      "noSubscriptionDescription": "Você ainda não possui uma assinatura ativa. Assine agora para acessar todos os recursos premium.",
+      "feature1Title": "Acesso Premium",
+      "feature1Description": "Acesso ilimitado a todos os recursos da plataforma",
+      "feature2Title": "Recursos Exclusivos",
+      "feature2Description": "Funcionalidades disponíveis apenas para assinantes",
+      "feature3Title": "Pagamento Flexível",
+      "feature3Description": "Cancele a qualquer momento sem compromisso",
+      "paymentButton": "Assinar agora",
+      "nextBilling": "Próxima cobrança:",
+      "price": "Valor:",
+      "cicle": "Cliclo:",
+      "cycle": "Mensal",
+      "changePaymentMethod": "Alterar método de pagamento"
     }
   }
 }

@@ -170,8 +170,13 @@
       "darkMode": "Dark mode",
       "lightMode": "Light mode",
       "exit": "Logout"
+    },
+    "SidebarToggle": {
+      "toggle": "Toggle Sidebar",
+      "newChat": "New Chat"
     }
   },
+
   "Auth": {
     "AuthForm": {
       "name": "Name:",
@@ -240,6 +245,29 @@
       "linkValidity": "The link is valid for 1 hour.",
       "termsOfUse": "Terms of Use",
       "privacyPolicy": "Privacy Policy"
+    }
+  },
+  "UserInfo": {
+    "AccountInfo": {
+      "manageAccount": "Manage Account",
+      "title": "My Subscription",
+      "activeBadge": "Active",
+      "inactiveBadge": "Inactive",
+      "cardDescription": "Manage your subscription and payment information",
+      "noSubscription": "No Active Subscription",
+      "noSubscriptionDescription": "You do not have an active subscription yet. Subscribe now to access all premium features.",
+      "feature1Title": "Premium Access",
+      "feature1Description": "Unlimited access to all platform features",
+      "feature2Title": "Exclusive Features",
+      "feature2Description": "Features available only to subscribers",
+      "feature3Title": "Flexible Payment",
+      "feature3Description": "Cancel anytime with no commitment",
+      "paymentButton": "Subscribe now",
+      "nextBilling": "Next billing:",
+      "price": "Amount:",
+      "cicle": "Cicle:",
+      "cycle": "Monthly",
+      "changePaymentMethod": "Change payment method"
     }
   }
 }

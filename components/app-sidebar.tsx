@@ -25,11 +25,13 @@ import { Input } from './ui/input'
 import { HistorySearch } from './history-search'
 import { useWindowSize } from 'usehooks-ts'
 import { DataSourceSwitcher } from './data-source-switcher'
+import { useTranslations } from 'next-intl'
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter()
   const { setOpenMobile } = useSidebar()
   const { width: windowWidth } = useWindowSize()
+  const t = useTranslations('Chat.SidebarToggle')
   return (
     <Sidebar className="group-data-[side=left]:border-r-0">
       <div className="flex w-full justify-between px-5 pt-5">
@@ -51,7 +53,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 <Edit />
               </Button>
             </TooltipTrigger>
-            <TooltipContent align="end">Novo chat</TooltipContent>
+            <TooltipContent align="end">{t('newChat')}</TooltipContent>
           </Tooltip>
         </div>
       </div>

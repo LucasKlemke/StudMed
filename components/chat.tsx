@@ -82,14 +82,16 @@ export function Chat({
   const [blockedMessageUser, setBlockedMessageUser] = useState(false)
   const [openSubscriptionModal, setOpenSubscriptionModal] = useState(false)
 
-  // HANDLESUBMITK KKKKKK
+  // Handles form submission by checking if the user is over their weekly message limit.
+  // If the user is within the limit or has a subscription, the submission proceeds.
+  // Otherwise, the user is blocked, and a subscription modal is displayed.
   async function handleSubmit(
     event?: {
       preventDefault?: () => void
     },
     chatRequestOptions?: ChatRequestOptions,
   ) {
-    // funcao do beregejohsnon
+    
     const overLimit = await isOverWeeklyMessageLimit(user.id!)
 
     if (subscription || !overLimit) {
@@ -101,7 +103,6 @@ export function Chat({
     }
   }
 
-  // APPEND KKKKK
   async function append(
     message: Message | CreateMessage,
     chatRequestOptions?: ChatRequestOptions,

@@ -221,7 +221,7 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: t('detailPromopt'),
+                  content: t('detailPrompt'),
                 })
               }}
             >

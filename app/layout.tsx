@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { Toaster } from 'sonner'
+import { NextIntlClientProvider } from 'next-intl'
 
 import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
 import { Suspense } from 'react'
+import { getLocale, getMessages } from 'next-intl/server'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
@@ -41,9 +43,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
   return (
     <html
-      lang="en"
+      lang={locale}
       // `next-themes` injects an extra classname to the body element to avoid
       // visual flicker before hydration. Hence the `suppressHydrationWarning`
       // prop is necessary to avoid the React hydration mismatch warning.
@@ -65,8 +69,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Suspense>
-            <Toaster position="top-center" />
-            {children}
+            {' '}
+            <NextIntlClientProvider messages={messages}>
+              <Toaster position="top-center" />
+              {children}
+            </NextIntlClientProvider>
           </Suspense>
         </ThemeProvider>
       </body>

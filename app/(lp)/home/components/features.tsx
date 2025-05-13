@@ -11,49 +11,7 @@ import {
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-
-const features = [
-  {
-    title: 'Geração de questões em tempo real',
-    description:
-      'Crie questões automaticamente e instantaneamente para praticar e revisar conteúdos médicos.',
-    icon: <NotebookPen className="size-5" />,
-    color:
-      'from-blue-500/20 to-blue-600/20 text-blue-600 dark:from-blue-400/10 dark:to-blue-500/10 dark:text-blue-400',
-  },
-  {
-    title: 'Seletor de matéria',
-    description:
-      'Escolha facilmente a disciplina ou tema que deseja estudar e foque nos seus objetivos.',
-    icon: <BookCopy className="size-5" />,
-    color:
-      'from-purple-500/20 to-purple-600/20 text-purple-600 dark:from-purple-400/10 dark:to-purple-500/10 dark:text-purple-400',
-  },
-  {
-    title: 'Importação de PDFs',
-    description:
-      'Faça upload de materiais em PDF e transforme-os em questões ou resumos personalizados.',
-    icon: <FileInput className="size-5" />,
-    color:
-      'from-green-500/20 to-green-600/20 text-green-600 dark:from-green-400/10 dark:to-green-500/10 dark:text-green-400',
-  },
-  {
-    title: 'Geração de documentos',
-    description:
-      'Crie resumos, mapas mentais e outros documentos de estudo de forma automática.',
-    icon: <FilePlus className="size-5" />,
-    color:
-      'from-amber-500/20 to-amber-600/20 text-amber-600 dark:from-amber-400/10 dark:to-amber-500/10 dark:text-amber-400',
-  },
-  {
-    title: 'Contexto especializado em medicina',
-    description:
-      'Conteúdo e geração de questões adaptados à área médica, com linguagem e abordagem específicas.',
-    icon: <BrainCircuit className="size-5" />,
-    color:
-      'from-red-500/20 to-red-600/20 text-red-600 dark:from-red-400/10 dark:to-red-500/10 dark:text-red-400',
-  },
-]
+import { useTranslations } from 'next-intl'
 
 const Features = () => {
   const container = {
@@ -68,7 +26,45 @@ const Features = () => {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   }
+  const t = useTranslations('Home.Features')
 
+  const features = [
+    {
+      title: t('featureTitle1'),
+      description: t('featureDescription1'),
+      icon: <NotebookPen className="size-5" />,
+      color:
+        'from-blue-500/20 to-blue-600/20 text-blue-600 dark:from-blue-400/10 dark:to-blue-500/10 dark:text-blue-400',
+    },
+    {
+      title: t('featureTitle2'),
+      description: t('featureDescription2'),
+      icon: <BookCopy className="size-5" />,
+      color:
+        'from-purple-500/20 to-purple-600/20 text-purple-600 dark:from-purple-400/10 dark:to-purple-500/10 dark:text-purple-400',
+    },
+    {
+      title: t('featureTitle3'),
+      description: t('featureDescription3'),
+      icon: <FileInput className="size-5" />,
+      color:
+        'from-green-500/20 to-green-600/20 text-green-600 dark:from-green-400/10 dark:to-green-500/10 dark:text-green-400',
+    },
+    {
+      title: t('featureTitle4'),
+      description: t('featureDescription4'),
+      icon: <FilePlus className="size-5" />,
+      color:
+        'from-amber-500/20 to-amber-600/20 text-amber-600 dark:from-amber-400/10 dark:to-amber-500/10 dark:text-amber-400',
+    },
+    {
+      title: t('featureTitle5'),
+      description: t('featureDescription5'),
+      icon: <BrainCircuit className="size-5" />,
+      color:
+        'from-red-500/20 to-red-600/20 text-red-600 dark:from-red-400/10 dark:to-red-500/10 dark:text-red-400',
+    },
+  ]
   return (
     <section
       id="features"
@@ -85,15 +81,13 @@ const Features = () => {
           className="flex flex-col items-center justify-center space-y-6 text-center mb-16"
         >
           <Badge className="rounded-full px-5 py-1.5 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
-            Funcionalidades
+            {t('badge')}
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-3xl text-balance">
-            Tudo o que você precisa para estudar de forma eficiente
+            {t('title')}
           </h2>
           <p className="max-w-[800px] text-muted-foreground text-base sm:text-lg md:text-xl text-balance">
-            Nossa plataforma oferece uma variedade de ferramentas e
-            funcionalidades para otimizar seu aprendizado e maximizar seus
-            resultados.
+            {t('description')}
           </p>
         </motion.div>
 

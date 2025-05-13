@@ -19,8 +19,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { useTranslations } from 'next-intl'
 
 export function SidebarUserNav({ user }: { user: AuthUser }) {
+  const t = useTranslations('Chat.SidebarUserMenu')
   const { setTheme, theme } = useTheme()
 
   // Get initials from username for avatar fallback
@@ -54,16 +56,19 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
         className="w-[--radix-popper-anchor-width]"
       >
         <DropdownMenuItem>
-          <Link href={'/account'} className="cursor-pointer gap-2 py-2 flex items-center">
+          <Link
+            href={'/account'}
+            className="cursor-pointer gap-2 py-2 flex items-center"
+          >
             <User className="h-4 w-4" />
-            <span>Conta</span>
+            <span>{t('account')}</span>
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem className="cursor-pointer gap-2 py-2">
           <Link href={'/support'} className="gap-2 flex items-center">
             <Info className="h-4 w-4" />
-            <span>Suporte</span>
+            <span>{t('support')}</span>
           </Link>
         </DropdownMenuItem>
 
@@ -78,7 +83,7 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
           ) : (
             <Moon className="h-4 w-4" />
           )}
-          <span>{theme === 'dark' ? 'Modo claro' : 'Modo escuro'}</span>
+          <span>{theme === 'dark' ? t('lightMode') : t('darkMode')}</span>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
@@ -92,7 +97,7 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
           }}
         >
           <LogOut className="h-4 w-4" />
-          <span>Sair</span>
+          <span>{t('exit')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

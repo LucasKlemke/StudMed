@@ -8,33 +8,31 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
+import { useTranslations } from 'next-intl'
 
 const FAQ = () => {
+  const t = useTranslations('Home.FAQ')
+
   const faqList = [
     {
-      question: 'Quais funcionalidades estão disponíveis no MVP?',
-      answer:
-        'Nosso foco atual é oferecer as funcionalidades essenciais para validar a proposta. Funcionalidades mais avançadas já estão sendo desenvolvidas e serão lançadas em breve.',
+      question: t('faqQuestion1'),
+      answer: t('faqAnswer1'),
     },
     {
-      question: 'Como posso me cadastrar e acessar a plataforma?',
-      answer:
-        'O processo de cadastro é simples e rápido. Utilize o formulário de registro na página inicial para criar sua conta e começar a usar os recursos disponíveis no momento.',
+      question: t('faqQuestion2'),
+      answer: t('faqAnswer2'),
     },
     {
-      question: 'Existe suporte para funcionalidades avançadas?',
-      answer:
-        'No momento, oferecemos apenas o suporte para os recursos básicos. Com o avanço do projeto, funcionalidades avançadas serão implementadas e suportadas.',
+      question: t('faqQuestion3'),
+      answer: t('faqAnswer3'),
     },
     {
-      question: 'Quando novas funcionalidades estarão disponíveis?',
-      answer:
-        'Estamos constantemente trabalhando para melhorar a plataforma. Fique atento às nossas atualizações, pois novos recursos serão lançados conforme a evolução do projeto.',
+      question: t('faqQuestion4'),
+      answer: t('faqAnswer4'),
     },
     {
-      question: 'Como posso enviar feedback ou relatar problemas?',
-      answer:
-        'Valorizamos sua opinião! Use o link de contato ou acesse a seção de Feedback para nos enviar suas sugestões e reportar qualquer problema.',
+      question: t('faqQuestion5'),
+      answer: t('faqAnswer5'),
     },
   ]
 
@@ -48,16 +46,17 @@ const FAQ = () => {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
         >
-          <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
-            FAQ
+          <Badge
+            className="rounded-full px-4 py-1.5 text-sm font-medium"
+            variant="secondary"
+          >
+            {t('badge')}
           </Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-            Perguntas Frequentes
+            {t('title')}
           </h2>
           <p className="max-w-[800px] text-muted-foreground text-base sm:text-lg text-balance">
-            Aqui estão algumas perguntas comuns que recebemos sobre nossa
-            plataforma. Se você tiver alguma dúvida adicional, não hesite em
-            entrar em contato conosco.
+            {t('description')}
           </p>
         </motion.div>
 

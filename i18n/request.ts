@@ -4,6 +4,7 @@ export const locales = ['en', 'pt-BR', 'es']
 
 const getLocale = () => {
   const headersList = headers()
+  // @ts-ignore
   const l = headersList?.get('accept-language')
   const locale = l && l.split(',')[0]
 

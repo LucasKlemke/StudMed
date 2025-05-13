@@ -8,6 +8,14 @@ import { useTranslations } from 'next-intl'
 
 const Hero = () => {
   const t = useTranslations('Home.Hero')
+
+  // verify language
+  const userLanguage =
+    typeof window !== 'undefined'
+      ? navigator.language === 'pt-BR'
+        ? 'ptBR'
+        : 'en'
+      : 'en'
   return (
     <section className="w-full overflow-hidden ">
       <div className="x-4 md:px-6 relative py-20 ">
@@ -66,9 +74,14 @@ const Hero = () => {
           className="relative mx-auto max-w-5xl"
         >
           <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20 relative aspect-video">
+            {/* https://youtu.be/2OynxACgR-o?si=wJTb0WKhScJU_4xO */}
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/zsgZCD6SVZY?si=JhmtVtFKe5tjTk04&autoplay=1&mute=1&controls=0&modestbranding=0&rel=0&playsinline=1&enablejsapi=1&showinfo=0&loop=1&playlist=zsgZCD6SVZY"
+              src={
+                userLanguage === 'ptBR'
+                  ? 'https://www.youtube.com/embed/zsgZCD6SVZY?si=JhmtVtFKe5tjTk04&autoplay=1&mute=1&controls=0&modestbranding=0&rel=0&playsinline=1&enablejsapi=1&showinfo=0&loop=1&playlist=zsgZCD6SVZY&vq=hd1080'
+                  : 'https://www.youtube.com/embed/2OynxACgR-o?si=38gI9e_axGsPixLc&autoplay=1&mute=1&controls=0&modestbranding=0&rel=0&playsinline=1&enablejsapi=1&showinfo=0&loop=1&playlist=2OynxACgR-o&vq=hd1080'
+              }
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

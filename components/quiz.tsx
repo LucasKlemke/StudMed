@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 interface Question {
   id: number
@@ -44,6 +45,7 @@ interface QuizProps {
 }
 
 const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
+  const t = useTranslations('Chat.Quiz')
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [quizResult, setQuizResult] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState<boolean>(false)
@@ -93,9 +95,9 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
       reward()
     }
     setQuizResult(
-      `${scorePercentage === 100 ? `Parabéns! ` : ``}Você acertou ${score} de ${
+      `${scorePercentage === 100 ? t('congratulations') : ``}${t('score1')} ${score} ${t('score2')} ${
         totalQuestions
-      } questões. ${scorePercentage}%`,
+      } ${t('score3')} ${scorePercentage}%`,
     )
   }
 
@@ -137,7 +139,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
             ) : (
               <Clock className="h-6 w-6" />
             )}
-            Resultado do Quiz
+            {t('quizResult')}
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6 space-y-6">
@@ -145,7 +147,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
 
           <div className="space-y-4 mt-6">
             <h3 className="font-semibold text-lg border-b pb-2">
-              Respostas Corretas:
+              {t('correctAnswers')}
             </h3>
             <div className="space-y-3">
               {questions.map((q: Question, idx: number) => {
@@ -165,7 +167,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
                       <div>
                         <p className="font-medium">{`${idx + 1}. ${q.question}`}</p>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Sua resposta:{' '}
+                          {t('yourAnswer')}{' '}
                           <span
                             className={
                               isCorrect
@@ -178,7 +180,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
                         </p>
                         {!isCorrect && (
                           <p className="text-sm text-green-600 font-medium mt-1">
-                            Resposta correta: {q.correct}
+                            {t('correctAnswer')} {q.correct}
                           </p>
                         )}
                       </div>
@@ -191,7 +193,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
         </CardContent>
         <CardFooter className="flex justify-center pt-2 pb-6">
           <Button onClick={resetQuiz} className="gap-2">
-            <RotateCcw className="h-4 w-4" /> Refazer Quiz
+            <RotateCcw className="h-4 w-4" /> {t('resetQuiz')}
           </Button>
         </CardFooter>
         <span
@@ -218,15 +220,18 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
         </div>
         <div className="space-y-2 mt-2">
           <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Progresso</span>
+            <span>{t('progress')}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <Progress value={progress} className="h-2" />
           <div className="flex justify-between text-sm text-muted-foreground">
             <span>
-              Questão {currentQuestionIndex + 1} de {totalQuestions}
+              {t('question')} {currentQuestionIndex + 1} {t('of')}{' '}
+              {totalQuestions}
             </span>
-            <span>{Object.keys(answers).length} respondidas</span>
+            <span>
+              {Object.keys(answers).length} {t('answered')}
+            </span>
           </div>
         </div>
       </CardHeader>
@@ -308,7 +313,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
             onClick={prevQuestion}
             disabled={currentQuestionIndex === 0}
           >
-            <ArrowLeft className="h-4 w-4 mr-2" /> Anterior
+            <ArrowLeft className="h-4 w-4 mr-2" /> {t('previous')}
           </Button>
           <Button
             type="button"
@@ -316,7 +321,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
             onClick={nextQuestion}
             disabled={currentQuestionIndex === totalQuestions - 1}
           >
-            Próxima <ArrowRight className="h-4 w-4 ml-2" />
+            {t('next')} <ArrowRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
         <Button
@@ -324,7 +329,7 @@ const QuizForm = ({ result, timed = false, timeLimit = 300 }: QuizProps) => {
           disabled={Object.keys(answers).length < totalQuestions}
           className="gap-2"
         >
-          Finalizar Quiz <Check className="h-4 w-4" />
+          {t('finishQuiz')} <Check className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>

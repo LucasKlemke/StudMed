@@ -83,7 +83,7 @@ export function SidebarUserNav({ user }: { user: AuthUser }) {
           ) : (
             <Moon className="h-4 w-4" />
           )}
-          <span>{theme === 'dark' ? t('ligthMode') : t('darkMode')}</span>
+          <span>{theme === 'dark' ? t('lightMode') : t('darkMode')}</span>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

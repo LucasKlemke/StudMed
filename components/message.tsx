@@ -23,6 +23,7 @@ import QuizForm from '@/components/quiz'
 import TableBlock from './table-block'
 import { Heart } from 'lucide-react'
 import SearchBlock from './search-block'
+import { useTranslations } from 'next-intl'
 
 const PurePreviewMessage = ({
   chatId,
@@ -39,15 +40,15 @@ const PurePreviewMessage = ({
   vote: Vote | undefined
   isLoading: boolean
   setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[])
+    messages: Message[] | ((messages: Message[]) => Message[]),
   ) => void
   reload: (
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>
   isReadonly: boolean
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>
 }) => {
   const [mode, setMode] = useState<'view' | 'edit'>('view')
@@ -66,7 +67,7 @@ const PurePreviewMessage = ({
             {
               'w-full': mode === 'edit',
               'group-data-[role=user]/message:w-fit': mode !== 'edit',
-            }
+            },
           )}
         >
           {message.role === 'assistant' && (
@@ -112,8 +113,7 @@ const PurePreviewMessage = ({
                   className={cn('flex flex-col gap-4', {
                     'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
                       message.role === 'user',
-                    ' px-4 py-3 rounded-xl':
-                      message.role !== 'user',
+                    ' px-4 py-3 rounded-xl': message.role !== 'user',
                   })}
                 >
                   <Markdown>{message.content as string}</Markdown>
@@ -169,7 +169,7 @@ const PurePreviewMessage = ({
                         ) : toolName === 'createTable' ? (
                           <TableBlock result={result} />
                         ) : toolName === 'webSearch' ? (
-                          <SearchBlock result={result} isLoading={isLoading}/>
+                          <SearchBlock result={result} isLoading={isLoading} />
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}
@@ -231,18 +231,19 @@ export const PreviewMessage = memo(
     if (
       !equal(
         prevProps.message.toolInvocations,
-        nextProps.message.toolInvocations
+        nextProps.message.toolInvocations,
       )
     )
       return false
     if (!equal(prevProps.vote, nextProps.vote)) return false
 
     return true
-  }
+  },
 )
 
 export const ThinkingMessage = () => {
   const role = 'assistant'
+  const t = useTranslations('Chat.Thinking')
 
   return (
     <motion.div
@@ -256,7 +257,7 @@ export const ThinkingMessage = () => {
           'flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl',
           {
             'group-data-[role=user]/message:bg-muted': true,
-          }
+          },
         )}
       >
         <div className="size-8 flex items-center rounded-full justify-center  shrink-0 ring-border">
@@ -265,7 +266,7 @@ export const ThinkingMessage = () => {
 
         <div className="flex flex-col gap-2 w-full">
           <div className="flex flex-col gap-4 text-muted-foreground">
-            Pensando...
+            {t('thinking')}
           </div>
         </div>
       </div>

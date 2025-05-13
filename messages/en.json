@@ -186,6 +186,9 @@
       "detail": "Detail",
       "detailPrompt": "Please make the content as detailed as possible, delving as deeply as possible into the details."
     },
+    "Thinking": {
+      "thinking": "Pensando..."
+    },
     "Quiz": {
       "quizResult": "Quiz Result",
       "correctAnswers": "Correct answers",

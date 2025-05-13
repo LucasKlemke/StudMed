@@ -181,7 +181,10 @@
       "simplify": "Simplificar",
       "simplifyPrompt": "Por favor, simplifique a resposta, abordando os pontos mais essênciais.",
       "detail": "Detalhar",
-      "detailPromopt": "Por favor, torne o conteúdo o mais detalhado possível, aprofunde-se o máximo possível nos detalhes."
+      "detailPrompt": "Por favor, torne o conteúdo o mais detalhado possível, aprofunde-se o máximo possível nos detalhes."
+    },
+    "Thinking": {
+      "thinking": "Pensando..."
     },
     "Quiz": {
       "quizResult": "Resultado do Quiz",

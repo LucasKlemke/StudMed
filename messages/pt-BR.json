@@ -171,7 +171,36 @@
       "lightMode": "Modo claro",
       "exit": "Sair"
     },
-    "SidebarToggle": { "toggle": "Alternar Sidebar", "newChat": "Novo Chat" }
+    "SidebarToggle": { "toggle": "Alternar Sidebar", "newChat": "Novo Chat" },
+    "MessageActions": {
+      "copy": "Copiar",
+      "generateQuiz": "Gerar quiz",
+      "generateQuizPrompt": "Por favor, gere questões para melhor fixação do conteúdo.",
+      "generateDocument": "Gerar documento",
+      "generateDocumentPrompt": "Gere um documento com exatamente o mesmo conteúdo da última resposta.",
+      "simplify": "Simplificar",
+      "simplifyPrompt": "Por favor, simplifique a resposta, abordando os pontos mais essênciais.",
+      "detail": "Detalhar",
+      "detailPromopt": "Por favor, torne o conteúdo o mais detalhado possível, aprofunde-se o máximo possível nos detalhes."
+    },
+    "Quiz": {
+      "quizResult": "Resultado do Quiz",
+      "correctAnswers": "Respostas corretas",
+      "yourAnswer": "Sua resposta",
+      "correctAnswer": "Resposta correta",
+      "resetQuiz": "Refazer Quiz",
+      "progress": "Progresso",
+      "question": "Questão",
+      "of": "de",
+      "answered": "respondidas",
+      "previous": "Anterior",
+      "next": "Próxima",
+      "finishQuiz": "Finalizar Quiz",
+      "congratulations": "Parabéns!",
+      "score1": "Você acertou",
+      "score2": "de",
+      "score3": "respostas corretas."
+    }
   },
   "Auth": {
     "AuthForm": {

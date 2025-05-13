@@ -174,6 +174,35 @@
     "SidebarToggle": {
       "toggle": "Toggle Sidebar",
       "newChat": "New Chat"
+    },
+    "MessageActions": {
+      "copy": "Copy",
+      "generateQuiz": "Generate quiz",
+      "generateQuizPrompt": "Please generate questions to better reinforce the content.",
+      "generateDocument": "Generate document",
+      "generateDocumentPrompt": "Generate a document with exactly the same content as the last answer.",
+      "simplify": "Simplify",
+      "simplifyPrompt": "Please simplify the answer, addressing the most essential points.",
+      "detail": "Detail",
+      "detailPrompt": "Please make the content as detailed as possible, delving as deeply as possible into the details."
+    },
+    "Quiz": {
+      "quizResult": "Quiz Result",
+      "correctAnswers": "Correct answers",
+      "yourAnswer": "Your answer",
+      "correctAnswer": "Correct answer",
+      "resetQuiz": "Retake Quiz",
+      "progress": "Progress",
+      "question": "Question",
+      "of": "of",
+      "answered": "answered",
+      "previous": "Previous",
+      "next": "Next",
+      "finishQuiz": "Finish Quiz",
+      "congratulations": "Congratulations!",
+      "score1": "You got",
+      "score2": "out of",
+      "score3": "correct answers."
     }
   },
 

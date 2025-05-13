@@ -25,6 +25,7 @@ import {
   MessageCircleQuestion,
   NotebookPen,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function PureMessageActions({
   chatId,
@@ -39,9 +40,10 @@ export function PureMessageActions({
   isLoading: boolean
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions
+    chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>
 }) {
+  const t = useTranslations('Chat.MessageActions')
   const { mutate } = useSWRConfig()
   const [_, copyToClipboard] = useCopyToClipboard()
 
@@ -65,7 +67,7 @@ export function PureMessageActions({
               <CopyIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Copiar</TooltipContent>
+          <TooltipContent>{t('copy')}</TooltipContent>
         </Tooltip>
 
         {/* <Tooltip>
@@ -184,14 +186,14 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: `Por favor, gere questões para melhor fixação do conteúdo.`,
+                  content: t('generateQuizPrompt'),
                 })
               }}
             >
               <NotebookPen />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Gerar questões</TooltipContent>
+          <TooltipContent>{t('generateQuiz')}</TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -202,14 +204,14 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: `Por favor, simplifique a resposta, abordando os pontos mais essênciais.`,
+                  content: t('simplifyPrompt'),
                 })
               }}
             >
               <ArrowDownWideNarrow />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Simplificar</TooltipContent>
+          <TooltipContent>{t('simplify')}</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -219,14 +221,14 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: `Por favor, torne o conteúdo o mais detalhado possível, aprofunde-se o máximo possível nos detalhes.`,
+                  content: t('detailPromopt'),
                 })
               }}
             >
               <ArrowUpWideNarrow />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Detalhar</TooltipContent>
+          <TooltipContent>{t('detail')}</TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -237,14 +239,14 @@ export function PureMessageActions({
               onClick={async () => {
                 append({
                   role: 'user',
-                  content: `Gere um documento com exatamente o mesmo conteúdo da última resposta.`,
+                  content: t('generateDocumentPrompt'),
                 })
               }}
             >
               <FileText />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Gerar documento</TooltipContent>
+          <TooltipContent>{t('generateDocument')}</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>
@@ -258,5 +260,5 @@ export const MessageActions = memo(
     if (prevProps.isLoading !== nextProps.isLoading) return false
 
     return true
-  }
+  },
 )

@@ -7,6 +7,7 @@ import {
   FilePlus,
   BrainCircuit,
   BookCopy,
+  BookOpenText
 } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
@@ -64,6 +65,13 @@ const Features = () => {
       color:
         'from-red-500/20 to-red-600/20 text-red-600 dark:from-red-400/10 dark:to-red-500/10 dark:text-red-400',
     },
+    {
+      title: t('featureTitle6'),
+      description: t('featureDescription6'),
+      icon: <BookOpenText className="size-5" />,
+      color: 
+        'from-indigo-500/20 to-indigo-600/20 text-indigo-600 dark:from-indigo-400/10 dark:to-indigo-500/10 dark:text-indigo-400'
+    }
   ]
   return (
     <section

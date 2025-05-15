@@ -31,7 +31,10 @@
       "featureTitle4": "Document generation",
       "featureDescription4": "Automatically create summaries, mind maps, and other study documents.",
       "featureTitle5": "Medical-specialized context",
-      "featureDescription5": "Content and question generation tailored to the medical field, with specific language and approach."
+      "featureDescription5": "Content and question generation tailored to the medical field, with specific language and approach.",
+      "featureTitle6": "Trusted bibliographic sources",
+      "featureDescription6": "We use renowned books and scientific articles to ensure accurate and reliable content."
+
     },
     "HowItWorks": {
       "badge": "How it works?",

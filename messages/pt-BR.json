@@ -31,7 +31,9 @@
       "featureTitle4": "Geração de documentos",
       "featureDescription4": "Crie resumos, mapas mentais e outros documentos de estudo de forma automática.",
       "featureTitle5": "Contexto especializado em medicina",
-      "featureDescription5": "Conteúdo e geração de questões adaptados à área médica, com linguagem e abordagem específicas."
+      "featureDescription5": "Conteúdo e geração de questões adaptados à área médica, com linguagem e abordagem específicas.",
+      "featureTitle6": "Fontes bibliográficas confiáveis",
+      "featureDescription6": "Utilizamos livros e artigos científicos renomados como base para garantir conteúdo preciso e confiável."
     },
     "HowItWorks": {
       "badge": "Como funciona ?",

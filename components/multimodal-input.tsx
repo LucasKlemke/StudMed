@@ -211,7 +211,6 @@ function PureMultimodalInput({
 
       <div className="absolute bottom-0 p-2 w-fit flex items-center gap-x-2 flex-row justify-start">
         <SubjectSwitcher />
-
         {/* <WebSearchButton /> */}
         <BookRagButton />
         <AttachmentsButton

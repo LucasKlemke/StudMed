@@ -1,8 +1,8 @@
 import { embed, embedMany } from 'ai'
 import { openai } from '@ai-sdk/openai'
 import { db } from '../db/queries'
-import { cosineDistance, desc, gt, sql } from 'drizzle-orm'
-import { guytonChunks } from '../db/schema'
+import { and, cosineDistance, desc, eq, gt, sql } from 'drizzle-orm'
+import { bookChunks } from '../db/schema'
 
 const embeddingModel = openai.embedding('text-embedding-ada-002')
 
@@ -15,22 +15,26 @@ export const generateEmbedding = async (value: string): Promise<number[]> => {
   return embedding
 }
 
-export const findRelevantContent = async (userQuery: string) => {
+export const findRelevantContent = async (
+  userQuery: string,
+  subject: string,
+) => {
   // 1. Transforma a pergunta em embedding ("o que é a diabetes?" -> [0.1, 0.2, 0.3])
   const userQueryEmbedded = await generateEmbedding(userQuery)
 
   const similarity = sql<number>`1 - (${cosineDistance(
-    guytonChunks.embedding,
+    bookChunks.embedding,
     userQueryEmbedded,
   )})`
+
   const similarGuides = await db
     .select({
-      name: guytonChunks.document,
+      name: bookChunks.document,
       similarity,
-      page: guytonChunks.page,
+      page: bookChunks.page,
     })
-    .from(guytonChunks)
-    .where(gt(similarity, 0.5))
+    .from(bookChunks)
+    .where(and(gt(similarity, 0.5), eq(bookChunks.relatedSubject, subject)))
     .orderBy((t) => desc(t.similarity))
     .limit(4)
 

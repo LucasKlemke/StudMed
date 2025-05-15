@@ -165,7 +165,11 @@
       "subjectName35": "Infectology"
     },
     "BookRagButton": {
-      "tooltip": "Search in Guyton (beta)"
+      "tooltip": "Search in books (beta)",
+      "bookSearchActivated": "Book search activated !",
+      "bookSearchDeactivated": "Book search deactivated !",
+      "errorWhenApplying": "Error when applying the book search",
+      "errorWhenRemoving": "Error when removing the book search"
     },
     "SidebarUserMenu": {
       "account": "Account",

@@ -1,0 +1,1 @@
+ALTER TABLE "book_chunks" ADD COLUMN "url" text DEFAULT 'https://cssjd.org.br/imagens/editor/files/2019/Abril/Tratado%20de%20Fisiologia%20M%C3%A9dica.pdf' NOT NULL;

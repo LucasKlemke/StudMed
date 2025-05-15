@@ -1,0 +1,1 @@
+ALTER TABLE "guyton_chunks" RENAME TO "book_chunks";

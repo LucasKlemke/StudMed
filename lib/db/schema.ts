@@ -63,14 +63,19 @@ export const chat = pgTable('Chat', {
 
 export type Chat = InferSelectModel<typeof chat>
 
-export const guytonChunks = pgTable('guyton_chunks', {
+export const bookChunks = pgTable('book_chunks', {
   id: uuid('id').primaryKey(),
   document: text('document').notNull(),
   page: integer('page').notNull(),
+  bookName: varchar('bookName').notNull(),
+  relatedSubject: varchar('relatedSubject').notNull(),
   embedding: vector('embedding', { dimensions: 1536 }).notNull(),
+  url: text('url')
+    .notNull()
+    
 })
 
-export type GuytonChunks = InferSelectModel<typeof guytonChunks>
+export type BookChunks = InferSelectModel<typeof bookChunks>
 
 export const message = pgTable('Message', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),

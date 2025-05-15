@@ -1,0 +1,1 @@
+ALTER TABLE "book_chunks" ADD COLUMN "relatedSubject" varchar NOT NULL DEFAULT 'fisiologia';

@@ -2,14 +2,12 @@ import {
   type Message,
   convertToCoreMessages,
   createDataStreamResponse,
-  generateObject,
   generateText,
   streamText,
 } from 'ai'
 import { auth } from '@/app/(auth)/auth'
 import { customModel } from '@/lib/ai'
 import { getSystemPrompt } from '@/lib/ai/prompts'
-import { z } from 'zod'
 import {
   deleteChatById,
   getChatById,
@@ -29,11 +27,12 @@ import { createDocument } from '@/lib/ai/tools/create-document'
 import { updateDocument } from '@/lib/ai/tools/update-document'
 import { requestSuggestions } from '@/lib/ai/tools/request-suggetions'
 import { webSearchTool } from '@/lib/ai/tools/web-search-tool'
-import { getInformation } from '@/lib/ai/tools/get-information'
 import { findRelevantContent } from '@/lib/ai/embedding'
 import { analyzeAndImproveQuestionForRAG } from '@/lib/ai/first-layer-agent'
 
 export const maxDuration = 60
+
+type Books = 'guyton'
 
 type AllowedTools =
   | 'createDocument'
@@ -65,7 +64,7 @@ export async function POST(request: Request) {
     subject,
     modelId,
     webSearch,
-    guytonRag,
+    bookRag,
     userLanguage,
   }: {
     id: string
@@ -73,7 +72,7 @@ export async function POST(request: Request) {
     modelId: string
     subject: string
     webSearch: boolean
-    guytonRag: boolean
+    bookRag: boolean
     userLanguage: string
   } = await request.json()
 
@@ -140,7 +139,7 @@ export async function POST(request: Request) {
 
   let systemPrompt = ''
 
-  if (guytonRag && !messagesHavePDF) {
+  if (bookRag && !messagesHavePDF) {
     const userQuestion = userMessage.content as string
 
     const { improvedQuestion, needsRag } =
@@ -148,7 +147,12 @@ export async function POST(request: Request) {
 
     if (needsRag) {
       // 1. recupera dados do guyton
-      const context = await findRelevantContent(improvedQuestion as string)
+      const context = await findRelevantContent(
+        improvedQuestion as string,
+        subject,
+      )
+
+      console.log('context', context)
 
       // 2. separa conteúdo mais importante e coerente em relacão à pergunta
       // Usa o modelo para resumir e filtrar o contexto extraído do RAG,

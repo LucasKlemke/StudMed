@@ -60,7 +60,7 @@ export async function updateUserAccess(id: string, hasAccess: boolean) {
 export async function updateUserPriceIdAndAccess(
   id: string,
   priceId: string,
-  hasAccess: boolean
+  hasAccess: boolean,
 ) {
   try {
     // @ts-ignore
@@ -71,12 +71,18 @@ export async function updateUserPriceIdAndAccess(
   }
 }
 
-export async function createUser(name: string, email: string, password: string) {
+export async function createUser(
+  name: string,
+  email: string,
+  password: string,
+) {
   const salt = genSaltSync(10)
   const hash = hashSync(password, salt)
 
   try {
-    return await db.insert(user).values({ username: name, email, password: hash })
+    return await db
+      .insert(user)
+      .values({ username: name, email, password: hash })
   } catch (error) {
     console.error('Failed to create user in database')
     throw error
@@ -169,7 +175,7 @@ export async function saveTokens(tokens: {
 }) {
   function calculateApiCallPrice(
     promptTokens: number,
-    completionTokens: number
+    completionTokens: number,
   ): number {
     const pricePerMillionInputTokens = 0.15 // $0.15 per million input tokens
     const pricePerMillionOutputTokens = 0.6 // $0.60 per million output tokens
@@ -195,7 +201,7 @@ export async function saveTokens(tokens: {
       ...tokens,
       totalPrice: calculateApiCallPrice(
         tokens.promptTokens as unknown as number,
-        tokens.completionTokens as unknown as number
+        tokens.completionTokens as unknown as number,
       ) as unknown as string,
     })
   } catch (error) {
@@ -329,8 +335,8 @@ export async function deleteDocumentsByIdAfterTimestamp({
       .where(
         and(
           eq(suggestion.documentId, id),
-          gt(suggestion.documentCreatedAt, timestamp)
-        )
+          gt(suggestion.documentCreatedAt, timestamp),
+        ),
       )
 
     return await db
@@ -338,7 +344,7 @@ export async function deleteDocumentsByIdAfterTimestamp({
       .where(and(eq(document.id, id), gt(document.createdAt, timestamp)))
   } catch (error) {
     console.error(
-      'Failed to delete documents by id after timestamp from database'
+      'Failed to delete documents by id after timestamp from database',
     )
     throw error
   }
@@ -395,7 +401,7 @@ export async function deleteMessagesByChatIdAfterTimestamp({
       .where(and(eq(message.chatId, chatId), gte(message.createdAt, timestamp)))
   } catch (error) {
     console.error(
-      'Failed to delete messages by id after timestamp from database'
+      'Failed to delete messages by id after timestamp from database',
     )
     throw error
   }

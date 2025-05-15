@@ -1,0 +1,1 @@
+ALTER TABLE "book_chunks" ALTER COLUMN "url" DROP DEFAULT;

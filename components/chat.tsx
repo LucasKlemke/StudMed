@@ -50,7 +50,7 @@ export function Chat({
 
   const { mutate } = useSWRConfig()
 
-  const { subject, webSearch, guytonRag }: any = useSubjectStore()
+  const { subject, webSearch, bookRag }: any = useSubjectStore()
 
   const {
     messages,
@@ -69,7 +69,7 @@ export function Chat({
       modelId: selectedModelId,
       subject: subject.id,
       webSearch,
-      guytonRag,
+      bookRag,
       userLanguage,
     },
     initialMessages,
@@ -91,7 +91,6 @@ export function Chat({
     },
     chatRequestOptions?: ChatRequestOptions,
   ) {
-    
     const overLimit = await isOverWeeklyMessageLimit(user.id!)
 
     if (subscription || !overLimit) {

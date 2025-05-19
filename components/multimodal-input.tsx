@@ -76,6 +76,12 @@ function PureMultimodalInput({
     }
   }, [])
 
+  useEffect(() => {
+    if (!isLoading) {
+      submitLocked.current = false
+    }
+  }, [isLoading])
+
   const [files, setFiles] = useState<FileList | undefined>(undefined)
 
   const adjustHeight = () => {
@@ -93,7 +99,7 @@ function PureMultimodalInput({
       textareaRef.current.style.height = '98px'
     }
   }
-
+  const submitLocked = useRef(false)
   const [localStorageInput, setLocalStorageInput] = useLocalStorage('input', '')
 
   useEffect(() => {
@@ -121,6 +127,9 @@ function PureMultimodalInput({
   const [uploadQueue, setUploadQueue] = useState<Array<string>>([])
 
   const submitForm = useCallback(() => {
+    if (submitLocked.current || isLoading) return
+    submitLocked.current = true
+
     window.history.replaceState({}, '', `/chat/${chatId}`)
 
     handleSubmit(undefined, {
@@ -138,6 +147,11 @@ function PureMultimodalInput({
     if (width && width > 768) {
       textareaRef.current?.focus()
     }
+
+    // Destrava após um tempo ou monitorando isLoading
+    setTimeout(() => {
+      submitLocked.current = false
+    }, 2000) //destrave ao finalizar o processamento
   }, [
     attachments,
     handleSubmit,
@@ -145,6 +159,7 @@ function PureMultimodalInput({
     setLocalStorageInput,
     width,
     chatId,
+    isLoading,
   ])
 
   const handleFileChange = useCallback(
@@ -216,6 +231,8 @@ function PureMultimodalInput({
         <AttachmentsButton
           setFiles={setFiles}
           fileInputRef={fileInputRef}
+          input={input}
+          uploadQueue={uploadQueue}
           isLoading={isLoading}
         />
       </div>
@@ -252,10 +269,14 @@ function PureAttachmentsButton({
   fileInputRef,
   setFiles,
   isLoading,
+  input,
+  uploadQueue,
 }: {
   fileInputRef: React.MutableRefObject<HTMLInputElement | null>
   setFiles: Dispatch<SetStateAction<FileList | undefined>>
   isLoading: boolean
+  input: string
+  uploadQueue: Array<string>
 }) {
   // First, add a state for tracking file count
   const [fileCount, setFileCount] = useState(0)
@@ -267,7 +288,7 @@ function PureAttachmentsButton({
           event.preventDefault()
           fileInputRef.current?.click()
         }}
-        disabled={isLoading}
+        disabled={input.length === 0 || uploadQueue.length > 0 || isLoading}
         variant="ghost"
       >
         <div className="flex items-center gap-1">

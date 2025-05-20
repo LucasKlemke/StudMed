@@ -32,6 +32,7 @@ export const findRelevantContent = async (
       name: bookChunks.document,
       similarity,
       page: bookChunks.page,
+      url: bookChunks.url,
     })
     .from(bookChunks)
     .where(and(gt(similarity, 0.5), eq(bookChunks.relatedSubject, subject)))
@@ -41,12 +42,20 @@ export const findRelevantContent = async (
   const data = similarGuides.map((guide) => ({
     content: guide.name,
     page: guide.page,
+    url: guide.url,
   }))
 
   // 2. Transforme data em uma única string
   const stringData = data
     .map((item) => {
-      return `Página ${item.page}: ${item.content}`
+      return `
+      ==========================
+      Página ${item.page}
+      ${item.content}
+      
+      Fonte: ${item.url}
+      ==========================
+      `
     })
     .join('\n\n')
 

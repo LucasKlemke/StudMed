@@ -14,8 +14,8 @@ import { toast } from 'sonner'
 export function BookRagButton() {
   const t = useTranslations('Chat.BookRagButton')
   const { bookRag, setBookRag, subject }: any = useSubjectStore()
-  // const disabled = subject.id === 'geral'
-  const disabled = subject.id !== 'fisiologia'
+  const disabled = subject.id === 'geral'
+  // const disabled = subject.id !== 'fisiologia'
 
   if (disabled) {
     return <> </>

@@ -161,7 +161,7 @@ export async function POST(request: Request) {
       const { text } = await generateText({
         model: customModel('gpt-4.1-mini'),
         system:
-          'Você é um assistente que recebe um contexto extraído do livro Guyton & Hall (com páginas) e uma pergunta do usuário. Seu objetivo é filtrar e resumir o contexto, mantendo apenas as informações mais relevantes e diretamente relacionadas à pergunta, sempre preservando as referências de página. Não invente informações e não remova as páginas citadas.',
+          'Você é um assistente que recebe um contexto extraído de um livro (com páginas) e uma pergunta do usuário. Seu objetivo é filtrar e resumir o contexto, mantendo apenas as informações mais relevantes e diretamente relacionadas à pergunta, sempre preservando as referências de página. Não invente informações e não remova as páginas citadas.',
         prompt: `Pergunta do usuário: """${improvedQuestion}"""
     Contexto extraído do livro (com páginas): """${context}"""
     Retorne apenas as partes do contexto que respondem diretamente à pergunta, mantendo as referências de página. Se nada for relevante, responda: "Não há informações relevantes no contexto extraído."`,
@@ -169,13 +169,13 @@ export async function POST(request: Request) {
       const filteredContext = text
 
       systemPrompt = `
-      Você é um assistente especializado em responder perguntas de estudantes de medicina, utilizando exclusivamente o conteúdo do livro "Guyton & Hall Tratado de Fisiologia Médica 12ª edição" como fonte. 
+      Você é um assistente especializado em responder perguntas de estudantes de medicina, utilizando exclusivamente o conteúdo do livro como fonte. 
       - Todas as respostas devem ser baseadas 100% nas informações encontradas neste livro.
-      - Sempre cite a página da fonte utilizada na resposta, no seguinte formato: (página X do livro Guyton & Hall Tratado de Fisiologia Médica 12ª edição).
-      - Se não encontrar a resposta no livro, responda apenas: "Não consigo responder à sua pergunta pois não encontrei nada sobre isso no livro Guyton."
+      - Sempre cite a página da fonte utilizada na resposta, no seguinte formato: (página X do livro [nome do livro]).
+      - Se não encontrar a resposta no livro, responda apenas: "Não consigo responder à sua pergunta pois não encontrei nada sobre isso nos livros."
       - Seja claro, objetivo e nunca invente informações ou utilize outras fontes.
       - Seja sempre didático, utilize formatos de resposta que ajudem o usuário a entender melhor o assunto.
-      - Sempre faça refêrencia a URL do livro na resposta: [https://cssjd.org.br/imagens/editor/files/2019/Abril/Tratado%20de%20Fisiologia%20M%C3%A9dica.pdf]
+      - Sempre faça refêrencia a FONTE(URL DO LIVRO) na resposta.
       
       Contexto extraído do livro:
       ${filteredContext}

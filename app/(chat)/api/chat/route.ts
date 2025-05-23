@@ -164,9 +164,10 @@ export async function POST(request: Request) {
           'Você é um assistente que recebe um contexto extraído de um livro (com páginas) e uma pergunta do usuário. Seu objetivo é filtrar e resumir o contexto, mantendo apenas as informações mais relevantes e diretamente relacionadas à pergunta, sempre preservando as referências de página. Não invente informações e não remova as páginas citadas.',
         prompt: `Pergunta do usuário: """${improvedQuestion}"""
     Contexto extraído do livro (com páginas): """${context}"""
-    Retorne apenas as partes do contexto que respondem diretamente à pergunta, mantendo as referências de página. Se nada for relevante, responda: "Não há informações relevantes no contexto extraído."`,
+    Retorne apenas as partes do contexto que respondem diretamente à pergunta, mantendo as referências de página, url e nome do livro !. Se nada for relevante, responda: "Não há informações relevantes no contexto extraído."`,
       })
       const filteredContext = text
+      console.log('filteredContext', filteredContext)
 
       systemPrompt = `
       Você é um assistente especializado em responder perguntas de estudantes de medicina, utilizando exclusivamente o conteúdo do livro como fonte. 

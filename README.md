@@ -1,57 +1,66 @@
-## How to Run the Project
+# 🧠 StudMed – AI-Powered Medical Study Assistant
 
-Follow these steps to run the project locally:
+StudMed is a SaaS platform designed to help medical students study smarter using artificial intelligence. By integrating powerful LLMs and PDF parsing, it provides a personalized, interactive learning experience—turning medical textbooks into conversational tutors.
 
-1. **Clone the repository**
+# 🇧🇷 Demo (PT-BR) 
+https://www.youtube.com/watch?v=zsgZCD6SVZY
 
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
+# 🇺🇸 Demo (EN)
+https://www.youtube.com/watch?v=2OynxACgR-o
 
-2. **Install dependencies**
+## 🚀 Overview
 
-   ```bash
-   npm install
-   ```
+Built from the ground up, StudMed allows students to:
 
-   or, if you use yarn:
+- 📚 Chat medical textbooks and PDFs  
+- 🤖 Chat with an AI trained specifically on their material  
+- 🗂️ Organize and manage study content  
 
-   ```bash
-   yarn install
-   ```
+## 💡 Why StudMed?
 
-3. **Set up environment variables**
+StudMed was created to solve a common problem: **information overload and inefficient study methods**. With StudMed, students can ask natural-language questions and receive accurate, contextual answers from their own study material.
 
-   - Copy the example environment file (if available):
-     ```bash
-     cp .env.example .env
-     ```
-   - Edit `.env` and fill in any required values.
+## 🏆 Highlights
 
-4. **Run the development server**
+- ✔️ Sold as a complete SaaS product  
+- ✔️ Reached over **10 paying subscribers**  
+- ✔️ Initially developed solo, later joined by my colleague **Kalebe Fukuda**  
+- ✔️ Part of the **Startup JEDI** acceleration program  
+- ✔️ Final version source code made publicly available  
 
-   ```bash
-   npm run dev
-   ```
+## ⚙️ Tech Stack
 
-   or, with yarn:
+- **Frontend**: Next.js, TailwindCSS, ShadcnUI  
+- **Backend**: Node.js, Vercel serverless functions  
+- **Database**: PostgreSQL via Supabase  
+- **AI Layer**: OpenAI API with custom RAG implementation  
+- **Authentication**: NextAuth  
+- **State Management**: Zustand  
+- **Storage**: Supabase Storage  
 
-   ```bash
-   yarn dev
-   ```
+## 📦 Features
 
-5. **Open the app in your browser**
+- Upload and parse medical PDFs  
+- Secure login & subscription-based access  
+- Seamless chat interface with medical-focused AI  
+- Subscription management (Stripe)  
+- Scalable architecture using Vercel + Supabase  
 
-   Visit [http://localhost:3000](http://localhost:3000) to view the application.
+## 🎓 Target Audience
 
-6. **(Optional) Build for production**
-   ```bash
-   npm run build
-   npm start
-   ```
-   or, with yarn:
-   ```bash
-   yarn build
-   yarn start
-   ```
+- Medical students looking to enhance their study productivity  
+- Professors interested in using AI to support student learning  
+- Institutions exploring AI-integrated learning tools  
+
+## 👨‍💻 Authors
+
+- **Lucas Klemke** – Creator, full-stack developer, and original architect of StudMed  
+- **Kalebe Fukuda** – Contributor, supported development and feature expansion  
+
+## ✅ Status
+
+🟢 **Project Sold** — StudMed is now under new management and continues to serve students.
+
+---
+
+**Feel free to fork or get inspired! For inquiries, reach out on [LinkedIn](https://www.linkedin.com/in/lucasklemke/)**
